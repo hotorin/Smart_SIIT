@@ -35,23 +35,23 @@
 
     <form action="register_check.php" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="f_name" class="form-control" placeholder="Full name">
+        <input type="text" name="f_name" class="form-control" placeholder="Full name" required="required" pattern="[A-Za-z0-9]{1,20}">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" name="u_name" class="form-control" placeholder="Username">
+        <input type="text" name="u_name" class="form-control" placeholder="Username" required="required" pattern="[A-Za-z0-9]{1,20}">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="email" name="e-mail" class="form-control" placeholder="Email">
+        <input type="email" name="e-mail" class="form-control" placeholder="Email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}$">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="p_word" class="form-control" placeholder="Password">
+        <input type="password" id="p_word" name="p_word" class="form-control" placeholder="Password must have 6-20 letters" required="required" pattern="[A-Za-z0-9]{6,20}">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="re_p" class="form-control" placeholder="Retype password">
+        <input type="password" id="re_p" name="re_p" class="form-control" placeholder="Retype your password" required="required" pattern="[A-Za-z0-9]{6,20}">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
       <div class="row">
