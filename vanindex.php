@@ -14,32 +14,8 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
-
-                  <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-                  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-                  <![endif]-->
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">    <!-- Main Header -->
@@ -47,10 +23,6 @@ desired effect
       <span class="logo-mini"><b>SIIT</b></span>   <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-lg"><b>Management System<b></span>  <!-- logo for regular state and mobile devices -->
     </a>
-
-
-
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -60,16 +32,10 @@ desired effect
         <span class="sr-only">Toggle navigation</span>
       </a>
 
-
 <!-- ==============================For The Notification Menu============================================================= -->
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
-
-
-
-
           <?php
             if(isset($_SESSION['tier'])){
           ?>
@@ -167,7 +133,6 @@ desired effect
                   <small>Member since Nov. 2015</small>
                 </p>
               </li>
-
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-6 text-center">
@@ -179,7 +144,6 @@ desired effect
                 </div>
                 <!-- /.row -->
               </li>
-
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -192,7 +156,6 @@ desired effect
                       <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
                   </form>
                 </div>
-
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Log Out</a>
                 </div>
@@ -245,24 +208,9 @@ desired effect
         ?>
       </div>
 
-      <!-- search form (Optional) -->
-      <!--
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-    -->
-      <!-- /.search form -->
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
-
                 <?php
                 if(isset($_SESSION['tier'])){
                   if($_SESSION['tier'] == 'Admin'){
@@ -362,9 +310,14 @@ desired effect
     <section class="content">
       <center>
         <div class="row" style="padding-top:40px">
+          <?php
+          $q = 'SELECT * FROM van;';
+          $res = $db -> query($q);
+          while($row = $res -> fetch_array()){
+          ?>
           <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=1">
-              Van Number 1
+            <a href="vanSystem.php?mode=0&v=<?php echo $row['van_no']; ?>">
+              Van Number <?php echo $row['van_no']; ?>
               <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
             </a>
             <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
@@ -377,54 +330,9 @@ desired effect
             -Database 4
             </div>
           </div>
-
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=2">
-              Van Number 2
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
-            </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
-          </div>
-          </div>
-
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=3">
-              Van Number 3
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
-            </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
-          </div>
-          </div>
-
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=4">
-              Van Number 4
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
-            </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
-          </div>
-          </div>
+          <?php
+    			}
+          ?>
         </div>
       </center>
     </section>
@@ -444,46 +352,35 @@ desired effect
               <h3 class="box-title" style="margin-top:20px">Status</h3>
             </div>
             <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-            <thead>
-            <tr>
-            <td style="text-align:center;width:10%">Van Number</td>
-            <td style="text-align:center;width:20%">Current Location</td>
-            <td style="text-align:center">Request By</td>
-            <td style="text-align:center">Status</td>
-            </tr>
-          </thead>
+              <thead>
+                <tr>
+                  <td style="text-align:center;width:10%">Van Number</td>
+                  <td style="text-align:center;width:20%">Current Location</td>
+                  <td style="text-align:center">Request By</td>
+                  <td style="text-align:center">Status</td>
+                </tr>
+              </thead>
+
+          <?php
+          $q = 'SELECT * FROM van;';
+          $res = $db -> query($q);
+          while($row = $res -> fetch_array()){
+          ?>
+
           <tbody>
             <tr>
-            <td style="text-align:center">1</td>
-            <td style="text-align:center">Bangkok, Siam</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">In use</td>
+            <td style="text-align:center"><?php echo $row['van_no']; ?></td>
+            <td style="text-align:center"><?php echo $row['current_location']; ?></td>
+            <td style="text-align:center"><?php echo $row['request_by']; ?></td>
+            <td style="text-align:center"><?php echo $row['status']; ?></td>
             </tr>
           </tbody>
-          <tbody>
-            <tr>
-            <td style="text-align:center">2</td>
-            <td style="text-align:center">Bangkok, Chang-Wattna</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">In use</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td style="text-align:center">3</td>
-            <td style="text-align:center">Bangkok, Chatuchak</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">In use</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td style="text-align:center">4</td>
-            <td style="text-align:center">SIIT, Bangkadi</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">Free</td>
-            </tr>
-          </tbody>
+
+          <?php
+    			}
+          ?>
+
+
             </table>
           </div>
         </section>
@@ -502,9 +399,16 @@ desired effect
         <section class="content">
           <center>
             <div class="row" style="padding-top:40px">
+
+              <?php
+              $q = 'SELECT * FROM van;';
+              $res = $db -> query($q);
+              while($row = $res -> fetch_array()){
+              ?>
+
               <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=1">
-                  Van Number 1
+                <a href="vanSystem.php?mode=1&v=<?php echo $row['van_no']; ?>">
+                  Van Number <?php echo $row['van_no']; ?>
                   <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
                 </a>
                 <?php
@@ -552,155 +456,9 @@ desired effect
 
               </div>
 
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=2">
-                  Van Number 2
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
-                ?>
-                <div class="box" style="padding-bottom:30px;">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
-                  </div>
-                <?php
-                    }
-                    else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
-                      </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                  You not have permission.<br>
-                  To View the Details.
-                </div>
-                <?php
-                  }
-                ?>
-
-              </div>
-
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=3">
-                  Van Number 3
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
-                ?>
-                    <div class="box" style="padding-bottom:30px;">
-                      <div class="box-header">
-                        <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                        <hr>
-                      </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
-                    </div>
-                <?php
-                    }
-                    else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
-                      </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                  You not have permission.<br>
-                  To View the Details.
-                </div>
-                <?php
-                  }
-                ?>
-
-              </div>
-
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=4">
-                  Van Number 4
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
-                ?>
-                  <div class="box" style="padding-bottom:30px;">
-                    <div class="box-header">
-                      <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                      <hr>
-                    </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
-                  </div>
-                <?php
-                    }
-                    else{
-                ?>
-                      <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
-                      </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                  You not have permission.<br>
-                  To View the Details.
-                </div>
-                <?php
-                  }
-                ?>
-
-              </div>
+              <?php
+                }
+              ?>
             </div>
           </center>
         </section>
@@ -708,7 +466,6 @@ desired effect
       }
      ?>
 <!-- =========================================================================================================== -->
-
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

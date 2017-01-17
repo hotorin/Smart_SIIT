@@ -399,6 +399,15 @@ desired effect
     <section class="content">
 
       <div class="col-sm-12" style="text-align:center;padding-bottom:40px">
+
+        <?php
+        $q = 'SELECT * FROM van, driver, member WHERE van.van_no = '.$_GET['v'].' AND
+                                                      van.driver_no = driver.driver_no AND
+                                                      driver.driver_username = member.username COLLATE utf8_unicode_ci;';
+        $res = $db -> query($q);
+        while($row = $res -> fetch_array()){
+        ?>
+
         <div class="col-sm-3">
           Profile Image<br>
           <img src="resource/image/profile.png" height="50%" width="60%" style="margin-top:20px;" class="user-image" alt="User Image">
@@ -409,27 +418,30 @@ desired effect
             <table border="2" style="width:80%;margin-top:20px;">
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%;">Name</td>
-                <td style="text-align:center;width:50%">Sansern Something</td>
+                <td style="text-align:center;width:50%"><?php echo $row['full_name']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Position</td>
-                <td style="text-align:center;width:50%">Driver</td>
+                <td style="text-align:center;width:50%"><?php echo $row['driver_position']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Van Number</td>
-                <td style="text-align:center;width:50%"><?php echo $_GET['v']; ?></td>
+                <td style="text-align:center;width:50%"><?php echo $row['van_no']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Location</td>
-                <td style="text-align:center;width:50%">Rangsit Campus</td>
+                <td style="text-align:center;width:50%"><?php echo $row['location']; ?></td>
               </tr>
               <tr style="height:60px;">
                 <td style="text-align:center;width:20%">More Information</td>
-                <td style="text-align:center;width:50%">Database</td>
+                <td style="text-align:center;width:50%"><?php echo $row['email']; ?></td>
               </tr>
             </table>
           </center>
         </div>
+        <?php
+        }
+        ?>
       </div>
       <div>
         &nbsp;
