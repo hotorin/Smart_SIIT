@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+require_once('connect.php');
 session_start();
 ?>
 <html>
@@ -65,7 +66,7 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <?php
-            if(isset($_SESSION['number'])){
+            if(isset($_SESSION['tier'])){
           ?>
           <!-- User Account Menu -->
           <!-- ==============================Make the notification Menu ============================================================ -->
@@ -94,16 +95,16 @@ desired effect
             </ul>
           </li>
           <?php
-            if($_SESSION['number'] == 1){
+            if($_SESSION['tier'] == 'Admin'){
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   Name Surname - Ground Division Member
                   <small>Member since Nov. 2012</small>
@@ -128,7 +129,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -143,12 +151,12 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   Name Surname - SIIT Student
                   <small>Member since Nov. 2015</small>
@@ -170,7 +178,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -202,7 +217,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel" style="margin-top:20px">
         <?php
-          if(!isset($_SESSION['number'])){
+          if(!isset($_SESSION['tier'])){
         ?>
         <center>
           <p><font color="white" size="5">Welcome Guest</font></p>
@@ -212,7 +227,7 @@ desired effect
           else{
         ?>
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Name Surname</p>
@@ -241,6 +256,49 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+        <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
+
+                <?php
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
+                ?>
+                <li class="header"
+                    style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
+                >
+                <center>Admin Menu</center></li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-link"></i><span>Van Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
+                  </ul>
+                </li>
+
+
+                <li class="treeview">
+                  <a href=""><i class="fa fa-link"></i><span>User Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=1">Change Users Information</a></li>
+                  </ul>
+                </li>
+
+                <?php
+                  }
+                }
+                ?>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
         <li class="header"
             style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
         >
@@ -341,6 +399,15 @@ desired effect
     <section class="content">
 
       <div class="col-sm-12" style="text-align:center;padding-bottom:40px">
+
+        <?php
+        $q = 'SELECT * FROM van, driver, member WHERE van.van_no = '.$_GET['v'].' AND
+                                                      van.driver_no = driver.driver_no AND
+                                                      driver.driver_username = member.username COLLATE utf8_unicode_ci;';
+        $res = $db -> query($q);
+        while($row = $res -> fetch_array()){
+        ?>
+
         <div class="col-sm-3">
           Profile Image<br>
           <img src="resource/image/profile.png" height="50%" width="60%" style="margin-top:20px;" class="user-image" alt="User Image">
@@ -351,34 +418,37 @@ desired effect
             <table border="2" style="width:80%;margin-top:20px;">
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%;">Name</td>
-                <td style="text-align:center;width:50%">Sansern Something</td>
+                <td style="text-align:center;width:50%"><?php echo $row['full_name']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Position</td>
-                <td style="text-align:center;width:50%">Driver</td>
+                <td style="text-align:center;width:50%"><?php echo $row['driver_position']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Van Number</td>
-                <td style="text-align:center;width:50%"><?php echo $_GET['v']; ?></td>
+                <td style="text-align:center;width:50%"><?php echo $row['van_no']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Location</td>
-                <td style="text-align:center;width:50%">Rangsit Campus</td>
+                <td style="text-align:center;width:50%"><?php echo $row['location']; ?></td>
               </tr>
               <tr style="height:60px;">
                 <td style="text-align:center;width:20%">More Information</td>
-                <td style="text-align:center;width:50%">Database</td>
+                <td style="text-align:center;width:50%"><?php echo $row['email']; ?></td>
               </tr>
             </table>
           </center>
         </div>
+        <?php
+        }
+        ?>
       </div>
       <div>
         &nbsp;
       <div class="col-sm-13">
         <?php
-            if(isset($_SESSION['number'])){
-              if($_SESSION['number'] == 1){
+            if(isset($_SESSION['tier'])){
+              if($_SESSION['tier'] == 'Admin'){
         ?>
         <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
             <div class="box-header">

@@ -105,7 +105,7 @@ desired effect
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
+                  <?php echo $_SESSION['fname']; ?> - Ground Division Member
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -150,14 +150,14 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.gifdist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
+                  <?php echo $_SESSION['fname']; ?> - SIIT Student
                   <small>Member since Nov. 2015</small>
                 </p>
               </li>
@@ -259,8 +259,8 @@ desired effect
         <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
 
                 <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
                 ?>
                 <li class="header"
                     style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
@@ -293,8 +293,8 @@ desired effect
                 </li>
 
                 <?php
-                    }
                   }
+                }
                 ?>
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -344,18 +344,191 @@ desired effect
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <center>
+      <?php
+        if($_GET['mode'] == 0){
+      ?>
         <h1>
-          Welcome to SIIT Management System & Application
+        Van List
+        <small>- List of all Van</small>
         </h1>
-      </center>
+      <?php
+        }else if($_GET['mode'] == 1){
+      ?>
+        <h1>
+        User List
+        <small>- List of all users </small>
+        </h1>
+      <?php
+        }
+      ?>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <center>
-        <img style="margin-top:20px;" src="resource/logo_siit.gif" alt="SIIT LOGO" height="400">
-      </center>
+
+      <?php
+        if($_GET['mode'] == 0){
+      ?>
+      <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px;padding-bottom:60px">
+        <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:40px" align="center">
+        <thead>
+        <tr>
+        <td style="text-align:center;width:10%">Van Number</td>
+        <td style="text-align:center;width:20%">Main Location</td>
+        <td style="text-align:center">Driver</td>
+        <td style="text-align:center">Change Profile</td>
+        <td style="text-align:center">Delete</td>
+        </tr>
+      </thead>
+      <tbody>
+
+
+          <tr>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center">SIIT Bangadi</td>
+          <td style="text-align:center">Someone Someone</td>
+          <td style="text-align:center"><a href="#">Change Profile</a></td>
+          <th style="text-align:center;width:18%;">
+            <form action="information.php">
+              <button type="submit" class="btn btn-block btn-danger">
+                Delete
+              </button>
+            </form>
+          </th>
+          </tr>
+
+      </tbody>
+      <tbody>
+        <tr>
+        <td style="text-align:center">2</td>
+        <td style="text-align:center">SIIT Rangsit</td>
+        <td style="text-align:center">Someone Someone</td>
+        <td style="text-align:center"><a href="#">Change Profile</a></td>
+        <th style="text-align:center;width:18%;">
+          <form action="information.php">
+            <button type="submit" class="btn btn-block btn-danger">
+              Delete
+            </button>
+          </form>
+        </th>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+        <td style="text-align:center">3</td>
+        <td style="text-align:center">SIIT Rangsit</td>
+        <td style="text-align:center">Someone Someone</td>
+        <td style="text-align:center"><a href="#">Change Profile</a></td>
+        <th style="text-align:center;width:18%;">
+          <form action="information.php">
+            <button type="submit" class="btn btn-block btn-danger">
+              Delete
+            </button>
+          </form>
+        </th>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+        <td style="text-align:center">4</td>
+        <td style="text-align:center">SIIT Rangsit</td>
+        <td style="text-align:center">Someone Someone</td>
+        <td style="text-align:center"><a href="#">Change Profile</a></td>
+        <th style="text-align:center;width:18%;">
+          <form action="information.php">
+            <button type="submit" class="btn btn-block btn-danger">
+              Delete
+            </button>
+          </form>
+        </th>
+        </tr>
+      </tbody>
+        </table>
+        <div  class="col-md-6">
+          <form  action="information.php">
+            <button type="submit" class="btn btn-block btn-primary">
+              Add More Van
+            </button>
+          </form>
+        </div>
+        <div  class="col-md-6">
+          <button type="submit" class="btn btn-block btn-danger">
+            Back
+          </button>
+        </div>
+      </div>
+
+
+      <?php
+        }else if($_GET['mode'] == 1){
+      ?>
+
+        <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px;padding-bottom:60px">
+          <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:40px" align="center">
+            <thead>
+              <tr>
+                <td style="text-align:center;width:10%">User ID</td>
+                <td style="text-align:center;width:20%">Username</td>
+                <td style="text-align:center;width:20%">E-mail</td>
+                <td style="text-align:center;width:20%">Role</td>
+                <td style="text-align:center;width:20%">Change Profile</td>
+                <td style="text-align:center;width:20%">Delete</td>
+              </tr>
+            </thead>
+            <?php
+              $q = 'SELECT * FROM member';
+              $res = $db -> query($q);
+              while($row = $res -> fetch_array()){
+            ?>
+            <tr>
+              <td style="text-align:center"><?php echo $row['member_id']; ?></td>
+              <td style="text-align:center"><?php echo $row['username']; ?></td>
+              <td style="text-align:center"><?php echo $row['email']; ?></td>
+              <td style="text-align:center"><?php echo $row['member_tier']; ?></td>
+              <td style="text-align:center">
+                <form id="prof_form" action="profile.php" method="post">
+                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+                    <input type="hidden" name="id" value=<?php echo $row['member_id']; ?> >
+                    <input type="hidden" name="full_name" value=<?php echo $row['full_name']; ?> >
+                    <input type="hidden" name="username" value=<?php echo $row['username']; ?> >
+                    <input type="hidden" name="password" value=<?php echo $row['password']; ?> >
+                    <input type="hidden" name="email" value=<?php echo $row['email']; ?> >
+                    <input type="hidden" name="user_tier" value=<?php echo $row['member_tier']; ?> >
+                </form>
+              </td>
+              <th style="text-align:center;width:18%;">
+                <form action="information.php">
+                  <button type="submit" class="btn btn-block btn-danger">
+                    Delete
+                  </button>
+                </form>
+              </th>
+            </tr>
+            <?php
+              }
+            ?>
+          </table>
+
+          <div  class="col-md-6">
+            <form  action="information.php">
+              <button type="submit" class="btn btn-block btn-primary">
+                Add Users
+              </button>
+            </form>
+          </div>
+          <div  class="col-md-6">
+            <button type="submit" class="btn btn-block btn-danger">
+              Back
+            </button>
+          </div>
+        </div>
+
+
+      <?php
+        }
+      ?>
+
+
     </section>
     <!-- /.content -->
   </div>

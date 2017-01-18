@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+require_once('connect.php');
 session_start();
 ?>
 <html>
@@ -64,7 +65,7 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <?php
-            if(isset($_SESSION['number'])){
+            if(isset($_SESSION['tier'])){
           ?>
           <!-- User Account Menu -->
           <!-- ==============================Make the notification Menu ============================================================ -->
@@ -93,18 +94,18 @@ desired effect
             </ul>
           </li>
           <?php
-            if($_SESSION['number'] == 1){
+            if($_SESSION['tier'] == 'Admin'){
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - Ground Division Member
+                  <?php echo $_SESSION['fname']; ?> - Ground Division Member
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -127,7 +128,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -142,14 +150,14 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - SIIT Student
+                  <?php echo $_SESSION['fname']; ?> - SIIT Student
                   <small>Member since Nov. 2015</small>
                 </p>
               </li>
@@ -169,7 +177,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -201,7 +216,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel" style="margin-top:20px">
         <?php
-          if(!isset($_SESSION['number'])){
+          if(!isset($_SESSION['tier'])){
         ?>
         <center>
           <p><font color="white" size="5">Welcome Guest</font></p>
@@ -211,10 +226,10 @@ desired effect
           else{
         ?>
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Name Surname</p>
+          <p><?php echo $_SESSION['fname']; ?></p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -240,6 +255,49 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+
+        <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
+
+                <?php
+                  if(isset($_SESSION['tier'])){
+                    if($_SESSION['tier'] == 'Admin'){
+                ?>
+                <li class="header"
+                    style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
+                >
+                <center>Admin Menu</center></li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-link"></i><span>Van Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
+                  </ul>
+                </li>
+
+
+                <li class="treeview">
+                  <a href=""><i class="fa fa-link"></i><span>User Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=1">Change Users Information</a></li>
+                  </ul>
+                </li>
+
+                <?php
+                  }
+                }
+                ?>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
         <li class="header"
             style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
         >
@@ -290,21 +348,30 @@ desired effect
     <section class="content">
       <div class="row">
         <div class="col-md-6">
-          <div class="box box-body" style="padding-bottom:82px;padding-right:10px">
+          <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
             <div class="box-header with-border">
               <i class="fa fa-file"></i>
-                <h3 class="box-title">Your Old Profile</h3>
+                <h3 class="box-title">Old Profile</h3>
             </div>
 
             <div class="form-group">
-              <label style="margin-top:2%">Full Name</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:2%">Full Name</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['full_name']; ?> disabled>
               <br>
-              <label style="margin-top:10px">Username</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:10px">Username</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['username']; ?> disabled>
               <br>
-              <label style="margin-top:10px">E-Mail</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:10px">E-Mail</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['email']; ?> disabled>
               <br>
-              <label style="margin-top:10px">Password</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:10px">Password</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['password']; ?> disabled>
               <br>
+              <?php
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
+              ?>
+              <label style="margin-top:10px">User Tier</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled>
+              <?php
+                  }
+                }
+              ?>
             </div>
           </div>
         </div>
@@ -312,19 +379,36 @@ desired effect
           <div class="box box-body" style="padding-bottom:30px">
             <div class="box-header with-border">
               <i class="fa fa-file"></i>
-                <h3 class="box-title">Your New Profile</h3>
+                <h3 class="box-title">New Profile</h3>
             </div>
             <div class="form-group">
-              <label style="margin-top:2%">Full Name</label> : <input type="text" class="form-control pull-right">
+              <label style="margin-top:2%">Full Name</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['full_name']; ?>>
               <br>
-              <label style="margin-top:10px">Username</label> : <input type="text" class="form-control pull-right">
+              <label style="margin-top:10px">Username</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['username']; ?>>
               <br>
-              <label style="margin-top:10px">E-Mail</label> : <input type="text" class="form-control pull-right">
+              <label style="margin-top:10px">E-Mail</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['email']; ?>>
               <br>
               <label style="margin-top:10px">Password</label> : <input type="text" class="form-control pull-right">
               <br>
               <label style="margin-top:10px">Re-Type Password</label> : <input type="text" class="form-control pull-right">
               <br>
+              <?php
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
+              ?>
+              <div class="form-group">
+                <label style="margin-top:10px">User Tier</label> :
+                <select class="form-control">
+                  <option>Administrator</option>
+                  <option>Ground Division Member</option>
+                  <option>Driver</option>
+                  <option>Normal Users</option>
+                </select>
+              </div>
+              <?php
+                  }
+                }
+              ?>
             </div>
             <div style="margin-top:10%">
               <div class="col-md-6">
