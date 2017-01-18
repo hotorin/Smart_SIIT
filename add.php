@@ -370,6 +370,7 @@ desired effect
               </select>
               <label style="margin-top:10px">Driver Name</label>
               <select class="form-control">
+                <option selected disabled>Please select driver</option>
                 <?php
                 $q = 'SELECT * FROM member WHERE member_tier = "Driver";';
                 $res = $db -> query($q);
