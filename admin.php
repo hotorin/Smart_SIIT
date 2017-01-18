@@ -445,16 +445,17 @@ desired effect
       </tbody>
         </table>
         <div  class="col-md-6">
-          <form  action="information.php">
-            <button type="submit" class="btn btn-block btn-primary">
-              Add More Van
-            </button>
+          <form action="add.php" method="post">
+            <input type="hidden" name="mode" value=0>
+            <button type="submit" class="btn btn-block btn-primary">Add More Van</button>
           </form>
         </div>
         <div  class="col-md-6">
-          <button type="submit" class="btn btn-block btn-danger">
-            Back
-          </button>
+          <form action="." method="post">
+            <button type="submit" class="btn btn-block btn-danger">
+              Back
+            </button>
+          </form>
         </div>
       </div>
 
@@ -487,13 +488,15 @@ desired effect
               <td style="text-align:center"><?php echo $row['member_tier']; ?></td>
               <td style="text-align:center">
                 <form id="prof_form" action="profile.php" method="post">
-                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+
                     <input type="hidden" name="id" value=<?php echo $row['member_id']; ?> >
-                    <input type="hidden" name="full_name" value=<?php echo $row['full_name']; ?> >
+                    <input type="hidden" name="full_name" value="<?php echo $row['full_name']; ?>" >
                     <input type="hidden" name="username" value=<?php echo $row['username']; ?> >
                     <input type="hidden" name="password" value=<?php echo $row['password']; ?> >
                     <input type="hidden" name="email" value=<?php echo $row['email']; ?> >
-                    <input type="hidden" name="user_tier" value=<?php echo $row['member_tier']; ?> >
+                    <input type="hidden" name="user_tier" value="<?php echo $row['member_tier']; ?>" >
+                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+
                 </form>
               </td>
               <th style="text-align:center;width:18%;">
@@ -509,12 +512,7 @@ desired effect
             ?>
           </table>
 
-          <div  class="col-md-6">
-            <form  action="information.php">
-              <button type="submit" class="btn btn-block btn-primary">
-                Add Users
-              </button>
-            </form>
+          <div  class="col-md-3">
           </div>
           <div  class="col-md-6">
             <button type="submit" class="btn btn-block btn-danger">
