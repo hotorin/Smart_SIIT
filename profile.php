@@ -348,6 +348,10 @@ desired effect
     <!-- Main content -->
     <section class="content">
       <div class="row">
+        <?php
+          if(isset($_POST['mode'])){
+            if($_POST['mode'] == 0){
+        ?>
         <div class="col-md-6">
           <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
             <div class="box-header with-border">
@@ -381,30 +385,34 @@ desired effect
                 <h3 class="box-title">New Profile</h3>
             </div>
             <div class="form-group">
-              <label style="margin-top:2%">Full Name</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>">
-              <br>
-              <label style="margin-top:10px">Username</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['username']; ?>>
-              <br>
-              <label style="margin-top:10px">E-Mail</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['email']; ?>>
-              <br>
-              <?php
-                if(isset($_SESSION['tier'])){
-                  if($_SESSION['tier'] == 'Admin'){
-              ?>
-              <div class="form-group">
-                <label style="margin-top:10px">User Tier</label> :
-                <select class="form-control">
-                  <option selected>
-                    <?php
-                    echo $_POST['user_tier'];
-                    ?>
-                  </option>
-                  <option>Administrator</option>
-                  <option>Ground Division Member</option>
-                  <option>Driver</option>
-                  <option>Normal_Users</option>
-                </select>
-              </div>
+              <form action="confirm.php" method="post" id="form_member">
+                <input type="hidden" name="mode" value=0>
+                <input type="hidden" name="member_no" value=<?php echo $_POST['id']; ?>>
+                <label style="margin-top:2%">Full Name</label> : <input type="text" name="full_name_change" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>">
+                <br>
+                <label style="margin-top:10px">Username</label> : <input type="text" name="username_change" class="form-control pull-right" value=<?php echo $_POST['username']; ?>>
+                <br>
+                <label style="margin-top:10px">E-Mail</label> : <input type="text" name="email_change" class="form-control pull-right" value=<?php echo $_POST['email']; ?>>
+                <br>
+                <?php
+                  if(isset($_SESSION['tier'])){
+                    if($_SESSION['tier'] == 'Admin'){
+                ?>
+                <div class="form-group">
+                  <label style="margin-top:10px">User Tier</label> :
+                  <select class="form-control" name="tier_change">
+                    <option value=<?php echo $_POST['user_tier']; ?> selected>
+                      <?php
+                      echo $_POST['user_tier'];
+                      ?>
+                    </option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Ground Division Member">Ground Division Member</option>
+                    <option value="Driver">Driver</option>
+                    <option value="Normal_Users">Normal_Users</option>
+                  </select>
+                </div>
+              </form>
               <?php
                   }
                 }
@@ -412,12 +420,13 @@ desired effect
             </div>
             <div style="margin-top:5%">
               <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-primary">
+                <button type="submit" class="btn btn-block btn-primary" form="form_member">
                   Confirm Change
                 </button>
               </div>
 
               <div class="col-md-6">
+
                 <form action="admin.php" method="get">
                   <input type="hidden" name="mode" value=1>
                   <button type="submit" class="btn btn-block btn-danger">
@@ -428,6 +437,103 @@ desired effect
             </div>
           </div>
         </div>
+        <?php
+      }
+      else if($_POST['mode'] == 1){
+        ?>
+
+        <div class="col-md-6">
+          <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
+            <div class="box-header with-border">
+              <i class="fa fa-file"></i>
+                <h3 class="box-title">Old Profile</h3>
+            </div>
+            <div class="form-group">
+              <label style="margin-top:10px">Van Number</label> :
+                <input type="text" class="form-control pull-right" value=<?php echo $_POST['van_no']; ?> disabled><br>
+              <label style="margin-top:2%">Location</label> :
+                <input type="text" class="form-control pull-right" value="<?php echo $_POST['location']; ?>" disabled><br>
+              <label style="margin-top:10px">Driver Name</label> :
+                <input type="text" class="form-control pull-right" value="<?php echo $_POST['driver_name']; ?>" disabled><br>
+              <label style="margin-top:10px">License Plate</label> :
+                <input type="text" class="form-control pull-right" value=<?php echo $_POST['license_plate']; ?> disabled><br>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box box-body" style="padding-bottom:30px">
+            <div class="box-header with-border">
+              <i class="fa fa-file"></i>
+                <h3 class="box-title">New Profile</h3>
+            </div>
+            <div class="form-group" style="padding-bottom:5%">
+              <form action="confirm.php" method="post" id="form_van">
+                <input type="hidden" name="mode" value=1>
+                <input type="hidden" name="van_number" value=<?php echo $_POST['van_no']; ?>>
+                <label style="margin-top:2%">Location</label> :
+                  <select class="form-control" name="location_change">
+                    <option disabled>Please select location</option>
+                    <?php
+                    if($_POST['location'] == 'Bangkadi'){
+                    ?>
+                    <option selected value="Bangkadi">Bangkadi</option>
+                    <option value="Rangsit">Rangsit</option>
+                    <?php
+                    }
+                    else{
+                    ?>
+                    <option value="Bangkadi">Bangkadi</option>
+                    <option selected value="Rangsit">Rangsit</option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                <label style="margin-top:10px">Driver Name</label>
+                  <select class="form-control" name="driver_change">
+                    <option disabled>Please select driver</option>
+                    <?php
+                    $q = 'SELECT * FROM member WHERE member_tier = "Driver";';
+                    $res = $db -> query($q);
+                    while($row = $res -> fetch_array()){
+                      if($row['full_name'] == $_POST['driver_name']){
+                    ?>
+                      <option selected value="<?php echo $row['member_id']; ?>"><?php echo $row['full_name'];?></option>
+                    <?php
+                      }
+                      else{
+                    ?>
+                      <option value="<?php echo $row['member_id']; ?>"><?php echo $row['full_name'];?></option>
+                    <?php
+                      }
+                    }
+                    ?>
+                  </select>
+                <label style="margin-top:10px">License Plate</label> :
+                  <input type="text" name="license_change" class="form-control pull-right" value=<?php echo $_POST['license_plate']; ?>><br>
+              </form>
+            </div>
+            <div style="margin-top:5%">
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-block btn-primary" form="form_van">
+                  Confirm Change
+                </button>
+              </div>
+
+              <div class="col-md-6">
+                <form action="admin.php" method="get">
+                  <input type="hidden" name="mode" value=0>
+                  <button type="submit" class="btn btn-block btn-danger">
+                    Back
+                  </button>
+                </form>
+              </div>
+          </div>
+        </div>
+
+        <?php
+      }
+    }
+        ?>
       </div>
     </section>
     <!-- /.content -->
