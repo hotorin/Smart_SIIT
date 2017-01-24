@@ -376,18 +376,35 @@ desired effect
         <td style="text-align:center;width:10%">Van Number</td>
         <td style="text-align:center;width:20%">Main Location</td>
         <td style="text-align:center">Driver</td>
+        <td style="text-align:center">License Plate</td>
         <td style="text-align:center">Change Profile</td>
         <td style="text-align:center">Delete</td>
         </tr>
       </thead>
+      <?php
+      $q = 'SELECT * FROM van, driver, member WHERE van.driver_no = driver.driver_no AND
+                                                    driver.member_id = member.member_id;';
+      $res = $db -> query($q);
+      while($row = $res -> fetch_array()){
+      ?>
       <tbody>
 
 
           <tr>
-          <td style="text-align:center">1</td>
-          <td style="text-align:center">SIIT Bangadi</td>
-          <td style="text-align:center">Someone Someone</td>
-          <td style="text-align:center"><a href="#">Change Profile</a></td>
+          <td style="text-align:center"><?php echo $row['van_no']; ?></td>
+          <td style="text-align:center"><?php echo $row['location']; ?></td>
+          <td style="text-align:center"><?php echo $row['full_name']; ?></td>
+          <td style="text-align:center"><?php echo $row['van_license_plate']; ?></td>
+          <td style="text-align:center;width:18%;">
+            <form id="prof_form" action="profile.php" method="post">
+                <input type="hidden" name="mode" value=1>
+                <input type="hidden" name="van_no" value=<?php echo $row['van_no']; ?> >
+                <input type="hidden" name="location" value=<?php echo $row['location']; ?> >
+                <input type="hidden" name="driver_name" value="<?php echo $row['full_name']; ?>" >
+                <input type="hidden" name="license_plate" value=<?php echo $row['van_license_plate']; ?> >
+                <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+            </form>
+          </td>
           <th style="text-align:center;width:18%;">
             <form action="information.php">
               <button type="submit" class="btn btn-block btn-danger">
@@ -398,65 +415,18 @@ desired effect
           </tr>
 
       </tbody>
-      <tbody>
-        <tr>
-        <td style="text-align:center">2</td>
-        <td style="text-align:center">SIIT Rangsit</td>
-        <td style="text-align:center">Someone Someone</td>
-        <td style="text-align:center"><a href="#">Change Profile</a></td>
-        <th style="text-align:center;width:18%;">
-          <form action="information.php">
-            <button type="submit" class="btn btn-block btn-danger">
-              Delete
-            </button>
-          </form>
-        </th>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-        <td style="text-align:center">3</td>
-        <td style="text-align:center">SIIT Rangsit</td>
-        <td style="text-align:center">Someone Someone</td>
-        <td style="text-align:center"><a href="#">Change Profile</a></td>
-        <th style="text-align:center;width:18%;">
-          <form action="information.php">
-            <button type="submit" class="btn btn-block btn-danger">
-              Delete
-            </button>
-          </form>
-        </th>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-        <td style="text-align:center">4</td>
-        <td style="text-align:center">SIIT Rangsit</td>
-        <td style="text-align:center">Someone Someone</td>
-        <td style="text-align:center"><a href="#">Change Profile</a></td>
-        <th style="text-align:center;width:18%;">
-          <form action="information.php">
-            <button type="submit" class="btn btn-block btn-danger">
-              Delete
-            </button>
-          </form>
-        </th>
-        </tr>
-      </tbody>
-        </table>
-        <div  class="col-md-6">
-          <form  action="information.php">
-            <button type="submit" class="btn btn-block btn-primary">
-              Add More Van
-            </button>
-          </form>
-        </div>
-        <div  class="col-md-6">
-          <button type="submit" class="btn btn-block btn-danger">
-            Back
-          </button>
-        </div>
+      <?php
+      }
+      ?>
+      </table>
+      <div  class="col-md-3"></div>
+      <div  class="col-md-6">
+        <form action="add.php" method="post">
+          <input type="hidden" name="mode" value=0>
+          <button type="submit" class="btn btn-block btn-primary">Add More Van</button>
+        </form>
       </div>
+    </div>
 
 
       <?php
@@ -487,13 +457,16 @@ desired effect
               <td style="text-align:center"><?php echo $row['member_tier']; ?></td>
               <td style="text-align:center">
                 <form id="prof_form" action="profile.php" method="post">
-                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+
+                    <input type="hidden" name="mode" value=0 >
                     <input type="hidden" name="id" value=<?php echo $row['member_id']; ?> >
-                    <input type="hidden" name="full_name" value=<?php echo $row['full_name']; ?> >
+                    <input type="hidden" name="full_name" value="<?php echo $row['full_name']; ?>" >
                     <input type="hidden" name="username" value=<?php echo $row['username']; ?> >
                     <input type="hidden" name="password" value=<?php echo $row['password']; ?> >
                     <input type="hidden" name="email" value=<?php echo $row['email']; ?> >
-                    <input type="hidden" name="user_tier" value=<?php echo $row['member_tier']; ?> >
+                    <input type="hidden" name="user_tier" value="<?php echo $row['member_tier']; ?>" >
+                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+
                 </form>
               </td>
               <th style="text-align:center;width:18%;">
@@ -508,19 +481,6 @@ desired effect
               }
             ?>
           </table>
-
-          <div  class="col-md-6">
-            <form  action="information.php">
-              <button type="submit" class="btn btn-block btn-primary">
-                Add Users
-              </button>
-            </form>
-          </div>
-          <div  class="col-md-6">
-            <button type="submit" class="btn btn-block btn-danger">
-              Back
-            </button>
-          </div>
         </div>
 
 

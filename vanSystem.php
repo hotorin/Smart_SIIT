@@ -403,7 +403,7 @@ desired effect
         <?php
         $q = 'SELECT * FROM van, driver, member WHERE van.van_no = '.$_GET['v'].' AND
                                                       van.driver_no = driver.driver_no AND
-                                                      driver.driver_username = member.username COLLATE utf8_unicode_ci;';
+                                                      driver.member_id = member.member_id;';
         $res = $db -> query($q);
         while($row = $res -> fetch_array()){
         ?>
