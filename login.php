@@ -39,7 +39,7 @@
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" class="form-control" placeholder="Password" required="required" pattern="[A-Za-z0-9]{6,20}">
+        <input type="password" name="password" class="form-control" placeholder="Password" required="" pattern="[A-Za-z0-9]{6,20}" title="Password must contain more than 6-20 charactes">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

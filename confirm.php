@@ -91,10 +91,46 @@ session_start();
     </script>
   <?php
   }
-  ?>
+  else if($_POST['mode'] == 2){
+    echo $_POST['plate'];
+    echo $_POST['location'];
+    echo $_POST['driver'];
+
+    	$q = 'SELECT * FROM van WHERE van_license_plate = "'.$_POST['plate'].'";';
+      $res = $db -> query($q);
+  		$result = $res->fetch_array();
+      if (!$result)
+  		{
+  			$q = "INSERT INTO van (	location, 	driver_no, 	van_license_plate)
+  						VALUES ('".$_POST['location']."', ".$_POST['driver'].",	'".$_POST['plate']."');";
+  			$res = $db -> query($q);
+  		}
+      else{
+  		  echo "
+  		        <script type='text/javascript'>
+  		          alert('Add van failed!, It have this plate already in database!');
+  		        </script>
+  		       ";
+  		  echo "
+  		        <script type='text/javascript'>
+  		          window.location = 'admin.php?mode=0';
+  		        </script>
+  		       ";
+  		}
+?>
   <script type='text/javascript'>
-  	alert('The User number <?php echo $_POST['member_no'];?> has been modified!');
+    alert('Add Van Successful!');
   </script>
   <script type='text/javascript'>
-  	window.location = 'admin.php?mode=1';
+    window.location = 'admin.php?mode=0';
+  </script>
+<?php
+  }
+?>
+
+  <script type='text/javascript'>
+    alert('The User number <?php echo $_POST['member_no'];?> has been modified!');
+  </script>
+  <script type='text/javascript'>
+    window.location = 'admin.php?mode=1';
   </script>

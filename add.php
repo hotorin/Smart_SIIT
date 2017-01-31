@@ -361,34 +361,33 @@ desired effect
             </div>
 
             <div class="form-group">
-              <label style="margin-top:10px">License Plate</label> : <input type="text" class="form-control pull-right">
-              <br>
-              <label style="margin-top:10px">Location</label> :
-              <select class="form-control">
-                <option value='Rangsit'>Rangsit</option>
-                <option value='Bangkadi'>Bangkadi</option>
-              </select>
-              <label style="margin-top:10px">Driver Name</label>
-              <select class="form-control">
-                <option selected disabled>Please select driver</option>
-                <?php
-                $q = 'SELECT * FROM member WHERE member_tier = "Driver";';
-                $res = $db -> query($q);
-                while($row = $res -> fetch_array()){
-                ?>
-                  <option value=<?php echo $row['member_id']; ?>><?php echo $row['full_name'];?></option>
-                <?php
-                }
-                ?>
-              </select>
-
+              <form action="confirm.php" method="post" id="add_van">
+                <input type="hidden" name="mode" value=2>
+                <label style="margin-top:10px">License Plate</label> : <input type="text" name="plate" class="form-control pull-right">
+                <br>
+                <label style="margin-top:10px">Location</label> :
+                <select class="form-control" name="location">
+                  <option value='Rangsit'>Rangsit</option>
+                  <option value='Bangkadi'>Bangkadi</option>
+                </select>
+                <label style="margin-top:10px">Driver Name</label>
+                <select class="form-control" name="driver">
+                  <option selected disabled>Please select driver</option>
+                  <?php
+                  $q = 'SELECT * FROM member, driver WHERE member_tier = "Driver" AND member.member_id = driver.member_id;';
+                  $res = $db -> query($q);
+                  while($row = $res -> fetch_array()){
+                  ?>
+                    <option value=<?php echo $row['driver_no']; ?>><?php echo $row['full_name'];?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+              </form>
             </div>
 
             <div  class="col-md-6" style="margin-top:10px">
-              <form action="add.php" method="post">
-                <input type="hidden" name="mode" value=0>
-                <button type="submit" class="btn btn-block btn-primary">Submit</button>
-              </form>
+              <button type="submit" class="btn btn-block btn-primary" form="add_van">Submit</button>
             </div>
             <div  class="col-md-6" style="margin-top:10px">
               <form action="admin.php" method="get">

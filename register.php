@@ -35,7 +35,7 @@
 
     <form action="register_check.php" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="f_name" class="form-control" placeholder="Full name" required="" pattern="[A-Za-z0-9. ]{5,20}" title="กรุณาใส่ชื่อและนามสกุลให้ครบโดยใส่ Mr./Ms./Mrs.">
+        <input type="text" name="f_name" class="form-control" placeholder="Full name" required="" pattern="[A-Za-z0-9. ]{5,100}" title="กรุณาใส่ชื่อและนามสกุลให้ครบโดยใส่ Mr./Ms./Mrs.">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
