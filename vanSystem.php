@@ -12,6 +12,7 @@ session_start();
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css">  <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
   <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css"> <!-- DataTables -->
@@ -354,33 +355,79 @@ desired effect
       <div class="col-sm-13">
         <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
           <div class="box-header">
-            <h3 class="box-title" style="margin-top:20px">This is schedule for Van number "<?php echo $_GET['v']; ?>"</h3>
+            <div class="col-sm-4">
+            <h3 class="box-title" style="margin-top:8px">Please select date to view the schedule :</h3>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <form action="vanSystem.php?mode=0&v=1" method="post" id="date_add">
+                    <input type="text" name="date_pick" class="form-control pull-right" id="datepicker">
+                  </form>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" form="date_add">Submit</button>
+
           </div>
+          <?php
+          if(isset($_POST['date_pick'])){
+            echo "This is the schedule at : ".$_POST['date_pick'];
+          }
+          else{
+            echo "This is the schedule at : ".date("m/d/Y");
+          }
+          ?>
         <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
         <tr style="height:30px;">
-            <th bgcolor="#F0F8FF" style="text-align:center;width:10%;">Time</th>
-            <th bgcolor="yellow" style="text-align:center;width:10%;">Monday</th>
-            <th bgcolor="pink" style="text-align:center;width:10%;">Tuesday</th>
-            <th bgcolor="	#00FF7F" style="text-align:center;width:10%;">Wednesday</th>
-            <th bgcolor="#FFD700" style="text-align:center;width:10%;">Thrusday</th>
-            <th bgcolor="#E6E6FA" style="text-align:center;width:10%;">Friday</th>
-            <th bgcolor="#DDA0DD" style="text-align:center;width:10%;">Saturday</th>
+            <th bgcolor="#F0F8FF" style="text-align:center;width:10%;">Information</th>
+            <?php
+            for($x = 6 ; $x < 19 ; $x++){
+              switch ($x) {
+                case ($x < 10):
+                  echo '<th bgcolor="yellow" style="text-align:center;">0'.$x.':00</th>';
+                  break;
+                case ($x >= 10):
+                  echo '<th bgcolor="yellow" style="text-align:center;">'.$x.':00</th>';
+                  break;
+              }
+            }
+            ?>
         </tr>
         <?php
-        for ($x = 0; $x < 10; $x++) {
+        for($x = 0 ; $x < 3 ; $x++){
+          switch ($x) {
+            case 0;
+              $txt_title = "Status";
+              break;
+            case 1:
+              $txt_title = "Reserved By";
+              break;
+            case 2:
+              $txt_title = "Description";
+              break;
+          }
         ?>
         <tr style="height:40px;">
-          <td style="text-align:center;width:10%;">XX:XX</td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
+          <td style="text-align:center;"><?php echo $txt_title; ?></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
         </tr>
-        <?php
-        }
-        ?>
+      <?php
+      }
+      ?>
       </table>
     </div>
     </div>
@@ -524,6 +571,7 @@ desired effect
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
@@ -540,6 +588,9 @@ desired effect
            "info": true,
            "autoWidth": false
          });
+       });
+       $('#datepicker').datepicker({
+         autoclose: true
        });
      </script>
 </body>

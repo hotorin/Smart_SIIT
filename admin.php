@@ -406,7 +406,9 @@ desired effect
             </form>
           </td>
           <th style="text-align:center;width:18%;">
-            <form action="information.php">
+            <form action="delete.php" method="post">
+              <input type="hidden" name="mode" value=1 >
+              <input type="hidden" name="van_no" value=<?php echo $row['van_no'];?>>
               <button type="submit" class="btn btn-block btn-danger">
                 Delete
               </button>
@@ -470,7 +472,9 @@ desired effect
                 </form>
               </td>
               <th style="text-align:center;width:18%;">
-                <form action="information.php">
+                <form action="delete.php" method="post">
+                  <input type="hidden" name="mode" value=0 >
+                  <input type="hidden" name="id" value=<?php echo $row['member_id'];?>>
                   <button type="submit" class="btn btn-block btn-danger">
                     Delete
                   </button>
