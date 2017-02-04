@@ -3,7 +3,6 @@
 require_once('connect.php');
 session_start();
 ?>
-
 <html>
 <head>
   <meta charset="utf-8">
@@ -260,8 +259,8 @@ desired effect
         <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
 
                 <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
                 ?>
                 <li class="header"
                     style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
@@ -298,6 +297,9 @@ desired effect
                 }
                 ?>
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
 
         <li class="header"
             style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
@@ -342,199 +344,155 @@ desired effect
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-
+      <?php
+        if($_GET['mode'] == 0){
+      ?>
+        <h1>
+        Van List
+        <small>- List of all Van</small>
+        </h1>
+      <?php
+        }else if($_GET['mode'] == 1){
+      ?>
+        <h1>
+        User List
+        <small>- List of all users </small>
+        </h1>
+      <?php
+        }
+      ?>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <?php
-          if(isset($_POST['mode'])){
-            if($_POST['mode'] == 0){
-        ?>
-        <div class="col-md-6">
-          <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
-            <div class="box-header with-border">
-              <i class="fa fa-file"></i>
-                <h3 class="box-title">Old Profile</h3>
-            </div>
 
-            <div class="form-group">
-              <label style="margin-top:2%">Full Name</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" disabled>
-              <br>
-              <label style="margin-top:10px">Username</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['username']; ?> disabled>
-              <br>
-              <label style="margin-top:10px">E-Mail</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['email']; ?> disabled>
-              <br>
-              <?php
-                if(isset($_SESSION['tier'])){
-                  if($_SESSION['tier'] == 'Admin'){
-              ?>
-              <label style="margin-top:10px">User Tier</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled>
-              <?php
-                  }
-                }
-              ?>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="box box-body" style="padding-bottom:30px">
-            <div class="box-header with-border">
-              <i class="fa fa-file"></i>
-                <h3 class="box-title">New Profile</h3>
-            </div>
-            <div class="form-group">
-              <form action="confirm.php" method="post" id="form_member">
-                <input type="hidden" name="mode" value=0>
-                <input type="hidden" name="member_no" value=<?php echo $_POST['id']; ?>>
-                <label style="margin-top:2%">Full Name</label> : <input type="text" name="full_name_change" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>">
-                <br>
-                <label style="margin-top:10px">Username</label> : <input type="text" name="username_change" class="form-control pull-right" value=<?php echo $_POST['username']; ?>>
-                <br>
-                <label style="margin-top:10px">E-Mail</label> : <input type="text" name="email_change" class="form-control pull-right" value=<?php echo $_POST['email']; ?>>
-                <br>
-                <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
-                ?>
-                <div class="form-group">
-                  <label style="margin-top:10px">User Tier</label> :
-                  <select class="form-control" name="tier_change">
-                    <option value=<?php echo $_POST['user_tier']; ?> selected>
-                      <?php
-                      echo $_POST['user_tier'];
-                      ?>
-                    </option>
-                    <option value="Administrator">Administrator</option>
-                    <option value="Ground Division Member">Ground Division Member</option>
-                    <option value="Driver">Driver</option>
-                    <option value="Normal_Users">Normal_Users</option>
-                  </select>
-                </div>
-              </form>
-              <?php
-                  }
-                }
-              ?>
-            </div>
-            <div style="margin-top:5%">
-              <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-primary" form="form_member">
-                  Confirm Change
-                </button>
-              </div>
+      <?php
+        if($_GET['mode'] == 0){
+      ?>
+      <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px;padding-bottom:60px">
+        <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:40px" align="center">
+        <thead>
+        <tr>
+        <td style="text-align:center;width:10%">Van Number</td>
+        <td style="text-align:center;width:20%">Main Location</td>
+        <td style="text-align:center">Driver</td>
+        <td style="text-align:center">License Plate</td>
+        <td style="text-align:center">Change Profile</td>
+        <td style="text-align:center">Delete</td>
+        </tr>
+      </thead>
+      <?php
+      $q = 'SELECT * FROM van, driver, member WHERE van.driver_no = driver.driver_no AND
+                                                    driver.member_id = member.member_id;';
+      $res = $db -> query($q);
+      while($row = $res -> fetch_array()){
+      ?>
+      <tbody>
 
-              <div class="col-md-6">
 
-                <form action="admin.php" method="get">
-                  <input type="hidden" name="mode" value=1>
-                  <button type="submit" class="btn btn-block btn-danger">
-                    Back
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <?php
-      }
-      else if($_POST['mode'] == 1){
-        ?>
-
-        <div class="col-md-6">
-          <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
-            <div class="box-header with-border">
-              <i class="fa fa-file"></i>
-                <h3 class="box-title">Old Profile</h3>
-            </div>
-            <div class="form-group">
-              <label style="margin-top:10px">Van Number</label> :
-                <input type="text" class="form-control pull-right" value=<?php echo $_POST['van_no']; ?> disabled><br>
-              <label style="margin-top:2%">Location</label> :
-                <input type="text" class="form-control pull-right" value="<?php echo $_POST['location']; ?>" disabled><br>
-              <label style="margin-top:10px">Driver Name</label> :
-                <input type="text" class="form-control pull-right" value="<?php echo $_POST['driver_name']; ?>" disabled><br>
-              <label style="margin-top:10px">License Plate</label> :
-                <input type="text" class="form-control pull-right" value=<?php echo $_POST['license_plate']; ?> disabled><br>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="box box-body" style="padding-bottom:30px">
-            <div class="box-header with-border">
-              <i class="fa fa-file"></i>
-                <h3 class="box-title">New Profile</h3>
-            </div>
-            <div class="form-group" style="padding-bottom:5%">
-              <form action="confirm.php" method="post" id="form_van">
+          <tr>
+          <td style="text-align:center"><?php echo $row['van_no']; ?></td>
+          <td style="text-align:center"><?php echo $row['location']; ?></td>
+          <td style="text-align:center"><?php echo $row['full_name']; ?></td>
+          <td style="text-align:center"><?php echo $row['van_license_plate']; ?></td>
+          <td style="text-align:center;width:18%;">
+            <form id="prof_form" action="profile.php" method="post">
                 <input type="hidden" name="mode" value=1>
-                <input type="hidden" name="van_number" value=<?php echo $_POST['van_no']; ?>>
-                <label style="margin-top:2%">Location</label> :
-                  <select class="form-control" name="location_change">
-                    <option disabled>Please select location</option>
-                    <?php
-                    if($_POST['location'] == 'Bangkadi'){
-                    ?>
-                    <option selected value="Bangkadi">Bangkadi</option>
-                    <option value="Rangsit">Rangsit</option>
-                    <?php
-                    }
-                    else{
-                    ?>
-                    <option value="Bangkadi">Bangkadi</option>
-                    <option selected value="Rangsit">Rangsit</option>
-                    <?php
-                    }
-                    ?>
-                  </select>
-                <label style="margin-top:10px">Driver Name</label>
-                  <select class="form-control" name="driver_change">
-                    <option disabled>Please select driver</option>
-                    <?php
-                    $q = 'SELECT * FROM member WHERE member_tier = "Driver";';
-                    $res = $db -> query($q);
-                    while($row = $res -> fetch_array()){
-                      if($row['full_name'] == $_POST['driver_name']){
-                    ?>
-                      <option selected value="<?php echo $row['member_id']; ?>"><?php echo $row['full_name'];?></option>
-                    <?php
-                      }
-                      else{
-                    ?>
-                      <option value="<?php echo $row['member_id']; ?>"><?php echo $row['full_name'];?></option>
-                    <?php
-                      }
-                    }
-                    ?>
-                  </select>
-                <label style="margin-top:10px">License Plate</label> :
-                  <input type="text" name="license_change" class="form-control pull-right" value=<?php echo $_POST['license_plate']; ?>><br>
-              </form>
-            </div>
-            <div style="margin-top:5%">
-              <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-primary" form="form_van">
-                  Confirm Change
-                </button>
-              </div>
+                <input type="hidden" name="van_no" value=<?php echo $row['van_no']; ?> >
+                <input type="hidden" name="location" value=<?php echo $row['location']; ?> >
+                <input type="hidden" name="driver_name" value="<?php echo $row['full_name']; ?>" >
+                <input type="hidden" name="license_plate" value=<?php echo $row['van_license_plate']; ?> >
+                <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+            </form>
+          </td>
+          <th style="text-align:center;width:18%;">
+            <form action="delete.php" method="post">
+              <input type="hidden" name="mode" value=1 >
+              <input type="hidden" name="van_no" value=<?php echo $row['van_no'];?>>
+              <button type="submit" class="btn btn-block btn-danger">
+                Delete
+              </button>
+            </form>
+          </th>
+          </tr>
 
-              <div class="col-md-6">
-                <form action="admin.php" method="get">
-                  <input type="hidden" name="mode" value=0>
+      </tbody>
+      <?php
+      }
+      ?>
+      </table>
+      <div  class="col-md-3"></div>
+      <div  class="col-md-6">
+        <form action="add.php" method="post">
+          <input type="hidden" name="mode" value=0>
+          <button type="submit" class="btn btn-block btn-primary">Add More Van</button>
+        </form>
+      </div>
+    </div>
+
+
+      <?php
+        }else if($_GET['mode'] == 1){
+      ?>
+
+        <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px;padding-bottom:60px">
+          <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:40px" align="center">
+            <thead>
+              <tr>
+                <td style="text-align:center;width:10%">User ID</td>
+                <td style="text-align:center;width:20%">Username</td>
+                <td style="text-align:center;width:20%">E-mail</td>
+                <td style="text-align:center;width:20%">Role</td>
+                <td style="text-align:center;width:20%">Change Profile</td>
+                <td style="text-align:center;width:20%">Delete</td>
+              </tr>
+            </thead>
+            <?php
+              $q = 'SELECT * FROM member';
+              $res = $db -> query($q);
+              while($row = $res -> fetch_array()){
+            ?>
+            <tr>
+              <td style="text-align:center"><?php echo $row['member_id']; ?></td>
+              <td style="text-align:center"><?php echo $row['username']; ?></td>
+              <td style="text-align:center"><?php echo $row['email']; ?></td>
+              <td style="text-align:center"><?php echo $row['member_tier']; ?></td>
+              <td style="text-align:center">
+                <form id="prof_form" action="profile.php" method="post">
+
+                    <input type="hidden" name="mode" value=0 >
+                    <input type="hidden" name="id" value=<?php echo $row['member_id']; ?> >
+                    <input type="hidden" name="full_name" value="<?php echo $row['full_name']; ?>" >
+                    <input type="hidden" name="username" value=<?php echo $row['username']; ?> >
+                    <input type="hidden" name="password" value=<?php echo $row['password']; ?> >
+                    <input type="hidden" name="email" value=<?php echo $row['email']; ?> >
+                    <input type="hidden" name="user_tier" value="<?php echo $row['member_tier']; ?>" >
+                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+
+                </form>
+              </td>
+              <th style="text-align:center;width:18%;">
+                <form action="delete.php" method="post">
+                  <input type="hidden" name="mode" value=0 >
+                  <input type="hidden" name="id" value=<?php echo $row['member_id'];?>>
                   <button type="submit" class="btn btn-block btn-danger">
-                    Back
+                    Delete
                   </button>
                 </form>
-              </div>
-          </div>
+              </th>
+            </tr>
+            <?php
+              }
+            ?>
+          </table>
         </div>
 
-        <?php
-      }
-    }
-        ?>
-      </div>
+
+      <?php
+        }
+      ?>
+
+
     </section>
     <!-- /.content -->
   </div>

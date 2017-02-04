@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+require_once('connect.php');
 session_start();
 ?>
 <html>
@@ -13,32 +14,8 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
-
-                  <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-                  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-                  <![endif]-->
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">    <!-- Main Header -->
@@ -46,10 +23,6 @@ desired effect
       <span class="logo-mini"><b>SIIT</b></span>   <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-lg"><b>Management System<b></span>  <!-- logo for regular state and mobile devices -->
     </a>
-
-
-
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -59,18 +32,12 @@ desired effect
         <span class="sr-only">Toggle navigation</span>
       </a>
 
-
 <!-- ==============================For The Notification Menu============================================================= -->
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
-
-
-
-
           <?php
-            if(isset($_SESSION['number'])){
+            if(isset($_SESSION['tier'])){
           ?>
           <!-- User Account Menu -->
           <!-- ==============================Make the notification Menu ============================================================ -->
@@ -99,16 +66,16 @@ desired effect
             </ul>
           </li>
           <?php
-            if($_SESSION['number'] == 1){
+            if($_SESSION['tier'] == 'Admin'){
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   Name Surname - Ground Division Member
                   <small>Member since Nov. 2012</small>
@@ -133,7 +100,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -148,18 +122,17 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - SIIT Student
+                  <?php echo $_SESSION['fname']; ?> - SIIT Student
                   <small>Member since Nov. 2015</small>
                 </p>
               </li>
-
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-6 text-center">
@@ -171,13 +144,18 @@ desired effect
                 </div>
                 <!-- /.row -->
               </li>
-
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
-
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Log Out</a>
                 </div>
@@ -207,7 +185,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel" style="margin-top:20px">
         <?php
-          if(!isset($_SESSION['number'])){
+          if(!isset($_SESSION['tier'])){
         ?>
         <center>
           <p><font color="white" size="5">Welcome Guest</font></p>
@@ -217,10 +195,10 @@ desired effect
           else{
         ?>
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Name Surname</p>
+          <p><?php echo $_SESSION['fname']; ?></p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -230,22 +208,50 @@ desired effect
         ?>
       </div>
 
-      <!-- search form (Optional) -->
-      <!--
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-    -->
-      <!-- /.search form -->
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+        <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
+                <?php
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
+                ?>
+                <li class="header"
+                    style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
+                >
+                <center>Admin Menu</center></li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-link"></i><span>Van Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
+                  </ul>
+                </li>
+
+
+                <li class="treeview">
+                  <a href=""><i class="fa fa-link"></i><span>User Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=1">Change Users Information</a></li>
+                  </ul>
+                </li>
+
+                <?php
+                  }
+                }
+                ?>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
         <li class="header"
             style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
         >
@@ -304,9 +310,14 @@ desired effect
     <section class="content">
       <center>
         <div class="row" style="padding-top:40px">
+          <?php
+          $q = 'SELECT * FROM van;';
+          $res = $db -> query($q);
+          while($row = $res -> fetch_array()){
+          ?>
           <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=1">
-              Van Number 1
+            <a href="vanSystem.php?mode=0&v=<?php echo $row['van_no']; ?>">
+              Van Number <?php echo $row['van_no']; ?>
               <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
             </a>
             <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
@@ -319,54 +330,9 @@ desired effect
             -Database 4
             </div>
           </div>
-
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=2">
-              Van Number 2
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
-            </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
-          </div>
-          </div>
-
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=3">
-              Van Number 3
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
-            </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
-          </div>
-          </div>
-
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=4">
-              Van Number 4
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
-            </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
-          </div>
-          </div>
+          <?php
+    			}
+          ?>
         </div>
       </center>
     </section>
@@ -386,46 +352,35 @@ desired effect
               <h3 class="box-title" style="margin-top:20px">Status</h3>
             </div>
             <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-            <thead>
-            <tr>
-            <td style="text-align:center;width:10%">Van Number</td>
-            <td style="text-align:center;width:20%">Current Location</td>
-            <td style="text-align:center">Request By</td>
-            <td style="text-align:center">Status</td>
-            </tr>
-          </thead>
+              <thead>
+                <tr>
+                  <td style="text-align:center;width:10%">Van Number</td>
+                  <td style="text-align:center;width:20%">Current Location</td>
+                  <td style="text-align:center">Request By</td>
+                  <td style="text-align:center">Status</td>
+                </tr>
+              </thead>
+
+          <?php
+          $q = 'SELECT * FROM van;';
+          $res = $db -> query($q);
+          while($row = $res -> fetch_array()){
+          ?>
+
           <tbody>
             <tr>
-            <td style="text-align:center">1</td>
-            <td style="text-align:center">Bangkok, Siam</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">In use</td>
+            <td style="text-align:center"><?php echo $row['van_no']; ?></td>
+            <td style="text-align:center"><?php echo $row['current_location']; ?></td>
+            <td style="text-align:center"><?php echo $row['request_by']; ?></td>
+            <td style="text-align:center"><?php echo $row['status']; ?></td>
             </tr>
           </tbody>
-          <tbody>
-            <tr>
-            <td style="text-align:center">2</td>
-            <td style="text-align:center">Bangkok, Chang-Wattna</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">In use</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td style="text-align:center">3</td>
-            <td style="text-align:center">Bangkok, Chatuchak</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">In use</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td style="text-align:center">4</td>
-            <td style="text-align:center">SIIT, Bangkadi</td>
-            <td style="text-align:center">Lecturer Name</td>
-            <td style="text-align:center">Free</td>
-            </tr>
-          </tbody>
+
+          <?php
+    			}
+          ?>
+
+
             </table>
           </div>
         </section>
@@ -444,14 +399,21 @@ desired effect
         <section class="content">
           <center>
             <div class="row" style="padding-top:40px">
+
+              <?php
+              $q = 'SELECT * FROM van;';
+              $res = $db -> query($q);
+              while($row = $res -> fetch_array()){
+              ?>
+
               <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=1">
-                  Van Number 1
+                <a href="vanSystem.php?mode=1&v=<?php echo $row['van_no']; ?>">
+                  Van Number <?php echo $row['van_no']; ?>
                   <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
                 </a>
                 <?php
-                  if(isset($_SESSION['number'])){
-                    if($_SESSION['number'] == 1){
+                  if(isset($_SESSION['tier'])){
+                    if($_SESSION['tier'] == 'Admin'){
                 ?>
                   <div class="box" style="padding-bottom:30px;">
                     <div class="box-header">
@@ -494,155 +456,9 @@ desired effect
 
               </div>
 
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=2">
-                  Van Number 2
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['number'])){
-                    if($_SESSION['number'] == 1){
-                ?>
-                <div class="box" style="padding-bottom:30px;">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
-                  </div>
-                <?php
-                    }
-                    else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
-                      </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                  You not have permission.<br>
-                  To View the Details.
-                </div>
-                <?php
-                  }
-                ?>
-
-              </div>
-
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=3">
-                  Van Number 3
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['number'])){
-                    if($_SESSION['number'] == 1){
-                ?>
-                    <div class="box" style="padding-bottom:30px;">
-                      <div class="box-header">
-                        <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                        <hr>
-                      </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
-                    </div>
-                <?php
-                    }
-                    else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
-                      </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                  You not have permission.<br>
-                  To View the Details.
-                </div>
-                <?php
-                  }
-                ?>
-
-              </div>
-
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=4">
-                  Van Number 4
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['number'])){
-                    if($_SESSION['number'] == 1){
-                ?>
-                  <div class="box" style="padding-bottom:30px;">
-                    <div class="box-header">
-                      <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                      <hr>
-                    </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
-                  </div>
-                <?php
-                    }
-                    else{
-                ?>
-                      <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
-                      </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                  <div class="box-header">
-                    <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                    <hr>
-                  </div>
-                  You not have permission.<br>
-                  To View the Details.
-                </div>
-                <?php
-                  }
-                ?>
-
-              </div>
+              <?php
+                }
+              ?>
             </div>
           </center>
         </section>
@@ -650,7 +466,6 @@ desired effect
       }
      ?>
 <!-- =========================================================================================================== -->
-
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

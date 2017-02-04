@@ -35,11 +35,11 @@
 
     <form action="loginCheck.php" method="post" style="margin-bottom:20px;">
       <div class="form-group has-feedback">
-        <input type="username" name="username" class="form-control" placeholder="Username">
+        <input type="username" name="username" class="form-control" placeholder="Username" required="required" pattern="[A-Za-z0-9]{1,20}">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" class="form-control" placeholder="Password">
+        <input type="password" name="password" class="form-control" placeholder="Password" required="" pattern="[A-Za-z0-9]{6,20}" title="Password must contain more than 6-20 charactes">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

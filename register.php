@@ -33,25 +33,25 @@
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
 
-    <form action="index.html" method="post">
+    <form action="register_check.php" method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Full name">
+        <input type="text" name="f_name" class="form-control" placeholder="Full name" required="" pattern="[A-Za-z0-9. ]{5,100}" title="กรุณาใส่ชื่อและนามสกุลให้ครบโดยใส่ Mr./Ms./Mrs.">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Username">
+        <input type="text" name="u_name" class="form-control" placeholder="Username" required="" pattern="[A-Za-z0-9]{6,20}" title="โปรดใส่ Username ที่มี a-z และ 0-9 เท่านั้น">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" name="e-mail" class="form-control" placeholder="Email" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}$" title="โปรดใส่ E-mail ให้ครบตัวอย่างเช่น username@tu.ac.th">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" name="p_word" class="form-control" placeholder="Password must have 6-20 letters" required="" pattern="[A-Za-z0-9]{6,20}" title="โปรดใส่ Password โดยมีเพียง 6 ถึง 20 ตัวเท่านั้น">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype password">
+        <input type="password" name="re_p" class="form-control" placeholder="Retype your password" required="" pattern="[A-Za-z0-9]{6,20}" title="โปรดใส่ Password โดยมีเพียง 6 ถึง 20 ตัวอีกครั้ง">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
       <div class="row">

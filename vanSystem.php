@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+require_once('connect.php');
 session_start();
 ?>
 <html>
@@ -11,6 +12,7 @@ session_start();
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css">  <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
   <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css"> <!-- DataTables -->
@@ -65,7 +67,7 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <?php
-            if(isset($_SESSION['number'])){
+            if(isset($_SESSION['tier'])){
           ?>
           <!-- User Account Menu -->
           <!-- ==============================Make the notification Menu ============================================================ -->
@@ -94,16 +96,16 @@ desired effect
             </ul>
           </li>
           <?php
-            if($_SESSION['number'] == 1){
+            if($_SESSION['tier'] == 'Admin'){
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   Name Surname - Ground Division Member
                   <small>Member since Nov. 2012</small>
@@ -128,7 +130,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -143,12 +152,12 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   Name Surname - SIIT Student
                   <small>Member since Nov. 2015</small>
@@ -170,7 +179,14 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <form action="profile.php" method="post">
+                    <input type="submit" class="btn btn-default btn-flat" value="Profile" />
+                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
+                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                  </form>
                 </div>
 
                 <div class="pull-right">
@@ -202,7 +218,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel" style="margin-top:20px">
         <?php
-          if(!isset($_SESSION['number'])){
+          if(!isset($_SESSION['tier'])){
         ?>
         <center>
           <p><font color="white" size="5">Welcome Guest</font></p>
@@ -212,7 +228,7 @@ desired effect
           else{
         ?>
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Name Surname</p>
@@ -241,6 +257,49 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+        <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
+
+                <?php
+                if(isset($_SESSION['tier'])){
+                  if($_SESSION['tier'] == 'Admin'){
+                ?>
+                <li class="header"
+                    style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
+                >
+                <center>Admin Menu</center></li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-link"></i><span>Van Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
+                  </ul>
+                </li>
+
+
+                <li class="treeview">
+                  <a href=""><i class="fa fa-link"></i><span>User Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+
+                  <ul class="treeview-menu">
+                    <li><a href="admin.php?mode=1">Change Users Information</a></li>
+                  </ul>
+                </li>
+
+                <?php
+                  }
+                }
+                ?>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
         <li class="header"
             style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
         >
@@ -296,33 +355,79 @@ desired effect
       <div class="col-sm-13">
         <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
           <div class="box-header">
-            <h3 class="box-title" style="margin-top:20px">This is schedule for Van number "<?php echo $_GET['v']; ?>"</h3>
+            <div class="col-sm-4">
+            <h3 class="box-title" style="margin-top:8px">Please select date to view the schedule :</h3>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <form action="vanSystem.php?mode=0&v=1" method="post" id="date_add">
+                    <input type="text" name="date_pick" class="form-control pull-right" id="datepicker">
+                  </form>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" form="date_add">Submit</button>
+
           </div>
+          <?php
+          if(isset($_POST['date_pick'])){
+            echo "This is the schedule at : ".$_POST['date_pick'];
+          }
+          else{
+            echo "This is the schedule at : ".date("m/d/Y");
+          }
+          ?>
         <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
         <tr style="height:30px;">
-            <th bgcolor="#F0F8FF" style="text-align:center;width:10%;">Time</th>
-            <th bgcolor="yellow" style="text-align:center;width:10%;">Monday</th>
-            <th bgcolor="pink" style="text-align:center;width:10%;">Tuesday</th>
-            <th bgcolor="	#00FF7F" style="text-align:center;width:10%;">Wednesday</th>
-            <th bgcolor="#FFD700" style="text-align:center;width:10%;">Thrusday</th>
-            <th bgcolor="#E6E6FA" style="text-align:center;width:10%;">Friday</th>
-            <th bgcolor="#DDA0DD" style="text-align:center;width:10%;">Saturday</th>
+            <th bgcolor="#F0F8FF" style="text-align:center;width:10%;">Information</th>
+            <?php
+            for($x = 6 ; $x < 19 ; $x++){
+              switch ($x) {
+                case ($x < 10):
+                  echo '<th bgcolor="yellow" style="text-align:center;">0'.$x.':00</th>';
+                  break;
+                case ($x >= 10):
+                  echo '<th bgcolor="yellow" style="text-align:center;">'.$x.':00</th>';
+                  break;
+              }
+            }
+            ?>
         </tr>
         <?php
-        for ($x = 0; $x < 10; $x++) {
+        for($x = 0 ; $x < 3 ; $x++){
+          switch ($x) {
+            case 0;
+              $txt_title = "Status";
+              break;
+            case 1:
+              $txt_title = "Reserved By";
+              break;
+            case 2:
+              $txt_title = "Description";
+              break;
+          }
         ?>
         <tr style="height:40px;">
-          <td style="text-align:center;width:10%;">XX:XX</td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
-          <td style="text-align:center;width:10%;"></td>
+          <td style="text-align:center;"><?php echo $txt_title; ?></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
         </tr>
-        <?php
-        }
-        ?>
+      <?php
+      }
+      ?>
       </table>
     </div>
     </div>
@@ -341,6 +446,15 @@ desired effect
     <section class="content">
 
       <div class="col-sm-12" style="text-align:center;padding-bottom:40px">
+
+        <?php
+        $q = 'SELECT * FROM van, driver, member WHERE van.van_no = '.$_GET['v'].' AND
+                                                      van.driver_no = driver.driver_no AND
+                                                      driver.member_id = member.member_id;';
+        $res = $db -> query($q);
+        while($row = $res -> fetch_array()){
+        ?>
+
         <div class="col-sm-3">
           Profile Image<br>
           <img src="resource/image/profile.png" height="50%" width="60%" style="margin-top:20px;" class="user-image" alt="User Image">
@@ -351,34 +465,37 @@ desired effect
             <table border="2" style="width:80%;margin-top:20px;">
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%;">Name</td>
-                <td style="text-align:center;width:50%">Sansern Something</td>
+                <td style="text-align:center;width:50%"><?php echo $row['full_name']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Position</td>
-                <td style="text-align:center;width:50%">Driver</td>
+                <td style="text-align:center;width:50%"><?php echo $row['driver_position']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Van Number</td>
-                <td style="text-align:center;width:50%"><?php echo $_GET['v']; ?></td>
+                <td style="text-align:center;width:50%"><?php echo $row['van_no']; ?></td>
               </tr>
               <tr style="height:40px;">
                 <td style="text-align:center;width:20%">Location</td>
-                <td style="text-align:center;width:50%">Rangsit Campus</td>
+                <td style="text-align:center;width:50%"><?php echo $row['location']; ?></td>
               </tr>
               <tr style="height:60px;">
                 <td style="text-align:center;width:20%">More Information</td>
-                <td style="text-align:center;width:50%">Database</td>
+                <td style="text-align:center;width:50%"><?php echo $row['email']; ?></td>
               </tr>
             </table>
           </center>
         </div>
+        <?php
+        }
+        ?>
       </div>
       <div>
         &nbsp;
       <div class="col-sm-13">
         <?php
-            if(isset($_SESSION['number'])){
-              if($_SESSION['number'] == 1){
+            if(isset($_SESSION['tier'])){
+              if($_SESSION['tier'] == 'Admin'){
         ?>
         <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
             <div class="box-header">
@@ -454,6 +571,7 @@ desired effect
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
@@ -470,6 +588,9 @@ desired effect
            "info": true,
            "autoWidth": false
          });
+       });
+       $('#datepicker').datepicker({
+         autoclose: true
        });
      </script>
 </body>
