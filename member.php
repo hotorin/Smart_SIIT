@@ -16,6 +16,7 @@ session_start();
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
   <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.css"> <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css"> <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css"><!-- bootstrap datepicker -->
                   <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
                   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -314,8 +315,8 @@ desired effect
           </a>
 
           <ul class="treeview-menu">
-            <li><a href="brokenEquip.php">Current Job</a></li>
-            <li><a href="brokenEquip.php">History</a></li>
+            <li><a href="brokenEquip.php?mode=0">Current Job</a></li>
+            <li><a href="brokenEquip.php?mode=1">History</a></li>
           </ul>
         </li>
 
@@ -362,8 +363,8 @@ desired effect
         <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center"><!-- style="width:100%;margin-top:20px;" align="center" > -->
           <thead>
           <tr style="height:30px;">
-            <th style="text-align:center;width:10%;">No.</th>
-            <th style="text-align:center;width:30%;">Request Title</th>
+            <th style="text-align:center;width:15%;">Request No.</th>
+            <th style="text-align:center;width:30%;">Request Location</th>
             <th style="text-align:center;width:30%;">Status</th>
             <th style="text-align:center;width:30%;">Date</th>
             <th style="text-align:center;width:30%;">Cancel</th>
@@ -371,18 +372,21 @@ desired effect
         </thead>
         <tbody>
         <?php
-          for ($x = 1; $x <= 120; $x++) {
+          $q = "SELECT * FROM request WHERE request_by = ".$_SESSION['user_no'].";";
+          $res = $db -> query($q);
+          while($row = $res -> fetch_array()){
         ?>
-            <tr style="height:30px;">
-              <th style="text-align:center;width:10%;"><?php echo $x; ?></th>
-              <th style="text-align:center;width:30%;">Request for Van number <?php echo rand(1, 4); ?></th>
-              <th style="text-align:center;width:30%;"><?php $aornota=array("Approve","Not Approve"); $key = rand(0, 1); echo $aornota[$key]; ?></th>
-              <th style="text-align:center;width:30%;"></th>
-              <th style="text-align:center;width:30%;"><a href="#">Cancel</a></th>
-            </tr>
+        <tr style="height:30px;">
+          <th style="text-align:center;width:15%;"><?php echo $row['request_no']; ?></th>
+          <th style="text-align:center;width:30%;"><?php echo $row['request_to_place']; ?></th>
+          <th style="text-align:center;width:30%;"><?php echo $row['request_approve']; ?></th>
+          <th style="text-align:center;width:30%;"><?php echo $row['request_date']; ?></th>
+          <th style="text-align:center;width:30%;">Cancel</th>
+        </tr>
         <?php
           }
         ?>
+
         </tbody>
         </table>
       </div>
@@ -579,6 +583,7 @@ desired effect
          $(".my-colorpicker2").colorpicker();
          //Timepicker
          $(".timepicker").timepicker({
+           stepping: 30,
            showInputs: false
          });
 
@@ -592,6 +597,10 @@ desired effect
            "autoWidth": false
          });
        });
+       //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
      </script>
 
 </body>

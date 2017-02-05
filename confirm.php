@@ -126,6 +126,38 @@ session_start();
   </script>
 <?php
   }
+  else if($_POST['mode'] == 3){
+    $q = 'SELECT * FROM broken_equipment WHERE equipment_ID = '.$_POST['id_equip'].';';
+    $res = $db -> query($q);
+    $result = $res->fetch_array();
+    if (!$result){
+      echo "
+            <script type='text/javascript'>
+              alert('The Information is missing from database!');
+            </script>
+           ";
+      echo "
+            <script type='text/javascript'>
+              window.location = 'brokenEquip.php?mode=0';
+            </script>
+           ";
+    }
+    else{
+      $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'",
+                                            equipment_assign ='.$_POST['assign_name'].'
+                          WHERE   equipment_ID ='.$_POST['id_equip'].';';
+      $res = $db -> query($q);
+    }
+?>
+<script type='text/javascript'>
+  alert('Successful Modified, Thank!!');
+</script>
+<script type='text/javascript'>
+  window.location = 'brokenEquip.php?mode=0';
+</script>
+
+<?php
+  }
 ?>
 
   <script type='text/javascript'>

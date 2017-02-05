@@ -8,6 +8,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 		$res = $db -> query($q);
 		if ($res && $res->num_rows == 1 ){
 			while($row = $res -> fetch_array()){
+					$_SESSION['user_no'] = $row['member_id'];
 					$_SESSION['fname'] = $row['full_name'];
 					$_SESSION['user_name'] = $row['username'];
 					$_SESSION['user_pass'] = $row['password'];

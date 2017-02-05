@@ -313,8 +313,8 @@ desired effect
           </a>
 
           <ul class="treeview-menu">
-            <li><a href="brokenEquip.php">Current Job</a></li>
-            <li><a href="brokenEquip.php">History</a></li>
+            <li><a href="brokenEquip.php?mode=0">Current Job</a></li>
+            <li><a href="brokenEquip.php?mode=1">History</a></li>
           </ul>
         </li>
 

@@ -313,8 +313,8 @@ desired effect
           </a>
 
           <ul class="treeview-menu">
-            <li><a href="brokenEquip.php">Current Job</a></li>
-            <li><a href="brokenEquip.php">History</a></li>
+            <li><a href="brokenEquip.php?mode=0">Current Job</a></li>
+            <li><a href="brokenEquip.php?mode=1">History</a></li>
           </ul>
         </li>
 
@@ -353,6 +353,10 @@ desired effect
 <!-- ========================================== Header ========================================================= -->
     <!-- Main content -->
     <section class="content">
+      <?php
+      if(isset($_GET['mode'])){
+        if($_GET['mode'] == 0){
+      ?>
       <div class="box" style="padding-left:10px;padding-right:10px;padding-bottom:30px">
         <div class="box-header">
           <h3 class="box-title" style="margin-top:10px"><b>Broken Equipment Detail</b></h3>
@@ -365,57 +369,104 @@ desired effect
               <td style="text-align:center">Broken Equipment</td>
               <td style="text-align:center">Location</td>
               <td style="text-align:center">Desctiption</td>
+              <td style="text-align:center">Status</td>
               <td style="text-align:center">Link</td>
             </tr>
           </thead>
+          <?php
+            $q = "SELECT * FROM broken_equipment WHERE equipment_status <> 'Finish';";
+            $res = $db -> query($q);
+            while($row = $res -> fetch_array()){
+          ?>
           <tbody>
             <tr>
-              <td style="text-align:center">1</td>
-              <td height="50px" width="200px" style="text-align:center;">Access Point</td>
-              <td width="20%" style="text-align:center">SIIT Bangkadi Campus</td>
-              <td width="40%" style="text-align:center">It didn't turn on, Please fix it we need to use it.</td>
-              <td width="10%" style="text-align:center"><a href="http://www.google.com">Link</a> </td>
+              <td style="text-align:center"><?php echo $row['equipment_ID']; ?></td>
+              <td height="50px" width="200px" style="text-align:center;"><?php echo $row['equipment_name']; ?></td>
+              <td width="20%" style="text-align:center"><?php echo $row['equipment_campus']; ?></td>
+              <td width="30%" style="text-align:center"><?php echo $row['equipment_decription']; ?></td>
+              <td width="20%" style="text-align:center"><?php echo $row['equipment_status']; ?></td>
+              <td style="text-align:center;width:18%;">
+                <form id="prof_form" action="brokenEquip_check.php" method="post">
+                    <input type="hidden" name="equipment_no" value=<?php echo $row['equipment_ID']; ?> >
+                    <input type="hidden" name="equipment_name" value=<?php echo $row['equipment_name']; ?> >
+                    <input type="hidden" name="equipment_campus" value=<?php echo $row['equipment_campus']; ?> >
+                    <input type="hidden" name="equipment_decription" value="<?php echo $row['equipment_decription']; ?>" >
+                    <input type="hidden" name="equipment_status" value=<?php echo $row['equipment_status']; ?> >
+                    <input type="hidden" name="equipment_building" value=<?php echo $row['equipment_building']; ?> >
+                    <input type="hidden" name="equipment_room" value=<?php echo $row['equipment_room']; ?> >
+                    <input type="hidden" name="equipment_email" value=<?php echo $row['equipment_email']; ?> >
+                    <input type="submit" class="btn btn-block btn-primary" value="Link">
+                </form>
+              </td>
             </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td style="text-align:center">2</td>
-              <td height="50px" width="200px" style="text-align:center;">Access Point</td>
-              <td width="20%" style="text-align:center">SIIT Bangkadi Campus</td>
-              <td width="40%" style="text-align:center">It didn't turn on, Please fix it we need to use it.</td>
-              <td width="10%" style="text-align:center"><a href="http://www.google.com">Link</a> </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td style="text-align:center">3</td>
-              <td height="50px" width="200px" style="text-align:center;">Access Point</td>
-              <td width="20%" style="text-align:center">SIIT Bangkadi Campus</td>
-              <td width="40%" style="text-align:center">It didn't turn on, Please fix it we need to use it.</td>
-              <td width="10%" style="text-align:center"><a href="http://www.google.com">Link</a> </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td style="text-align:center">4</td>
-              <td height="50px" width="200px" style="text-align:center;">Access Point</td>
-              <td width="20%" style="text-align:center">SIIT Bangkadi Campus</td>
-              <td width="40%" style="text-align:center">It didn't turn on, Please fix it we need to use it.</td>
-              <td width="10%" style="text-align:center"><a href="http://www.google.com">Link</a> </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td style="text-align:center">5</td>
-              <td height="50px" width="200px" style="text-align:center;">Access Point</td>
-              <td width="20%" style="text-align:center">SIIT Bangkadi Campus</td>
-              <td width="40%" style="text-align:center">It didn't turn on, Please fix it we need to use it.</td>
-              <td width="10%" style="text-align:center"><a href="http://www.google.com">Link</a> </td>
-            </tr>
+            <?php
+            }
+            ?>
           </tbody>
           </table>
         </div>
+      <?php
+        }
+        else if($_GET['mode'] == 1){
+      ?>
+      <div class="box" style="padding-left:10px;padding-right:10px;padding-bottom:30px">
+        <div class="box-header">
+          <h3 class="box-title" style="margin-top:10px"><b>Broken Equipment Detail</b></h3>
+          <hr>
+        </div>
+        <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
+          <thead>
+            <tr>
+              <td style="text-align:center;width:10%">Number</td>
+              <td style="text-align:center">Broken Equipment</td>
+              <td style="text-align:center">Location</td>
+              <td style="text-align:center">Desctiption</td>
+              <td style="text-align:center">Status</td>
+              <td style="text-align:center">Link</td>
+            </tr>
+          </thead>
+          <?php
+            $q = "SELECT * FROM broken_equipment WHERE equipment_status = 'Finish';";
+            $res = $db -> query($q);
+            while($row = $res -> fetch_array()){
+          ?>
+          <tbody>
+            <tr>
+              <td style="text-align:center"><?php echo $row['equipment_ID']; ?></td>
+              <td height="50px" width="200px" style="text-align:center;"><?php echo $row['equipment_name']; ?></td>
+              <td width="20%" style="text-align:center"><?php echo $row['equipment_campus']; ?></td>
+              <td width="30%" style="text-align:center"><?php echo $row['equipment_decription']; ?></td>
+              <td width="20%" style="text-align:center"><?php echo $row['equipment_status']; ?></td>
+              <td style="text-align:center;width:18%;">
+                <form id="prof_form" action="brokenEquip_check.php" method="post">
+                    <input type="hidden" name="equipment_no" value=<?php echo $row['equipment_ID']; ?> >
+                    <input type="hidden" name="equipment_name" value=<?php echo $row['equipment_name']; ?> >
+                    <input type="hidden" name="equipment_campus" value=<?php echo $row['equipment_campus']; ?> >
+                    <input type="hidden" name="equipment_decription" value="<?php echo $row['equipment_decription']; ?>" >
+                    <input type="hidden" name="equipment_status" value=<?php echo $row['equipment_status']; ?> >
+                    <input type="hidden" name="equipment_building" value=<?php echo $row['equipment_building']; ?> >
+                    <input type="hidden" name="equipment_room" value=<?php echo $row['equipment_room']; ?> >
+                    <input type="hidden" name="equipment_email" value=<?php echo $row['equipment_email']; ?> >
+                    <input type="submit" class="btn btn-block btn-primary" value="Link">
+                </form>
+              </td>
+            </tr>
+            <?php
+            }
+            ?>
+          </tbody>
+          </table>
+        </div>
+
+      <?php
+        }
+      }
+      ?>
+
       </section>
+      <?php
+
+      ?>
 <!-- =========================================================================================================== -->
 
     <!-- /.content -->
@@ -460,7 +511,7 @@ desired effect
            "lengthChange": false,
            "searching": false,
            "ordering": true,
-           "info": true,
+           "info": false,
            "autoWidth": false
          });
        });
