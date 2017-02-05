@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `senior_project` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `senior_project`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: senior_project
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.19-MariaDB
+-- Server version	5.6.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +14,41 @@ USE `senior_project`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `broken_equipment`
+--
+
+DROP TABLE IF EXISTS `broken_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `broken_equipment` (
+  `equipment_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `equipment_name` varchar(255) DEFAULT NULL,
+  `equipment_campus` varchar(255) DEFAULT NULL,
+  `equipment_building` varchar(255) DEFAULT NULL,
+  `equipment_room` varchar(255) DEFAULT NULL,
+  `equipment_decription` varchar(255) DEFAULT NULL,
+  `equipment_username` varchar(255) DEFAULT NULL,
+  `equipment_email` varchar(255) DEFAULT NULL,
+  `equipment_latitute` int(11) DEFAULT NULL,
+  `equipment_longtitute` int(11) DEFAULT NULL,
+  `equipment_photo` varchar(255) DEFAULT NULL,
+  `equipment_assign` int(11) DEFAULT NULL,
+  `equipment_status` varchar(255) NOT NULL DEFAULT 'Waiting',
+  PRIMARY KEY (`equipment_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `broken_equipment`
+--
+
+LOCK TABLES `broken_equipment` WRITE;
+/*!40000 ALTER TABLE `broken_equipment` DISABLE KEYS */;
+INSERT INTO `broken_equipment` VALUES (1,'table','rangsit','main','407','table is broken','peewas','akeake@gmail.com',NULL,NULL,NULL,NULL,'Waiting'),(2,'window','bangkadi','sirindaralai','3506','window is break','oat','oat@gmail.com',NULL,NULL,NULL,6,'Finish'),(3,'white board','rangsit','main','501','whiteboard is mising','napawat','nanan@namail.com',NULL,NULL,NULL,6,'Finish');
+/*!40000 ALTER TABLE `broken_equipment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `data_information`
@@ -85,7 +118,7 @@ CREATE TABLE `member` (
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `member_tier` varchar(255) CHARACTER SET utf8 DEFAULT 'Normal User',
   PRIMARY KEY (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='user table';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='user table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +127,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (0,'Mr. Krissada Kiattahanawit','admin','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Admin'),(1,'Mr. Somnit Phankote','driver_number1','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(2,'Mr. Apinat Poungnil','developer_01','f25d2ea041b332f0001ed83c2a4b3105','apinat@siit.tu.ac.th','Normal_User'),(3,'Mr. Somjit Soetirat','driver_number2','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(4,'Mr. Jaychoe Owatayakul','driver_number3','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(5,'Mr. Delete Print','driver_number4','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver');
+INSERT INTO `member` VALUES (0,'Mr. Krissada Kiattahanawit','admin','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Admin'),(1,'Mr. Somnit Phankote','driver_number1','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(2,'Mr. Apinat Poungnil','developer_01','f25d2ea041b332f0001ed83c2a4b3105','apinat@siit.tu.ac.th','Normal_User'),(3,'Mr. Somjit Soetirat','driver_number2','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(4,'Mr. Jaychoe Owatayakul','driver_number3','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(5,'Mr. Delete Print','driver_number4','f25d2ea041b332f0001ed83c2a4b3105','siit@siit.tu.ac.th','Driver'),(6,'Mr. Peewas อับดุลเลาะ','peewas','0d4ccc386a88a9c442d5843041fe2f46','peewas@pmail.com','Technician');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +139,7 @@ DROP TABLE IF EXISTS `request`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `request` (
-  `request_no` int(11) NOT NULL,
+  `request_no` int(11) NOT NULL AUTO_INCREMENT,
   `request_date` date DEFAULT NULL,
   `request_from` time DEFAULT NULL,
   `request_to` time DEFAULT NULL,
@@ -116,7 +149,7 @@ CREATE TABLE `request` (
   `request_assign` int(11) DEFAULT NULL,
   `request_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`request_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +158,34 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
+INSERT INTO `request` VALUES (1,'2017-02-06','07:00:00','11:00:00','Siam','To but some new good to use in SIIT.','Waiting',3,0),(2,'2017-02-07','07:00:00','11:00:00','Siam','To but some new good to use in SIIT.','Waiting',3,0);
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schedule`
+--
+
+DROP TABLE IF EXISTS `schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule` (
+  `schedule_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8_unicode_ci,
+  `date` datetime DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`schedule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Use for schedule page.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedule`
+--
+
+LOCK TABLES `schedule` WRITE;
+/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -156,6 +216,14 @@ LOCK TABLES `van` WRITE;
 INSERT INTO `van` VALUES (1,'Rangsit','Free',1,'Rangsit','No requested','AA-9999'),(2,'Bangkadi','Free',2,'Bangkadi','No requested','AA-9998'),(3,'Rangsit','Free',3,'Rangsit','No requested','AA-9997'),(4,'Bangkadi','Free',4,'Rangsit','No requested','AA-9996');
 /*!40000 ALTER TABLE `van` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'senior_project'
+--
+
+--
+-- Dumping routines for database 'senior_project'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -166,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-04  3:58:16
+-- Dump completed on 2017-02-05 17:29:13
