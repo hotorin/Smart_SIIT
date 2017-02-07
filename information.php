@@ -355,16 +355,16 @@ desired effect
             </div>
 
             <div class="form-group">
-              <label style="margin-top:2%">Request By</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:2%">Request By</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" disabled>
               <br>
-              <label style="margin-top:10px">Date</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:10px">Date</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['date']; ?>" disabled>
               <br>
-              <label style="margin-top:10px">From</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:10px">From</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['from']; ?> disabled>
               <br>
-              <label style="margin-top:10px">To</label> : <input type="text" class="form-control pull-right" disabled>
+              <label style="margin-top:10px">To</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['to']; ?> disabled>
               <br>
               <label style="margin-top:10px">Description</label> :
-              <textarea class="form-control" rows="5" placeholder="Want to use for ...." disabled></textarea>
+              <textarea class="form-control" rows="5" placeholder="<?php echo $_POST['description']; ?>" disabled></textarea>
             </div>
           </div>
         </div>
@@ -374,29 +374,47 @@ desired effect
               <i class="fa fa-file"></i>
                 <h3 class="box-title">Assign Menu</h3>
             </div>
-            <label style="margin-top:2%">Assign To Van Number</label>
-            <select class="form-control">
-              <option>Van Number 1</option>
-              <option>Van Number 2</option>
-              <option>Van Number 3</option>
-              <option>Van Number 4</option>
-            </select>
-            <label style="margin-top:10px">Assign By</label> :
-              <input type="text" class="form-control pull-right"><br>
+
+            <form action="confirm.php" method='post' id="confirm_form">
+              <input type="hidden" name="mode" value=5>
+              <input type="hidden" name="request_number" value=<?php echo $_POST['request_no']; ?>>
+              <input type="hidden" name="assign_by" value=<?php echo $_SESSION['user_no']; ?>>
+              <label style="margin-top:2%">Assign To Van Number</label>
+              <select class="form-control" name="assign_to">
+                <option selected disabled>Please Select The Van to assign the work</option>
+                <?php
+                  $q = "SELECT * FROM van";
+                  $res = $db -> query($q);
+                  while($row = $res -> fetch_array()){
+                ?>
+                  <option value=<?php echo $row['van_no']; ?>>Van Number <?php echo $row['van_no']; ?></option>
+                <?php
+                  }
+                ?>
+              </select>
+              <label style="margin-top:10px">Assign By</label> :
+              <input type="text" class="form-control pull-right" value="<?php echo $_SESSION['user_no']; ?>" disabled><br>
+            </form>
+
             <label style="margin-top:10px">Description</label> :
             <div style="padding-bottom:20px">
-              <textarea class="form-control" rows="10" placeholder="Please Type your comment if have..."></textarea>
+              <textarea class="form-control" name="comment" rows="10" placeholder="Please Type your comment if have..." form="confirm_form"></textarea>
             </div>
             <div class="col-md-6">
-              <button type="submit" class="btn btn-block btn-primary">
+              <button type="submit" class="btn btn-block btn-primary" form="confirm_form">
                 Confirm Request
               </button>
             </div>
 
             <div class="col-md-6">
-              <button type="submit" class="btn btn-block btn-danger">
-                Decline request
-              </button>
+              <form action="confirm.php" method='post' id="delete_form">
+                <input type="hidden" name="mode" value=6>
+                <input type="hidden" name="request_number" value=<?php echo $_POST['request_no']; ?>>
+                <input type="hidden" name="assign_by" value=<?php echo $_SESSION['user_no']; ?>>
+                <button type="submit" class="btn btn-block btn-danger">
+                  Decline request
+                </button>
+              </form>
             </div>
 
           </div>

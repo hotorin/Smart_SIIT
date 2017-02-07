@@ -363,7 +363,7 @@ desired effect
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <form action="vanSystem.php?mode=0&v=1" method="post" id="date_add">
+                  <form action="vanSystem.php?mode=0&v=<?php echo $_GET['v']; ?>" method="post" id="date_add">
                     <input type="text" name="date_pick" class="form-control pull-right" id="datepicker">
                   </form>
               </div>
@@ -376,7 +376,7 @@ desired effect
             echo "This is the schedule at : ".$_POST['date_pick'];
           }
           else{
-            echo "This is the schedule at : ".date("m/d/Y");
+            echo "This is the schedule at : ".date("Y-m-d");
           }
           ?>
         <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
@@ -396,7 +396,55 @@ desired effect
             ?>
         </tr>
         <?php
+
+        $time_start = array();
+        $time_end = array();
+        $request_description = array();
+        $request_by = array();
+        $count = 0;
+
+        if(isset($_POST['date_pick'])){
+          $q = "SELECT * FROM request, member WHERE request_date = '".$_POST['date_pick']."' AND
+                                                    request_assign = ".$_GET['v']." AND
+                                                    request.request_by = member.member_id
+                                                    ;";
+        }
+        else{
+          $q = "SELECT * FROM request, member WHERE request_date = '".date("Y-m-d")."' AND
+                                                    request_assign = ".$_GET['v']." AND
+                                                    request.request_by = member.member_id
+                                                    ;";
+        }
+        $res = $db -> query($q);
+        while($row = $res -> fetch_array()){
+          $split1 = explode(':', $row['request_from'], 2);
+          if($split1[0][0] == "0"){
+            $split1_1 = explode('0', $split1[0], 2);
+            $split2 = $split1_1[1];
+          }
+          else{
+            $split2 = $split1[0];
+          }
+          array_push($time_start, (int)$split2);
+
+          $split1 = explode(':', $row['request_to'], 2);
+          if($split1[0][0] == "0"){
+            $split1_1 = explode('0', $split1[0], 2);
+            $split2 = $split1_1[1];
+          }
+          else{
+            $split2 = $split1[0];
+          }
+          array_push($time_end, (int)$split2);
+          array_push($request_description, $row['request_description']);
+          array_push($request_by, $row['full_name']);
+        }
+
+        ?>
+
+        <?php
         for($x = 0 ; $x < 3 ; $x++){
+          $count = 0;
           switch ($x) {
             case 0;
               $txt_title = "Status";
@@ -408,22 +456,75 @@ desired effect
               $txt_title = "Description";
               break;
           }
+
         ?>
         <tr style="height:40px;">
           <td style="text-align:center;"><?php echo $txt_title; ?></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
-          <td style="text-align:center;"></td>
+          <?php
+          for($row_num = 6 ; $row_num < 19 ; $row_num++){
+            switch ($row_num) {
+              case ($row_num < 10):
+                if(isset($time_start[$count]) && $time_start[$count] <= $row_num && $time_end[$count] != $row_num){
+                  echo '<td bgcolor="yellow" style="text-align:center;">';
+                  switch($x){
+                    case 0;
+                      echo "Reserved";
+                      break;
+                    case 1:
+                      echo $request_by[$count];
+                      break;
+                    case 2:
+                      echo $request_description[$count];
+                      break;
+                  }
+                  echo '</td>';
+                }else{
+                  echo '<td style="text-align:center;">';
+                  echo '</td>';
+                }
+                break;
+              case ($row_num >= 10):
+                if(isset($time_start[$count]) && $time_start[$count] <= $row_num && $time_end[$count] != $row_num-1 && $time_end[$count] > $row_num-1){
+                  echo '<td bgcolor="yellow" style="text-align:center;">';
+                  switch($x){
+                    case 0;
+                      echo "Reserved";
+                      break;
+                    case 1:
+                      echo $request_by[$count];
+                      break;
+                    case 2:
+                      echo $request_description[$count];
+                      break;
+                  }
+                  echo '</td>';
+                }else{
+                  if(isset($time_start[$count+1])){
+                    $count++;
+                  }
+                  if(isset($time_start[$count]) && $time_start[$count] == $row_num){
+                    echo '<td bgcolor="yellow" style="text-align:center;">';
+                    switch($x){
+                      case 0;
+                        echo "Reserved";
+                        break;
+                      case 1:
+                        echo $request_by[$count];
+                        break;
+                      case 2:
+                        echo $request_description[$count];
+                        break;
+                    }
+                    echo '</td>';
+                  }else{
+                    echo '<td style="text-align:center;">';
+                    echo '</td>';
+                  }
+                }
+                break;
+            }
+          }
+          ?>
         </tr>
       <?php
       }
@@ -590,8 +691,10 @@ desired effect
          });
        });
        $('#datepicker').datepicker({
+         format: 'yyyy-mm-dd',
          autoclose: true
        });
+
      </script>
 </body>
 </html>

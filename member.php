@@ -367,6 +367,8 @@ desired effect
             <th style="text-align:center;width:30%;">Request Location</th>
             <th style="text-align:center;width:30%;">Status</th>
             <th style="text-align:center;width:30%;">Date</th>
+            <th style="text-align:center;width:30%;">From</th>
+            <th style="text-align:center;width:30%;">To</th>
             <th style="text-align:center;width:30%;">Cancel</th>
           </tr>
         </thead>
@@ -381,7 +383,17 @@ desired effect
           <th style="text-align:center;width:30%;"><?php echo $row['request_to_place']; ?></th>
           <th style="text-align:center;width:30%;"><?php echo $row['request_approve']; ?></th>
           <th style="text-align:center;width:30%;"><?php echo $row['request_date']; ?></th>
-          <th style="text-align:center;width:30%;">Cancel</th>
+          <th style="text-align:center;width:30%;"><?php echo substr($row['request_from'], 0, 5); ?></th>
+          <th style="text-align:center;width:30%;"><?php echo substr($row['request_to'], 0, 5); ?></th>
+          <th style="text-align:center;width:30%;">
+            <form action="confirm.php" method="post">
+              <input type="hidden" name="mode" value=7 >
+              <input type="hidden" name="request_number" value=<?php echo $row['request_no']; ?>>
+              <button type="submit" class="btn btn-block btn-danger">
+                Cancel
+              </button>
+            </form>
+          </th>
         </tr>
         <?php
           }
@@ -407,53 +419,66 @@ desired effect
       <div class="box box-danger">
         <div class="box-body">
           <div class="box-body">
-            <!-- Date -->
-            <div class="form-group">
-              <label>Date:</label>
 
-              <div class="input-group date">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="datepicker">
-              </div>
-              <!-- /.input group -->
-            </div>
+            <form action="confirm.php" method="post" id="request_form">
+              <input type="hidden" name="mode" value=4>
+              <input type="hidden" name="request_by" value=<?php echo $_SESSION['user_no']; ?>>
+              <!-- Date -->
+              <div class="form-group">
+                <label>Date:</label>
 
-          <!-- /.form group -->
-          <div class="bootstrap-timepicker">
-            <div class="form-group">
-              <label>From</label>
-              <div class="input-group" style="margin-bottom:10px;">
-                <input type="text" class="form-control timepicker">
-                <div class="input-group-addon">
-                  <i class="fa fa-clock-o"></i>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="date_select" class="form-control pull-right" id="datepicker">
                 </div>
+                <!-- /.input group -->
               </div>
-              <!-- /.input group -->
-            </div>
+
             <!-- /.form group -->
-          </div>
-
-          <div class="bootstrap-timepicker">
-            <div class="form-group">
-              <label>To</label>
-              <div class="input-group" style="margin-bottom:10px;">
-                <input type="text" class="form-control timepicker">
-                <div class="input-group-addon">
-                  <i class="fa fa-clock-o"></i>
+            <div class="bootstrap-timepicker">
+              <div class="form-group">
+                <label>From</label>
+                <div class="input-group" style="margin-bottom:10px;">
+                  <input type="text" name="from_time" class="form-control timepicker">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
                 </div>
+                <!-- /.input group -->
               </div>
-              <!-- /.input group -->
+              <!-- /.form group -->
             </div>
-            <!-- /.form group -->
-          </div>
 
-          <!-- textarea -->
-          <div class="form-group">
-            <label>Description</label>
-            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-          </div>
+            <div class="bootstrap-timepicker">
+              <div class="form-group">
+                <label>To</label>
+                <div class="input-group" style="margin-bottom:10px;">
+                  <input type="text" name="to_time" class="form-control timepicker">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+            </div>
+            <!-- Textarea -->
+            <div class="form-group">
+              <label>Place to go :</label>
+              <input type="text" name="destination" class="form-control" placeholder="Please Enter Destination"></input>
+            </div>
+        </form>
+            <!-- textarea -->
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" name="description" rows="3" placeholder="Enter ..." form="request_form"></textarea>
+            </div>
+            <div  class="col-md-3"></div>
+            <div  class="col-md-6">
+              <button type="submit" class="btn btn-block btn-primary" form="request_form">Submit</button>
+            </div>
 
         </div>
     </section>
@@ -476,30 +501,40 @@ desired effect
         <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center"><!-- style="width:100%;margin-top:20px;" align="center" > -->
           <thead>
           <tr style="height:30px;">
-            <th style="text-align:center;width:18%;">Request Title</th>
+            <th style="text-align:center;width:18%;">Location</th>
             <th style="text-align:center;width:18%;">Applicant</th>
-            <th style="text-align:center;width:10%;">Time</th>
-            <th style="text-align:center;width:18%;">Date</th>
-            <th style="text-align:center;width:18%;">Assign</th>
+            <th style="text-align:center;width:10%;">Date</th>
+            <th style="text-align:center;width:18%;">Time</th>
+            <th style="text-align:center;width:18%;">Status</th>
+            <th style="text-align:center;width:18%;">More Information</th>
           </tr>
         </thead>
         <tbody>
         <?php
-          for ($x = 1; $x <= 12; $x++) {
+          $q = "SELECT * FROM request, member WHERE request.request_by = member.member_id AND request_approve = 'Waiting' ORDER BY request_date DESC;";
+          $res = $db -> query($q);
+          while($row = $res -> fetch_array()){
         ?>
-            <tr style="height:30px;">
-              <th style="text-align:center;width:18%;"></th>
-              <th style="text-align:center;width:18%;"></th>
-              <th style="text-align:center;width:10%;"></th>
-              <th style="text-align:center;width:18%;"></th>
-              <th style="text-align:center;width:18%;">
-                <form action="information.php">
-                  <button type="submit" class="btn btn-block btn-primary">
-                    More Information
-                  </button>
-                </form>
-              </th>
-            </tr>
+        <tr style="height:30px;">
+          <th style="text-align:center;width:18%;"><?php echo $row['request_to_place']; ?></th>
+          <th style="text-align:center;width:18%;"><?php echo $row['full_name']; ?></th>
+          <th style="text-align:center;width:10%;"><?php echo $row['request_date']; ?></th>
+          <th style="text-align:center;width:18%;"><?php echo $row['request_from']; ?> - <?php echo $row['request_to']; ?></th>
+          <th style="text-align:center;width:18%;"><?php echo $row['request_approve']; ?></th>
+          <th style="text-align:center;width:10%;">
+            <form action="information.php" method='post'>
+              <input type="hidden" name="request_no" value=<?php echo $row['request_no']; ?> >
+              <input type="hidden" name="full_name" value="<?php echo $row['full_name']; ?>" >
+              <input type="hidden" name="date" value=<?php echo $row['request_date']; ?> >
+              <input type="hidden" name="from" value=<?php echo $row['request_from']; ?> >
+              <input type="hidden" name="to" value=<?php echo $row['request_to']; ?> >
+              <input type="hidden" name="description" value="<?php echo $row['request_description']; ?>" >
+              <button type="submit" class="btn btn-block btn-primary">
+                More Information
+              </button>
+            </form>
+          </th>
+        </tr>
         <?php
           }
         ?>
@@ -583,7 +618,10 @@ desired effect
          $(".my-colorpicker2").colorpicker();
          //Timepicker
          $(".timepicker").timepicker({
-           stepping: 30,
+           minuteStep: 60,
+           defaultTime: '06:00',
+           use24hours: true,
+           showMeridian: false,
            showInputs: false
          });
 
@@ -592,13 +630,14 @@ desired effect
            "paging": true,
            "lengthChange": false,
            "searching": false,
-           "ordering": true,
+           "ordering": false,
            "info": true,
            "autoWidth": false
          });
        });
        //Date picker
     $('#datepicker').datepicker({
+      format: 'yyyy-mm-dd',
       autoclose: true
     });
      </script>

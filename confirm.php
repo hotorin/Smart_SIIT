@@ -143,9 +143,15 @@ session_start();
            ";
     }
     else{
-      $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'",
-                                            equipment_assign ='.$_POST['assign_name'].'
-                          WHERE   equipment_ID ='.$_POST['id_equip'].';';
+      if(isset($_POST['assign_name'])){
+        $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'",
+                                              equipment_assign ='.$_POST['assign_name'].'
+                            WHERE   equipment_ID ='.$_POST['id_equip'].';';
+      }
+      else{
+        $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'"
+                            WHERE   equipment_ID ='.$_POST['id_equip'].';';
+      }
       $res = $db -> query($q);
     }
 ?>
@@ -158,11 +164,89 @@ session_start();
 
 <?php
   }
+  else if($_POST['mode'] == 4){
+    $q = 'INSERT INTO request (request_date, request_from, request_to, request_to_place, request_description, request_by)
+                              VALUES ("'.$_POST['date_select'].'",
+                                      "'.$_POST['from_time'].'",
+                                      "'.$_POST['to_time'].'",
+                                      "'.$_POST['destination'].'",
+                                      "'.$_POST['description'].'",
+                                      '.$_POST['request_by'].');';
+    $res = $db -> query($q);
+?>
+<script type='text/javascript'>
+  alert('Your have request the Van complete, Please see the history for the status!!');
+</script>
+<script type='text/javascript'>
+  window.location = 'member.php?mode=0';
+</script>
+<?php
+  }
+  else if($_POST['mode'] == 5){
+    if(isset($_POST['assign_to'])){
+      $q = 'UPDATE request SET      request_assign ='.$_POST['assign_to'].',
+                                    request_assign_by ='.$_POST['assign_by'].',
+                                    request_approve ="Accepted",
+                                    request_comment ="'.$_POST['comment'].'"
+                          WHERE   request_no ='.$_POST['request_number'].';';
+      $res = $db -> query($q);
+    }
+    else{
+?>
+      <script type='text/javascript'>
+        alert("You can't confirm because you didn't choose the Van to assign!");
+      </script>
+      <script type='text/javascript'>
+        window.location = 'member.php?mode=2';
+      </script>
+<?php
+    }
+?>
+<script type='text/javascript'>
+  alert("You assign work success!");
+</script>
+<script type='text/javascript'>
+  window.location = 'member.php?mode=2';
+</script>
+
+<?php
+  }
+  else if($_POST['mode'] == 6){
+    $q = 'UPDATE request SET      request_assign_by ='.$_POST['assign_by'].',
+                                  request_approve ="Decline",
+                                  request_comment ="Please, contact ground division for more information"
+                         WHERE    request_no ='.$_POST['request_number'].';';
+    $res = $db -> query($q);
+?>
+<script type='text/javascript'>
+  alert("You decline success!");
+</script>
+<script type='text/javascript'>
+  window.location = 'member.php?mode=2';
+</script>
+<?php
+  }
+  else if($_POST['mode'] == 7){
+    $q = "DELETE FROM request where request_no = ".$_POST['request_number'].";";
+    if(!$db->query($q)){
+      echo "DELETE failed. Error: ".$mysqli->error ;
+    }
+    $db->close();
+?>
+<script type='text/javascript'>
+  alert("You Cancel This Order!!");
+</script>
+<script type='text/javascript'>
+  window.location = 'member.php?mode=0';
+</script>
+<?php
+  }
 ?>
 
-  <script type='text/javascript'>
-    alert('The User number <?php echo $_POST['member_no'];?> has been modified!');
-  </script>
-  <script type='text/javascript'>
-    window.location = 'admin.php?mode=1';
-  </script>
+
+<script type='text/javascript'>
+  alert('The User number <?php echo $_POST['member_no'];?> has been modified!');
+</script>
+<script type='text/javascript'>
+  window.location = 'admin.php?mode=1';
+</script>

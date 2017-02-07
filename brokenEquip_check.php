@@ -407,6 +407,7 @@ desired effect
                     <input type="hidden" name="mode" value=3 >
                     <input type="hidden" name="id_equip" value=<?php echo $_POST['equipment_no']; ?> >
                     <select class="form-control" name="status_change">
+                      <option selected disabled>Please Select Status</option>
                       <option value="Waiting">Waiting</option>
                       <option value="In_Progress">In Progress</option>
                       <option value="Out_Source">Out Source</option>
@@ -420,15 +421,15 @@ desired effect
                   <td style="text-align:center;width:20%;padding-top:14px">Assign To : </td>
                   <td style="text-align:center;text-align:center">
                     <center>
-                    <select class="form-control" name="assign_name" style="width:50%;text-align:center">
-                      <option disabled>Please select techician</option>
+                    <select class="form-control" name="assign_name" style="width:60%;text-align:center">
+                      <option selected disabled>Please Select Technician</option>
                       <?php
                       $q = 'SELECT * FROM member WHERE member_tier = "Technician";';
                       $res = $db -> query($q);
                       while($row = $res -> fetch_array()){
                         if($row['full_name'] == $_POST['driver_name']){
                       ?>
-                        <option selected value="<?php echo $row['member_id']; ?>"><?php echo $row['full_name'];?></option>
+                        <option value="<?php echo $row['member_id']; ?>"><?php echo $row['full_name'];?></option>
                       <?php
                         }
                         else{
