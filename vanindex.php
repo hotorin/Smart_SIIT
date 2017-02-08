@@ -14,6 +14,7 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
+  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css"> <!-- DataTables -->
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -71,14 +72,14 @@ session_start();
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
               <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - Ground Division Member
-                  <small>Member since Nov. 2012</small>
+                  <?php echo $_SESSION['fname']; ?> - Ground Division Member
+
                 </p>
               </li>
 
@@ -135,10 +136,17 @@ session_start();
               </li>
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-6 text-center">
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=0">History</a>
                   </div>
-                  <div class="col-xs-6 text-center">
+                  <?php
+                    if($_SESSION['tier'] == 'Driver'){
+                      echo '<div class="col-xs-4 text-center">';
+                      echo '<a href="member.php?mode=3">Report</a>';
+                      echo '</div>';
+                    }
+                  ?>
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=1">Request</a>
                   </div>
                 </div>
@@ -324,10 +332,29 @@ session_start();
             <div class="box-header">
               <h4 style="margin-bottom:20px">Today Plan</h4>
             </div>
-            -Database 1<br>
-            -Database 2<br>
-            -Database 3<br>
-            -Database 4
+            <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
+                <thead>
+                  <tr style="height:25px;">
+                    <td style="text-align:center;width:10%;">Time</td>
+                    <td style="text-align:center;width:90%;">Destination</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                    $q1 = 'SELECT * FROM request WHERE   request_assign = '.$row['van_no'].'
+                                                    AND request_date = "'.date("Y-m-d").'" ;';
+                    $res1 = $db -> query($q1);
+                    while($row1 = $res1 -> fetch_array()){
+                  ?>
+                    <tr style="height:25px;">
+                      <td style="text-align:center;width:10%;"><?php echo substr($row1['request_from'],0,5); ?></td>
+                      <td style="text-align:center;width:90%;"><?php echo $row1['request_to_place']; ?></td>
+                    </tr>
+                  <?php
+                    }
+                  ?>
+                </tbody>
+            </table>
             </div>
           </div>
           <?php
@@ -490,7 +517,23 @@ session_start();
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false
+    });
+  });
 
+</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

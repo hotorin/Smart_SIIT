@@ -102,14 +102,14 @@ desired effect
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
               <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - Ground Division Member
-                  <small>Member since Nov. 2012</small>
+                  <?php echo $_SESSION['fname']; ?> - Ground Division Member
+
                 </p>
               </li>
 
@@ -154,23 +154,30 @@ desired effect
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
               <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - SIIT Student
+                  <?php echo $_SESSION['fname']; ?> - SIIT Student
                   <small>Member since Nov. 2015</small>
                 </p>
               </li>
 
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-6 text-center">
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=0">History</a>
                   </div>
-                  <div class="col-xs-6 text-center">
+                  <?php
+                    if($_SESSION['tier'] == 'Driver'){
+                      echo '<div class="col-xs-4 text-center">';
+                      echo '<a href="member.php?mode=3">Report</a>';
+                      echo '</div>';
+                    }
+                  ?>
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=1">Request</a>
                   </div>
                 </div>
@@ -232,7 +239,7 @@ desired effect
           <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Name Surname</p>
+          <p><?php echo $_SESSION['fname']; ?></p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -544,6 +551,86 @@ desired effect
     </section>
     <?php
       }
+      else if($_GET['mode'] == 3){
+    ?>
+
+
+
+
+
+        <section class="content-header">
+          <h1>
+            Driver Report Form
+            <small>- Please insert all of the information</small>
+          </h1>
+        </section>
+
+        <section class="content">
+          <div class="box box-danger">
+            <div class="box-body">
+              <div class="box-body">
+
+                <form action="confirm.php" method="post" id="driver_form">
+                  <input type="hidden" name="mode" value=8>
+                  <input type="hidden" name="confirm_by" value=<?php echo $_SESSION['user_no']; ?>>
+                  <input type="hidden" name="data_date" value=<?php echo date("Y-m-d"); ?>>
+                  <!-- Date -->
+                  <div class="form-group">
+                    <label>Distance that use (Miles)</label>
+                    <input type="number" name="distance" class="form-control" placeholder="Please Enter Miles that use"  title="Please insert number only" required=""></input>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Passenger</label>
+                    <input type="number" name="passenger" class="form-control" placeholder="Please Enter number of passenger"  title="Please insert number only" required=""></input>
+                  </div>
+
+                  <div class="form-group">
+                    <label>From (Place) </label>
+                    <input type="text" name="place_from" class="form-control" placeholder="Please Enter Name of Place" required="" title="Please fill in this box before confirm"></input>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Place to go</label>
+                    <input type="text" name="place_to" class="form-control" placeholder="Please Enter Destination" required="" title="Please fill in this box before confirm"></input>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Request By (If have)</label>
+                    <input type="text" name="requester" class="form-control" placeholder="Please insert the name of requester"></input>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Status</label>
+                    <select class="form-control" name="status" required>
+                      <option value="" selected disabled>Please, select the status</option>
+                      <option value='Free'>Free</option>
+                      <option value='Working'>On Working</option>
+                    </select>
+                  </div>
+            </form>
+                <!-- textarea -->
+
+                <div  class="col-md-3"></div>
+                <div  class="col-md-6">
+                  <button type="submit" class="btn btn-block btn-primary" form="driver_form">Submit</button>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+    <?php
+      }
     ?>
     <?php
   }
@@ -573,10 +660,10 @@ desired effect
     <strong>Sirindhorn International Institute of Technology (SIIT)</strong>
   </footer>
 </div>
+
+
 <!-- ./wrapper -->
-
 <!-- REQUIRED JS SCRIPTS -->
-
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -601,13 +688,6 @@ desired effect
 <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.js"></script>
-
-
-<!-- Page script -->
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
      <script>
        $(function () {
          //Datemask dd/mm/yyyy
@@ -641,6 +721,5 @@ desired effect
       autoclose: true
     });
      </script>
-
 </body>
 </html>

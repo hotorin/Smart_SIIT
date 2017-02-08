@@ -107,7 +107,7 @@ desired effect
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   <?php echo $_SESSION['fname']; ?> - Ground Division Member
-                  <small>Member since Nov. 2012</small>
+
                 </p>
               </li>
 
@@ -165,10 +165,17 @@ desired effect
 
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-6 text-center">
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=0">History</a>
                   </div>
-                  <div class="col-xs-6 text-center">
+                  <?php
+                    if($_SESSION['tier'] == 'Driver'){
+                      echo '<div class="col-xs-4 text-center">';
+                      echo '<a href="member.php?mode=3">Report</a>';
+                      echo '</div>';
+                    }
+                  ?>
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=1">Request</a>
                   </div>
                 </div>

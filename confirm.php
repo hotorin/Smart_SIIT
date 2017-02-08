@@ -241,9 +241,45 @@ session_start();
 </script>
 <?php
   }
+  else if($_POST['mode'] == 8){
+
+    $q = 'SELECT * FROM member, driver, van WHERE    member.member_id= '.$_POST['confirm_by'].'
+                                          AND   driver.member_id = member.member_id
+                                          AND   van.driver_no = driver.driver_no;';
+
+    $res = $db -> query($q);
+    while($row = $res -> fetch_array()){
+      $van_confirm = $row['van_no'];
+      $driver_confirm = $row['driver_no'];
+    }
+    $q = 'INSERT INTO data_information (data_date, data_distance, data_passanger, data_from, data_to, driver_no, driver_van_num)
+                              VALUES ("'.$_POST['data_date'].'",
+                                      '.$_POST['distance'].',
+                                      '.$_POST['passenger'].',
+                                      "'.$_POST['place_from'].'",
+                                      "'.$_POST['place_to'].'",
+                                      '.$driver_confirm.',
+                                      '.$van_confirm.');';
+    $res = $db -> query($q);
+    if(isset($_POST['requester'])){
+      $q = 'UPDATE van SET          status ="'.$_POST['status'].'",
+                                    request_by = "'.$_POST['requester'].'"
+                           WHERE    van_no ='.$van_confirm.';';
+    }else{
+      $q = 'UPDATE van SET          status ="'.$_POST['status'].'"
+                           WHERE    van_no ='.$van_confirm.';';
+    }
+    $res = $db -> query($q);
 ?>
-
-
+<script type='text/javascript'>
+  alert("ํThank you for submit your report!");
+</script>
+<script type='text/javascript'>
+  window.location = '.';
+</script>
+<?php
+  }
+?>
 <script type='text/javascript'>
   alert('The User number <?php echo $_POST['member_no'];?> has been modified!');
 </script>

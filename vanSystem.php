@@ -101,14 +101,14 @@ desired effect
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
               <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - Ground Division Member
-                  <small>Member since Nov. 2012</small>
+                  <?php echo $_SESSION['fname']; ?> - Ground Division Member
+
                 </p>
               </li>
 
@@ -153,23 +153,30 @@ desired effect
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
               <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
-              <span class="hidden-xs">Name Surname</span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  Name Surname - SIIT Student
+                  <?php echo $_SESSION['fname']; ?> - SIIT Student
                   <small>Member since Nov. 2015</small>
                 </p>
               </li>
 
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-6 text-center">
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=0">History</a>
                   </div>
-                  <div class="col-xs-6 text-center">
+                  <?php
+                    if($_SESSION['tier'] == 'Driver'){
+                      echo '<div class="col-xs-4 text-center">';
+                      echo '<a href="member.php?mode=3">Report</a>';
+                      echo '</div>';
+                    }
+                  ?>
+                  <div class="col-xs-4 text-center">
                     <a href="member.php?mode=1">Request</a>
                   </div>
                 </div>
@@ -231,7 +238,7 @@ desired effect
           <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Name Surname</p>
+          <p><?php echo $_SESSION['fname']; ?></p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -407,12 +414,14 @@ desired effect
           $q = "SELECT * FROM request, member WHERE request_date = '".$_POST['date_pick']."' AND
                                                     request_assign = ".$_GET['v']." AND
                                                     request.request_by = member.member_id
+                                              ORDER BY request_from
                                                     ;";
         }
         else{
           $q = "SELECT * FROM request, member WHERE request_date = '".date("Y-m-d")."' AND
                                                     request_assign = ".$_GET['v']." AND
                                                     request.request_by = member.member_id
+                                              ORDER BY request_from
                                                     ;";
         }
         $res = $db -> query($q);
@@ -615,20 +624,22 @@ desired effect
                   </tr>
                 </thead>
                 <tbody>
-                <?php
-                  for ($x = 0; $x < 30; $x++) {
-                ?>
-                  <tr style="height:25px;">
-                    <td style="text-align:center;width:10%;"><?php echo $x+1; ?>/10/2016</td>
-                    <td style="text-align:center;width:10%;"><?php echo rand(200, 210); ?> Km</td>
-                    <td style="text-align:center;width:10%;"><?php echo rand(1, 15); ?></td>
-                    <td style="text-align:center;width:10%;">Rangsit/Bangkadi</td>
-                    <td style="text-align:center;width:10%;">Rangsit/Bangkadi</td>
-                    <td style="text-align:center;width:10%;">Database</td>
-                  </tr>
-                <?php
-                  }
-                ?>
+                  <?php
+                    $q = 'SELECT * FROM data_information WHERE driver_van_num = '.$_GET['v'].';';
+                    $res = $db -> query($q);
+                    while($row = $res -> fetch_array()){
+                  ?>
+                      <tr style="height:25px;">
+                        <td style="text-align:center;width:10%;"><?php echo $row['data_date']; ?></td>
+                        <td style="text-align:center;width:10%;"><?php echo $row['data_distance']; ?></td>
+                        <td style="text-align:center;width:10%;"><?php echo $row['data_passanger']; ?></td>
+                        <td style="text-align:center;width:10%;"><?php echo $row['data_from']; ?></td>
+                        <td style="text-align:center;width:10%;"><?php echo $row['data_to']; ?></td>
+                        <td style="text-align:center;width:10%;"><?php echo $row['driver_no']; ?></td>
+                      </tr>
+                  <?php
+                    }
+                 ?>
                 </tbody>
               </table>
             </div>
@@ -685,7 +696,7 @@ desired effect
            "paging": true,
            "lengthChange": false,
            "searching": false,
-           "ordering": true,
+           "ordering": false,
            "info": true,
            "autoWidth": false
          });

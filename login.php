@@ -35,7 +35,7 @@
 
     <form action="loginCheck.php" method="post" style="margin-bottom:20px;">
       <div class="form-group has-feedback">
-        <input type="username" name="username" class="form-control" placeholder="Username" required="required" pattern="[A-Za-z0-9]{1,20}">
+        <input type="username" name="username" class="form-control" placeholder="Username" required="required" pattern="[A-Za-z0-9_]{1,20}">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
