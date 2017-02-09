@@ -127,13 +127,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
-                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
-                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
-                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
-                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
+                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
+                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
+                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                   </form>
                 </div>
 
@@ -183,13 +185,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
-                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
-                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
-                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
-                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
+                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
+                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
+                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                   </form>
                 </div>
 
@@ -441,8 +445,22 @@ desired effect
         }else if($_GET['mode'] == 1){
       ?>
 
-        <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px;padding-bottom:60px">
-          <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:40px" align="center">
+        <div class="box" style="paddin-top:30px;padding-bottom:30px;padding-left:30px;padding-right:30px;padding-bottom:20px">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-5" style="margin-top:20px">
+            <div class="input-group date">
+                <div class="input-group-addon">
+                  <label>Search by user name</label>
+                </div>
+                <form action="admin.php?mode=1" method="post" id="search_user">
+                  <input type="text" name="user_search" class="form-control pull-right" placeholder="Please enter username">
+                </form>
+                <form action="admin.php?mode=1" method="post" id="reset_search"></form>
+            </div>
+          </div>
+          <button style="margin-top:20px" type="submit" class="btn btn-primary" form="search_user">Submit</button>
+          <button style="margin-top:20px" type="submit" class="btn btn-danger" form="reset_search">Reset</button>
+          <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:20px" align="center">
             <thead>
               <tr>
                 <td style="text-align:center;width:10%">User ID</td>
@@ -454,7 +472,11 @@ desired effect
               </tr>
             </thead>
             <?php
-              $q = 'SELECT * FROM member';
+              if(isset($_POST['user_search'])){
+                $q = 'SELECT * FROM member WHERE username = "'.$_POST['user_search'].'";';
+              }else{
+                $q = 'SELECT * FROM member';
+              }
               $res = $db -> query($q);
               while($row = $res -> fetch_array()){
             ?>

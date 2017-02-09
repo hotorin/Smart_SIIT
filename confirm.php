@@ -263,16 +263,36 @@ session_start();
     $res = $db -> query($q);
     if(isset($_POST['requester'])){
       $q = 'UPDATE van SET          status ="'.$_POST['status'].'",
+                                    location ="'.$_POST['current_locate'].'",
                                     request_by = "'.$_POST['requester'].'"
                            WHERE    van_no ='.$van_confirm.';';
     }else{
-      $q = 'UPDATE van SET          status ="'.$_POST['status'].'"
+      $q = 'UPDATE van SET          status ="'.$_POST['status'].'",
+                                    location ="'.$_POST['current_locate'].'"
                            WHERE    van_no ='.$van_confirm.';';
     }
     $res = $db -> query($q);
 ?>
 <script type='text/javascript'>
   alert("ํThank you for submit your report!");
+</script>
+<script type='text/javascript'>
+  window.location = '.';
+</script>
+<?php
+  }
+  else if($_POST['mode'] == 9){
+    $q = 'UPDATE member SET       full_name ="'.$_POST['f_name'].'",
+                                  username = "'.$_POST['u_name'].'",
+                                  email ="'.$_POST['e_mail'].'"
+                         WHERE    member_id ='.$_POST['u_num'].';';
+    $res = $db -> query($q);
+    $_SESSION['fname'] = $_POST['f_name'];
+    $_SESSION['user_name'] = $_POST['u_name'];
+    $_SESSION['e_mail'] = $_POST['e_mail'];
+?>
+<script type='text/javascript'>
+  alert('Your Profile has been change!');
 </script>
 <script type='text/javascript'>
   window.location = '.';

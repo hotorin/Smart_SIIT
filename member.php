@@ -131,13 +131,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
-                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
-                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
-                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
-                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
+                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
+                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
+                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                   </form>
                 </div>
 
@@ -187,13 +189,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
-                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
-                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
-                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
-                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
+                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
+                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
+                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                   </form>
                 </div>
 
@@ -598,6 +602,11 @@ desired effect
                   <div class="form-group">
                     <label>Request By (If have)</label>
                     <input type="text" name="requester" class="form-control" placeholder="Please insert the name of requester"></input>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Current Location (Must Insert)</label>
+                    <input type="text" name="current_locate" class="form-control" placeholder="Please insert the current locaton" required=""></input>
                   </div>
 
                   <div class="form-group">

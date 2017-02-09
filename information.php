@@ -128,9 +128,11 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
                       <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
                       <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
                       <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
@@ -184,9 +186,11 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
                       <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
                       <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
                       <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
@@ -366,9 +370,9 @@ desired effect
               <br>
               <label style="margin-top:10px">Date</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['date']; ?>" disabled>
               <br>
-              <label style="margin-top:10px">From</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['from']; ?> disabled>
+              <label style="margin-top:10px">From</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($_POST['from'],0,5); ?> disabled>
               <br>
-              <label style="margin-top:10px">To</label> : <input type="text" class="form-control pull-right" value=<?php echo $_POST['to']; ?> disabled>
+              <label style="margin-top:10px">To</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($_POST['to'],0,5); ?> disabled>
               <br>
               <label style="margin-top:10px">Description</label> :
               <textarea class="form-control" rows="5" placeholder="<?php echo $_POST['description']; ?>" disabled></textarea>
@@ -399,7 +403,7 @@ desired effect
                   }
                 ?>
               </select>
-              <label style="margin-top:10px">Assign By</label> :
+              <label style="margin-top:10px">Assign By (Member Number)</label> :
               <input type="text" class="form-control pull-right" value="<?php echo $_SESSION['user_no']; ?>" disabled><br>
             </form>
 

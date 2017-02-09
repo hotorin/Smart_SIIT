@@ -129,13 +129,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
-                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
-                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
-                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
-                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
+                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
+                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
+                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                   </form>
                 </div>
 
@@ -185,13 +187,15 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <form action="profile.php" method="post">
+                  <form action="profile.php?mode=2" method="post">
                     <input type="submit" class="btn btn-default btn-flat" value="Profile" />
-                      <input type="hidden" name="full_name" value=<?php echo $_SESSION['fname']; ?> >
-                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
-                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
-                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
-                      <input type="hidden" name="user_tier" value=<?php echo $_SESSION['tier']; ?> >
+                    <input type="hidden" name="mode" value=2>
+                      <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
+                      <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
+                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
+                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
+                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                   </form>
                 </div>
 
@@ -518,6 +522,67 @@ desired effect
                   </select>
                 <label style="margin-top:10px">License Plate</label> :
                   <input type="text" name="license_change" class="form-control pull-right" value=<?php echo $_POST['license_plate']; ?>><br>
+              </form>
+            </div>
+            <div style="margin-top:5%">
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-block btn-primary" form="form_van">
+                  Confirm Change
+                </button>
+              </div>
+
+              <div class="col-md-6">
+                <form action="admin.php" method="get">
+                  <input type="hidden" name="mode" value=0>
+                  <button type="submit" class="btn btn-block btn-danger">
+                    Back
+                  </button>
+                </form>
+              </div>
+          </div>
+        </div>
+
+        <?php
+      }
+      else if($_POST['mode'] == 2){
+        ?>
+
+        <div class="col-md-6">
+          <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
+            <div class="box-header with-border">
+              <i class="fa fa-file"></i>
+                <h3 class="box-title">Old Profile</h3>
+            </div>
+            <div class="form-group">
+              <label style="margin-top:10px">Full Name</label> :
+                <input type="text" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" disabled><br>
+              <label style="margin-top:2%">Username</label> :
+                <input type="text" class="form-control pull-right" value="<?php echo $_POST['username']; ?>" disabled><br>
+              <label style="margin-top:10px">E-mail</label> :
+                <input type="text" class="form-control pull-right" value="<?php echo $_POST['email']; ?>" disabled><br>
+              <label style="margin-top:10px">Your Position</label> :
+                <input type="text" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled><br>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box box-body" style="padding-bottom:30px">
+            <div class="box-header with-border">
+              <i class="fa fa-file"></i>
+                <h3 class="box-title">New Profile</h3>
+            </div>
+            <div class="form-group" style="padding-bottom:5%">
+              <form action="confirm.php" method="post" id="form_van">
+                <input type="hidden" name="mode" value=9>
+                <input type="hidden" name="u_num" value=<?php echo $_POST['user_num']; ?>>
+                <label style="margin-top:10px">Full Name</label> :
+                  <input type="text" name="f_name" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" ><br>
+                <label style="margin-top:2%">Username</label> :
+                  <input type="text" name="u_name" class="form-control pull-right" value="<?php echo $_POST['username']; ?>" ><br>
+                <label style="margin-top:10px">E-mail</label> :
+                  <input type="text" name="e_mail" class="form-control pull-right" value="<?php echo $_POST['email']; ?>" ><br>
+                <label style="margin-top:10px">Your Position</label> :
+                  <input type="text" name="u_tier" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled><br>
               </form>
             </div>
             <div style="margin-top:5%">
