@@ -15,7 +15,7 @@ session_start();
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Real Site Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+<meta name="keywords" content="Real Site Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
+		$(".scroll").click(function(event){
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
@@ -72,122 +72,122 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="login">
 						<input type="text" name="Ename" placeholder="Equipment's name" required="" pattern=".{3,30}" title="Three or more characters">
 						<input type="text" name="Campus" placeholder="Campus" required="">
-						<input type="text" name="Building" placeholder="Building" required=""> 
-						<input type="text" name="Room" placeholder="Room" required="" pattern=".{3,5}" title="Three to Five characters">												
+						<input type="text" name="Building" placeholder="Building" required="">
+						<input type="text" name="Room" placeholder="Room" required="" pattern=".{3,5}" title="Three to Five characters">
 						<input type="text" name="Description" placeholder="Description" required="">
 						<input type="text" name="Name" placeholder="Name" required="" pattern=".{2,50}" title="Please insert your true name">
 						<input type="text" name="Email" placeholder="Email" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please, insert your e-mail correctly">
 						<!--Upload photo -->
 						<script type="text/javascript">
- 
+
       function fileSelected() {
- 
+
         var count = document.getElementById('fileToUpload').files.length;
- 
+
               document.getElementById('details').innerHTML = "";
- 
+
               for (var index = 0; index < count; index ++)
- 
+
               {
- 
+
                      var file = document.getElementById('fileToUpload').files[index];
- 
+
                      var fileSize = 0;
- 
+
                      if (file.size > 1024 * 1024)
- 
+
                             fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
- 
+
                      else
- 
+
                             fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
- 
-                      
+
+
               }
- 
+
       }
- 
+
       function uploadFile() {
- 
+
         var fd = new FormData();
- 
+
               var count = document.getElementById('fileToUpload').files.length;
- 
+
               for (var index = 0; index < count; index ++)
- 
+
               {
- 
+
                      var file = document.getElementById('fileToUpload').files[index];
- 
+
                      fd.append(file.name, file);
- 
+
               }
- 
+
         var xhr = new XMLHttpRequest();
- 
+
         xhr.upload.addEventListener("progress", uploadProgress, false);
- 
+
         xhr.addEventListener("load", uploadComplete, false);
- 
+
         xhr.addEventListener("error", uploadFailed, false);
- 
+
         xhr.addEventListener("abort", uploadCanceled, false);
- 
+
         xhr.open("POST", "savetofile.aspx");
- 
+
         xhr.send(fd);
- 
+
       }
- 
+
       function uploadProgress(evt) {
- 
+
         if (evt.lengthComputable) {
- 
+
           var percentComplete = Math.round(evt.loaded * 100 / evt.total);
- 
+
           document.getElementById('progress').innerHTML = percentComplete.toString() + '%';
- 
+
         }
- 
+
         else {
- 
+
           document.getElementById('progress').innerHTML = 'unable to compute';
- 
+
         }
- 
+
       }
- 
+
       function uploadComplete(evt) {
- 
+
         /* This event is raised when the server send back a response */
- 
+
         alert(evt.target.responseText);
- 
+
       }
- 
+
       function uploadFailed(evt) {
- 
+
         alert("There was an error attempting to upload the file.");
- 
+
       }
- 
+
       function uploadCanceled(evt) {
- 
+
         alert("The upload has been canceled by the user or the browser dropped the connection.");
- 
+
       }
- 
+
     </script>
 
-  <form id="form1" enctype="multipart/form-data" method="post" action="Upload.aspx"> 
-    <div> 
-     <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="image/*" capture="camera" /> 
+  <form id="form1" enctype="multipart/form-data" method="post" action="Upload.aspx">
+    <div>
+     <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="image/*" capture="camera" />
     </div>
      <div id="details">
 	 </div>
     <div id="progress">
 	</div>
-   </form>		
+   </form>
    <input type="submit" value="Submit" >
 					</div>
 					</form>
@@ -213,16 +213,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<h1>
 									<a class="navbar-brand link link--yaku" href="index.html">SIIT BE REPORT</a>
 								</h1>
-								
+
 							</div>
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 								<nav class="cl-effect-1">
 									<ul class="nav navbar-nav ">
 										<li><a class="hvr-overline-from-center active" href="index.html">Home</a></li>
-										<li><a class="hvr-overline-from-center" href="about.html">About</a></li>
-										<li><a class="hvr-overline-from-center" href="gallery.html">Report</a></li>
-										<li><a class="hvr-overline-from-center" href="contact.html">Contact</a></li>
+										<li><a class="hvr-overline-from-center" href="about.php">About</a></li>
+										<li><a class="hvr-overline-from-center" href="report.php">Report</a></li>
 									</ul>
 								</nav>
 							</div><!-- /navbar-collapse -->
@@ -239,9 +238,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			containerID: 'toTop', // fading element id
 			containerHoverID: 'toTopHover', // fading element hover id
 			scrollSpeed: 1200,
-			easingType: 'linear' 
+			easingType: 'linear'
 			};
-		*/								
+		*/
 		$().UItoTop({ easingType: 'easeOutQuart' });
 		});
 	</script>
