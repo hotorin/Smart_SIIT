@@ -446,15 +446,46 @@ session_start();
                   if(isset($_SESSION['tier'])){
                     if($_SESSION['tier'] == 'Admin'){
                 ?>
-                  <div class="box" style="padding-bottom:30px;">
+                  <div class="box" style="padding-left:10px;padding-right:10px;padding-bottom:30px;">
                     <div class="box-header">
-                      <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
+                      <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">
+                        Van Detail @ 
+                        <?php echo date("Y-m-d"); ?>
+                      </h3>
                       <hr>
                     </div>
-                      วิ่งไปทั้งหมด : Database 1<br>
-                      เติมน้ำมันไปทั้งหมด : Database 2<br>
-                      ผู้โดยสารที่รับทั้งหมด : Database 3<br>
-                      สถานะปัจจุบัน : Database 4
+                    <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
+                        <thead>
+                          <tr style="height:25px;">
+                            <td style="text-align:center;width:33%;">Data No.</td>
+                            <td style="text-align:center;width:33%;">Distance</td>
+                            <td style="text-align:center;width:33%;">Passenger</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                            $q1 = 'SELECT * FROM data_information   WHERE   driver_van_num = '.$row['van_no'].'
+                                                                    AND     data_date = "'.date("Y-m-d").'" ;';
+                            $res1 = $db -> query($q1);
+                            while($row1 = $res1 -> fetch_array()){
+                          ?>
+                              <tr style="height:25px;">
+                                <td style="text-align:center;width:33%;">
+                                  <?php echo $row1['data_no']; ?>
+                                </td>
+                                <td style="text-align:center;width:33%;">
+                                  <?php echo $row1['data_distance']; ?>
+                                </td>
+                                <td style="text-align:center;width:33%;">
+                                  <?php echo $row1['data_passanger']; ?>
+                                </td>
+                              </tr>
+                          <?php
+                            }
+                          ?>
+
+                        </tbody>
+                    </table>
                   </div>
                 <?php
                     }
