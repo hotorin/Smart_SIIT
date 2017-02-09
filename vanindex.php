@@ -132,8 +132,7 @@ session_start();
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $_SESSION['fname']; ?> - SIIT Student
-                  <small>Member since Nov. 2015</small>
+                  <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
                 </p>
               </li>
               <li class="user-body">
@@ -279,6 +278,7 @@ session_start();
           <ul class="treeview-menu">
             <li><a href="brokenEquip.php?mode=0">Current Job</a></li>
             <li><a href="brokenEquip.php?mode=1">History</a></li>
+            <li><a href="broken_index.php">Report Broken Equipment</a></li>
           </ul>
         </li>
 

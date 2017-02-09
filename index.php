@@ -152,7 +152,7 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.gifdist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
@@ -326,6 +326,7 @@ desired effect
           <ul class="treeview-menu">
             <li><a href="brokenEquip.php?mode=0">Current Job</a></li>
             <li><a href="brokenEquip.php?mode=1">History</a></li>
+            <li><a href="broken_index.php">Report Broken Equipment</a></li>
           </ul>
         </li>
 
