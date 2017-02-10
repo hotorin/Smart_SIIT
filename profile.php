@@ -43,7 +43,7 @@ desired effect
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">    <!-- Main Header -->
-    <a href="/Senior_Project" class="logo">   <!-- Logo -->
+    <a href="." class="logo">   <!-- Logo -->
       <span class="logo-mini"><b>SIIT</b></span>   <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-lg"><b>Management System<b></span>  <!-- logo for regular state and mobile devices -->
     </a>
@@ -117,7 +117,7 @@ desired effect
                     <a href="member.php?mode=0">History</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="member.php?mode=1">Request</a>
+                    <a href="member.php?mode=1">Reserve</a>
                   </div>
                   <div class="col-xs-4 text-center">
                     <a href="member.php?mode=2">Confirm</a>
@@ -138,6 +138,7 @@ desired effect
                       <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
                       <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
                       <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
+                      <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
 
@@ -174,10 +175,13 @@ desired effect
                       echo '<div class="col-xs-4 text-center">';
                       echo '<a href="member.php?mode=3">Report</a>';
                       echo '</div>';
+                    }else{
+                      echo '<div class="col-xs-4 text-center">';
+                      echo '</div>';
                     }
                   ?>
                   <div class="col-xs-4 text-center">
-                    <a href="member.php?mode=1">Request</a>
+                    <a href="member.php?mode=1">Reserve</a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -195,6 +199,7 @@ desired effect
                       <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
                       <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
                       <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
+                      <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
 
@@ -560,6 +565,8 @@ desired effect
                 <input type="text" class="form-control pull-right" value="<?php echo $_POST['username']; ?>" disabled><br>
               <label style="margin-top:10px">E-mail</label> :
                 <input type="text" class="form-control pull-right" value="<?php echo $_POST['email']; ?>" disabled><br>
+              <label style="margin-top:10px">Telephone Number</label> :
+                <input type="text" name="tele_num" class="form-control" value="<?php echo $_POST['user_telephone']; ?>" placeholder="<?php echo $_POST['user_telephone']; ?>" required="" data-inputmask='"mask": "(999) 999-9999"' data-mask disabled>
               <label style="margin-top:10px">Your Position</label> :
                 <input type="text" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled><br>
             </div>
@@ -581,6 +588,8 @@ desired effect
                   <input type="text" name="u_name" class="form-control pull-right" value="<?php echo $_POST['username']; ?>" ><br>
                 <label style="margin-top:10px">E-mail</label> :
                   <input type="text" name="e_mail" class="form-control pull-right" value="<?php echo $_POST['email']; ?>" ><br>
+                <label style="margin-top:10px">Telephone Number</label> :
+                  <input type="text" name="tele_num" class="form-control" value="<?php echo $_POST['user_telephone']; ?>" placeholder="<?php echo $_POST['user_telephone']; ?>" required="" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                 <label style="margin-top:10px">Your Position</label> :
                   <input type="text" name="u_tier" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled><br>
               </form>
@@ -631,8 +640,19 @@ desired effect
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
+
+<script>
+  $(function () {
+    $("[data-mask]").inputmask();
+  });
+</script>
+
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

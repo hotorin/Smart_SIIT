@@ -191,7 +191,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <input type="submit" value="Submit" >
 					</div>
 					</form>
-				<p>Already have an Account? <a href="login.html">login Here</a></p>
 			</div>
 		</div>
 	</div>

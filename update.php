@@ -2,14 +2,14 @@
 require_once('connect.php');
 session_start();
 
-$q  = "INSERT INTO broken_equipment(equipment_name, 
+$q  = "INSERT INTO broken_equipment(equipment_name,
 									equipment_campus,
 									equipment_building,
 									equipment_room,
-									equipment_description,
+									equipment_decription,
 									equipment_username,
 									equipment_email)
-							VALUE	('".$_POST['Ename']."', 
+							VALUE	('".$_POST['Ename']."',
 									'".$_POST['Campus']."',
 									'".$_POST['Building']."',
 									'".$_POST['Room']."',

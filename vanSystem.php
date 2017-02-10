@@ -44,7 +44,7 @@ desired effect
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">    <!-- Main Header -->
-    <a href="/Senior_Project" class="logo">   <!-- Logo -->
+    <a href="." class="logo">   <!-- Logo -->
       <span class="logo-mini"><b>SIIT</b></span>   <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-lg"><b>Management System<b></span>  <!-- logo for regular state and mobile devices -->
     </a>
@@ -118,7 +118,7 @@ desired effect
                     <a href="member.php?mode=0">History</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="member.php?mode=1">Request</a>
+                    <a href="member.php?mode=1">Reserve</a>
                   </div>
                   <div class="col-xs-4 text-center">
                     <a href="member.php?mode=2">Confirm</a>
@@ -139,6 +139,7 @@ desired effect
                       <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
                       <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
                       <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
+                      <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
 
@@ -175,10 +176,13 @@ desired effect
                       echo '<div class="col-xs-4 text-center">';
                       echo '<a href="member.php?mode=3">Report</a>';
                       echo '</div>';
+                    }else{
+                      echo '<div class="col-xs-4 text-center">';
+                      echo '</div>';
                     }
                   ?>
                   <div class="col-xs-4 text-center">
-                    <a href="member.php?mode=1">Request</a>
+                    <a href="member.php?mode=1">Reserve</a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -196,6 +200,7 @@ desired effect
                       <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
                       <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
                       <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
+                      <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
 
@@ -621,15 +626,17 @@ desired effect
                   <tr style="height:25px;">
                     <td style="text-align:center;width:10%;">Date</td>
                     <td style="text-align:center;width:10%;">Distance</td>
-                    <td style="text-align:center;width:10%;">Passenger</td>
+                    <td style="text-align:center;width:10%;">Number of Passenger</td>
                     <td style="text-align:center;width:10%;">From</td>
                     <td style="text-align:center;width:10%;">To</td>
-                    <td style="text-align:center;width:10%;">Driver</td>
+                    <td style="text-align:center;width:10%;">Driver Name</td>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                    $q = 'SELECT * FROM data_information WHERE driver_van_num = '.$_GET['v'].';';
+                    $q = 'SELECT * FROM data_information, driver, member  WHERE driver_van_num = '.$_GET['v'].'
+                                                                  AND   data_information.driver_no = driver.driver_no
+                                                                  AND   driver.member_id = member.member_id;';
                     $res = $db -> query($q);
                     while($row = $res -> fetch_array()){
                   ?>
@@ -639,7 +646,7 @@ desired effect
                         <td style="text-align:center;width:10%;"><?php echo $row['data_passanger']; ?></td>
                         <td style="text-align:center;width:10%;"><?php echo $row['data_from']; ?></td>
                         <td style="text-align:center;width:10%;"><?php echo $row['data_to']; ?></td>
-                        <td style="text-align:center;width:10%;"><?php echo $row['driver_no']; ?></td>
+                        <td style="text-align:center;width:10%;"><?php echo $row['full_name']; ?></td>
                       </tr>
                   <?php
                     }

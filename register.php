@@ -46,6 +46,14 @@
         <input type="email" name="e-mail" class="form-control" placeholder="Email" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}$" title="โปรดใส่ E-mail ให้ครบตัวอย่างเช่น username@tu.ac.th">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" name="tele_num" class="form-control" placeholder="Telephone Number" required="" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+          <div class="input-group-addon">
+            <i class="fa fa-phone"></i>
+          </div>
+        </div>
+      </div>
       <div class="form-group has-feedback">
         <input type="password" name="p_word" class="form-control" placeholder="Password must have 6-20 letters" required="" pattern="[A-Za-z0-9]{6,20}" title="โปรดใส่ Password โดยมีเพียง 6 ถึง 20 ตัวเท่านั้น">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -74,8 +82,13 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="plugins/iCheck/icheck.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script>
   $(function () {
+    $("[data-mask]").inputmask();
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',

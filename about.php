@@ -55,7 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<span class="icon-bar"></span>
 								</button>
 								<h1>
-									<a class="navbar-brand link link--yaku" href="broken_index.php">Real Site</a>
+									<a class="navbar-brand link link--yaku" href="broken_index.php">SIIT Report</a>
 								</h1>
 
 							</div>
