@@ -14,6 +14,8 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+  <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.css">
                   <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
                   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -165,20 +167,11 @@ desired effect
 
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-4 text-center">
+                  <div class="col-xs-6 text-center">
                     <a href="member.php?mode=0">History</a>
                   </div>
-                  <?php
-                    if($_SESSION['tier'] == 'Driver'){
-                      echo '<div class="col-xs-4 text-center">';
-                      echo '<a href="member.php?mode=3">Report</a>';
-                      echo '</div>';
-                    }else{
-                      echo '<div class="col-xs-4 text-center">';
-                      echo '</div>';
-                    }
-                  ?>
-                  <div class="col-xs-4 text-center">
+
+                  <div class="col-xs-6 text-center">
                     <a href="member.php?mode=1">Reserve</a>
                   </div>
                 </div>
@@ -290,6 +283,7 @@ desired effect
 
                   <ul class="treeview-menu">
                     <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
+                    <li><a href="admin.php?mode=2">Add Week Schedule</a></li>
                   </ul>
                 </li>
 
@@ -305,8 +299,35 @@ desired effect
                     <li><a href="admin.php?mode=1">Change Users Information</a></li>
                   </ul>
                 </li>
-
                 <?php
+                }else if($_SESSION['tier'] == 'Driver'){
+                ?>
+                  <li class="header" style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px">
+                  <center>Driver Menu</center></li>
+                  <li class="treeview">
+                    <li>
+                      <a href="member.php?mode=3">
+                        <i class="fa fa-circle-o text-aqua">
+                        </i>
+                        <span>Today Work</span>
+                      </a>
+                    </li>
+                  </li>
+                <?php
+                  }else if(isset($_SESSION['tier'])){
+              ?>
+              <li class="header" style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px">
+              <center>Member Menu</center></li>
+              <li class="treeview">
+                <li>
+                  <a href="member.php?mode=5">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <?php
                   }
                 }
                 ?>
@@ -372,6 +393,13 @@ desired effect
         <h1>
         User List
         <small>- List of all users </small>
+        </h1>
+      <?php
+      }else if($_GET['mode'] == 2){
+      ?>
+        <h1>
+        Week Scheduel Assign
+        <small>- Please choose date to assign the work </small>
         </h1>
       <?php
         }
@@ -522,6 +550,121 @@ desired effect
 
 
       <?php
+        }else if($_GET['mode'] == 2){
+      ?>
+          <div class="box box-danger">
+            <div class="box-header" style="padding-left:2%;padding-right:2%;">
+              <h3 class="box-title" style="margin-top:1%"><b>Weekly Assign</b></h3>
+              <hr>
+            </div>
+            <div class="box-body" style="padding-top:0px">
+              <div class="box-body" style="padding-top:0px">
+
+                <form action="confirm.php" method="post" id="request_form">
+                  <input type="hidden" name="mode" value=12>
+
+                <div class="form-group col-md-12">
+                  <div class="col-md-2" style="padding-top:0.5%">
+                    Start Date (เริ่มวันที่)
+                  </div>
+                  <div class="col-md-4" style="padding-left:0">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                          <input type="text" name="start_date" class="form-control pull-right" id="datepicker" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2" style="padding-top:0.5%">
+                    End Date (จบวันที่)
+                  </div>
+                  <div class="col-md-4" style="padding-left:0">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                          <input type="text" name="end_date" class="form-control pull-right" id="datepicker2" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <div class="bootstrap-timepicker">
+                    <div class="col-md-2" style="padding-top:0.5%">
+                      <label>From (เวลาเริ่ม)</label>
+                    </div>
+                    <div class="col-md-4" style="padding-left:0">
+                      <div class="input-group" style="margin-bottom:10px;">
+                        <input type="text" name="from_time" class="form-control timepicker" required>
+                        <div class="input-group-addon">
+                          <i class="fa fa-clock-o"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bootstrap-timepicker">
+                    <div class="col-md-2" style="padding-top:0.5%">
+                      <label>To (เวลาจบ)</label>
+                    </div>
+                    <div class="col-md-4" style="padding-left:0">
+                      <div class="input-group" style="margin-bottom:10px;">
+                        <input type="text" name="to_time" class="form-control timepicker" required>
+                        <div class="input-group-addon">
+                          <i class="fa fa-clock-o"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <div class="col-md-2" style="padding-top:0.5%">
+                      <label>Place to go (สถานที่)</label>
+                    </div>
+                    <div class="col-md-4" style="padding-left:0">
+                      <input type="text" name="destination" class="form-control" placeholder="Please insert the place in this box" required></input>
+                    </div>
+
+                    <div class="col-md-2" style="padding-top:0.5%">
+                      <label>Van No. (คันที่)</label>
+                    </div>
+                    <div class="col-md-4" style="padding-left:0">
+                      <select class="form-control" name="assign_to" required>
+                        <option selected disabled>Please Select The Van to assign the work</option>
+                        <?php
+                          $q = "SELECT * FROM van";
+                          $res = $db -> query($q);
+                          while($row = $res -> fetch_array()){
+                        ?>
+                          <option value=<?php echo $row['van_no']; ?>>Van Number <?php echo $row['van_no']; ?></option>
+                        <?php
+                          }
+                        ?>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <div class="col-md-2" style="padding-top:0%">
+                    <label>Description (รายละเอียด)</label>
+                  </div>
+                  <div class="col-md-10" style="padding-left:0">
+                    <input type="text" name="description" class="form-control" placeholder="If have any comment please type"></input>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+                <div  class="col-md-3"></div>
+                <div  class="col-md-6" style="padding-top:20px;padding-bottom:4%">
+                  <button type="submit" class="btn btn-block btn-primary" form="request_form">Submit</button>
+                </div>
+
+            </div>
+      <?php
         }
       ?>
 
@@ -554,6 +697,8 @@ desired effect
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
@@ -573,6 +718,22 @@ desired effect
       "pageLength": 5,
       "autoWidth": false
     });
+    $(".timepicker").timepicker({
+      minuteStep: 60,
+      defaultTime: '06:00',
+      use24hours: true,
+      showMeridian: false,
+      showInputs: false
+    });
+    $('#datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true
+    });
+    $('#datepicker2').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true
+    });
 
    });
+
 </script>

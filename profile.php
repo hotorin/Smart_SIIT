@@ -167,20 +167,11 @@ desired effect
 
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-4 text-center">
+                  <div class="col-xs-6 text-center">
                     <a href="member.php?mode=0">History</a>
                   </div>
-                  <?php
-                    if($_SESSION['tier'] == 'Driver'){
-                      echo '<div class="col-xs-4 text-center">';
-                      echo '<a href="member.php?mode=3">Report</a>';
-                      echo '</div>';
-                    }else{
-                      echo '<div class="col-xs-4 text-center">';
-                      echo '</div>';
-                    }
-                  ?>
-                  <div class="col-xs-4 text-center">
+
+                  <div class="col-xs-6 text-center">
                     <a href="member.php?mode=1">Reserve</a>
                   </div>
                 </div>
@@ -307,8 +298,35 @@ desired effect
                     <li><a href="admin.php?mode=1">Change Users Information</a></li>
                   </ul>
                 </li>
-
                 <?php
+                }else if($_SESSION['tier'] == 'Driver'){
+                ?>
+                  <li class="header" style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px">
+                  <center>Driver Menu</center></li>
+                  <li class="treeview">
+                    <li>
+                      <a href="member.php?mode=3">
+                        <i class="fa fa-circle-o text-aqua">
+                        </i>
+                        <span>Today Work</span>
+                      </a>
+                    </li>
+                  </li>
+                <?php
+                  }else if(isset($_SESSION['tier'])){
+              ?>
+              <li class="header" style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px">
+              <center>Member Menu</center></li>
+              <li class="treeview">
+                <li>
+                  <a href="member.php?mode=5">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <?php
                   }
                 }
                 ?>
