@@ -411,6 +411,18 @@ session_start();
   window.location = 'admin.php?mode=2';
 </script>
 <?php
+  }else if($_POST['mode'] == 13){
+    $q = 'UPDATE request SET      request_status = 0
+                         WHERE    request_no ='.$_POST['request_no'].';';
+    $res = $db -> query($q);
+?>
+<script type='text/javascript'>
+  alert('You have decline the report, please wait driver to submit it again.');
+</script>
+<script type='text/javascript'>
+  window.location = 'admin.php?mode=5';
+</script>
+<?php
   }
 ?>
 <script type='text/javascript'>

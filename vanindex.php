@@ -78,7 +78,7 @@ session_start();
               <li class="user-header">  <!-- The user image in the menu -->
                 <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $_SESSION['fname']; ?> - Ground Division Member
+                  <?php echo $_SESSION['fname']; ?> - Admin
 
                 </p>
               </li>
@@ -236,6 +236,7 @@ session_start();
 
                   <ul class="treeview-menu">
                     <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
+                    <li><a href="admin.php?mode=2">Add Week Schedule</a></li>
                   </ul>
                 </li>
 
@@ -250,6 +251,16 @@ session_start();
                   <ul class="treeview-menu">
                     <li><a href="admin.php?mode=1">Change Users Information</a></li>
                   </ul>
+                </li>
+
+                <li class="treeview">
+                  <li>
+                    <a href="member.php?mode=5">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Check Driver Report</span>
+                    </a>
+                  </li>
                 </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){

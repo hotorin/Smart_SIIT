@@ -299,6 +299,16 @@ desired effect
                     <li><a href="admin.php?mode=1">Change Users Information</a></li>
                   </ul>
                 </li>
+
+                <li class="treeview">
+                  <li>
+                    <a href="member.php?mode=5">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Check Driver Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
