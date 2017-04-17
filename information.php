@@ -308,6 +308,15 @@ desired effect
                     </a>
                   </li>
                 </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
@@ -333,6 +342,15 @@ desired effect
                     <i class="fa fa-circle-o text-aqua">
                     </i>
                     <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <li class="treeview">
+                <li>
+                  <a href="weeklySum.php">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Weekly Report</span>
                   </a>
                 </li>
               </li>
@@ -400,15 +418,15 @@ desired effect
             </div>
 
             <div class="form-group">
-              <label style="margin-top:2%">Request By</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" disabled>
+              <label style="margin-top:2%">Request By (ขอโดย)</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" disabled>
               <br>
-              <label style="margin-top:10px">Date</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['date']; ?>" disabled>
+              <label style="margin-top:10px">Date (วันที่)</label> : <input type="text" class="form-control pull-right" value="<?php echo $_POST['date']; ?>" disabled>
               <br>
-              <label style="margin-top:10px">From</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($_POST['from'],0,5); ?> disabled>
+              <label style="margin-top:10px">From (ตั้งแต่)</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($_POST['from'],0,5); ?> disabled>
               <br>
-              <label style="margin-top:10px">To</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($_POST['to'],0,5); ?> disabled>
+              <label style="margin-top:10px">To (จนถึง)</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($_POST['to'],0,5); ?> disabled>
               <br>
-              <label style="margin-top:10px">Description</label> :
+              <label style="margin-top:10px">Description (ข้อมูลเพิ่มเติม)</label> :
               <textarea class="form-control" rows="5" placeholder="<?php echo $_POST['description']; ?>" disabled></textarea>
             </div>
           </div>
@@ -427,9 +445,9 @@ desired effect
               <input type="hidden" name="start_check" value=<?php echo $_POST['from']; ?>>
               <input type="hidden" name="end_check" value=<?php echo $_POST['to']; ?>>
               <input type="hidden" name="date_check" value=<?php echo $_POST['date']; ?>>
-              <label style="margin-top:2%">Assign To Van Number</label>
+              <label style="margin-top:2%">Assign To Van Number (มอบงานให้กับรถหมายเลข)</label>
               <select class="form-control" name="assign_to">
-                <option selected disabled>Please Select The Van to assign the work</option>
+                <option selected disabled>โปรดเลือกรถตู้เพื่อมอบหมายงาน</option>
                 <?php
                   $q = "SELECT * FROM van";
                   $res = $db -> query($q);
@@ -440,11 +458,11 @@ desired effect
                   }
                 ?>
               </select>
-              <label style="margin-top:10px">Assign By (Member Number)</label> :
+              <label style="margin-top:10px">Assign By (มอบหมายโดยใคร) (Member Number)</label> :
               <input type="text" class="form-control pull-right" value="<?php echo $_SESSION['user_no']; ?>" disabled><br>
             </form>
 
-            <label style="margin-top:10px">Description</label> :
+            <label style="margin-top:10px">Description (ข้อมูลเพิ่มเติม)</label> :
             <div style="padding-bottom:20px">
               <textarea class="form-control" name="comment" rows="10" placeholder="Please Type your comment if have..." form="confirm_form"></textarea>
             </div>

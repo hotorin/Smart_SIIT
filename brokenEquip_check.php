@@ -309,6 +309,15 @@ desired effect
                     </a>
                   </li>
                 </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
@@ -334,6 +343,15 @@ desired effect
                     <i class="fa fa-circle-o text-aqua">
                     </i>
                     <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <li class="treeview">
+                <li>
+                  <a href="weeklySum.php">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Weekly Report</span>
                   </a>
                 </li>
               </li>

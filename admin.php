@@ -309,6 +309,15 @@ desired effect
                     </a>
                   </li>
                 </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
@@ -334,6 +343,15 @@ desired effect
                     <i class="fa fa-circle-o text-aqua">
                     </i>
                     <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <li class="treeview">
+                <li>
+                  <a href="weeklySum.php">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Weekly Report</span>
                   </a>
                 </li>
               </li>
@@ -409,7 +427,7 @@ desired effect
       ?>
         <h1>
         Week Scheduel Assign
-        <small>- Please choose date to assign the work </small>
+        <small>- โปรดเลือกรถตู้เพื่อจ่ายงาน </small>
         </h1>
       <?php
         }
@@ -426,12 +444,12 @@ desired effect
         <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:40px" align="center">
         <thead>
         <tr>
-        <td style="text-align:center;width:10%">Van Number</td>
-        <td style="text-align:center;width:20%">Main Location</td>
-        <td style="text-align:center">Driver</td>
-        <td style="text-align:center">License Plate</td>
-        <td style="text-align:center">Change Profile</td>
-        <td style="text-align:center">Delete</td>
+        <td style="text-align:center;width:10%">รอตู้หมายเลข</td>
+        <td style="text-align:center;width:20%">สถานที่ประจำ</td>
+        <td style="text-align:center">ผู้ขับรถ</td>
+        <td style="text-align:center">ทะเบียนรถตู้</td>
+        <td style="text-align:center">แก้ไขข้อมูล</td>
+        <td style="text-align:center">ลบสมาชิก</td>
         </tr>
       </thead>
       <?php
@@ -441,8 +459,6 @@ desired effect
       while($row = $res -> fetch_array()){
       ?>
       <tbody>
-
-
           <tr>
           <td style="text-align:center"><?php echo $row['van_no']; ?></td>
           <td style="text-align:center"><?php echo $row['location']; ?></td>
@@ -455,7 +471,7 @@ desired effect
                 <input type="hidden" name="location" value=<?php echo $row['location']; ?> >
                 <input type="hidden" name="driver_name" value="<?php echo $row['full_name']; ?>" >
                 <input type="hidden" name="license_plate" value=<?php echo $row['van_license_plate']; ?> >
-                <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+                <input type="submit" class="btn btn-block btn-primary" value="แก้ไขสมาชิก">
             </form>
           </td>
           <th style="text-align:center;width:18%;">
@@ -463,7 +479,7 @@ desired effect
               <input type="hidden" name="mode" value=1 >
               <input type="hidden" name="van_no" value=<?php echo $row['van_no'];?>>
               <button type="submit" class="btn btn-block btn-danger">
-                Delete
+                ลบ
               </button>
             </form>
           </th>
@@ -478,7 +494,7 @@ desired effect
       <div  class="col-md-6">
         <form action="add.php" method="post">
           <input type="hidden" name="mode" value=0>
-          <button type="submit" class="btn btn-block btn-primary">Add More Van</button>
+          <button type="submit" class="btn btn-block btn-primary">เพิ่มรถตู้</button>
         </form>
       </div>
     </div>
@@ -493,10 +509,10 @@ desired effect
           <div class="col-sm-5" style="margin-top:20px">
             <div class="input-group date">
                 <div class="input-group-addon">
-                  <label>Search by user name</label>
+                  <label>ค้นหาจาก User ผู้ใช้</label>
                 </div>
                 <form action="admin.php?mode=1" method="post" id="search_user">
-                  <input type="text" name="user_search" class="form-control pull-right" placeholder="Please enter username">
+                  <input type="text" name="user_search" class="form-control pull-right" placeholder="โปรดใส่ Username">
                 </form>
                 <form action="admin.php?mode=1" method="post" id="reset_search"></form>
             </div>
@@ -506,12 +522,12 @@ desired effect
           <table id="example2" class="table table-bordered table-hover" style="width:100%;margin-top:20px" align="center">
             <thead>
               <tr>
-                <td style="text-align:center;width:10%">User ID</td>
+                <td style="text-align:center;width:10%">ไอดีสมาชิก</td>
                 <td style="text-align:center;width:20%">Username</td>
                 <td style="text-align:center;width:20%">E-mail</td>
-                <td style="text-align:center;width:20%">Role</td>
-                <td style="text-align:center;width:20%">Change Profile</td>
-                <td style="text-align:center;width:20%">Delete</td>
+                <td style="text-align:center;width:20%">ตำแหน่ง</td>
+                <td style="text-align:center;width:20%">แก้ไขข้อมูล</td>
+                <td style="text-align:center;width:20%">ลบสมาชิก</td>
               </tr>
             </thead>
             <?php
@@ -538,7 +554,7 @@ desired effect
                     <input type="hidden" name="password" value=<?php echo $row['password']; ?> >
                     <input type="hidden" name="email" value=<?php echo $row['email']; ?> >
                     <input type="hidden" name="user_tier" value="<?php echo $row['member_tier']; ?>" >
-                    <input type="submit" class="btn btn-block btn-primary" value="Change Profile">
+                    <input type="submit" class="btn btn-block btn-primary" value="แก้ไขข้อมูล">
 
                 </form>
               </td>
@@ -547,7 +563,7 @@ desired effect
                   <input type="hidden" name="mode" value=0 >
                   <input type="hidden" name="id" value=<?php echo $row['member_id'];?>>
                   <button type="submit" class="btn btn-block btn-danger">
-                    Delete
+                    ลบ
                   </button>
                 </form>
               </th>

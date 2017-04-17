@@ -308,6 +308,15 @@ desired effect
                     </a>
                   </li>
                 </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
@@ -333,6 +342,15 @@ desired effect
                     <i class="fa fa-circle-o text-aqua">
                     </i>
                     <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <li class="treeview">
+                <li>
+                  <a href="weeklySum.php">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Weekly Report</span>
                   </a>
                 </li>
               </li>
@@ -408,16 +426,16 @@ desired effect
             <div class="form-group">
               <form action="confirm.php" method="post" id="add_van">
                 <input type="hidden" name="mode" value=2>
-                <label style="margin-top:10px">License Plate</label> : <input type="text" name="plate" class="form-control pull-right">
+                <label style="margin-top:10px">ทะเบียนรถตู้</label> : <input type="text" name="plate" class="form-control pull-right">
                 <br>
-                <label style="margin-top:10px">Location</label> :
+                <label style="margin-top:10px">สถานที่ประจำ</label> :
                 <select class="form-control" name="location">
-                  <option value='Rangsit'>Rangsit</option>
-                  <option value='Bangkadi'>Bangkadi</option>
+                  <option value='Rangsit'>รังสิต</option>
+                  <option value='Bangkadi'>บางกระดี</option>
                 </select>
-                <label style="margin-top:10px">Driver Name</label>
+                <label style="margin-top:10px">ชื่อผู้ขับ</label>
                 <select class="form-control" name="driver">
-                  <option selected disabled>Please select driver</option>
+                  <option selected disabled>โปรเลือกผู้ขับรถ</option>
                   <?php
                   $q = 'SELECT * FROM member, driver WHERE member_tier = "Driver" AND member.member_id = driver.member_id;';
                   $res = $db -> query($q);

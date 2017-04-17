@@ -309,6 +309,15 @@ desired effect
                     </a>
                   </li>
                 </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
@@ -334,6 +343,15 @@ desired effect
                     <i class="fa fa-circle-o text-aqua">
                     </i>
                     <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <li class="treeview">
+                <li>
+                  <a href="weeklySum.php">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Weekly Report</span>
                   </a>
                 </li>
               </li>
@@ -580,7 +598,7 @@ desired effect
       }
       else if($_POST['mode'] == 2){
         ?>
-
+<!--
         <div class="col-md-6">
           <div class="box box-body" style="padding-bottom:50px;padding-right:10px">
             <div class="box-header with-border">
@@ -601,27 +619,101 @@ desired effect
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+-->
+        <div class="col-md-12">
           <div class="box box-body" style="padding-bottom:30px">
             <div class="box-header with-border">
               <i class="fa fa-file"></i>
-                <h3 class="box-title">New Profile</h3>
+                <h3 class="box-title">Change Profile</h3>
             </div>
-            <div class="form-group" style="padding-bottom:5%">
-              <form action="confirm.php" method="post" id="form_van">
-                <input type="hidden" name="mode" value=9>
-                <input type="hidden" name="u_num" value=<?php echo $_POST['user_num']; ?>>
-                <label style="margin-top:10px">Full Name</label> :
-                  <input type="text" name="f_name" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" ><br>
-                <label style="margin-top:2%">Username</label> :
-                  <input type="text" name="u_name" class="form-control pull-right" value="<?php echo $_POST['username']; ?>" ><br>
-                <label style="margin-top:10px">E-mail</label> :
-                  <input type="text" name="e_mail" class="form-control pull-right" value="<?php echo $_POST['email']; ?>" ><br>
-                <label style="margin-top:10px">Telephone Number</label> :
-                  <input type="text" name="tele_num" class="form-control" value="<?php echo $_POST['user_telephone']; ?>" placeholder="<?php echo $_POST['user_telephone']; ?>" required="" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                <label style="margin-top:10px">Your Position</label> :
-                  <input type="text" name="u_tier" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled><br>
-              </form>
+            <div class="form-group col-md-12" style="padding-bottom:2%">
+              <div class="col-md-6 image_change" id="image_change">
+                <a href="#myModal" data-toggle="modal">
+                  <img src="dist/img/user2-160x160.gif" alt="User Image" style="height:300px;width:300px;margin-top:8%">
+                    <p class="text-content">Change Picture</p>
+                  </image>
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color: black;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: #fff;">Change Your Picture</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Browse an image from your hard drive and upload.</p>
+                        <form action="upload.php" method="post" enctype="multipart/form-data" id="upload_form">
+                          <input type="hidden" name="user_number" value="<?php echo $_POST['user_num']; ?>" >
+                          <div class="fileUpload btn btn-default btn-lg ">
+                            <span>Browse</span>
+                            <input type="file" id="uploadBtn" name="fileToUpload" class="upload" />
+                          </div>
+                          <span id="uploadFile" style="font-weight: normal;">Choose File</span>
+                        </form>
+              <style>
+                        .fileUpload {
+                            position: relative;
+                            overflow: hidden;
+                            margin: 10px;
+                        }
+                        .fileUpload input.upload {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            margin: 0;
+                            padding: 0;
+                            font-size: 20px;
+                            cursor: pointer;
+                            opacity: 0;
+                            filter: alpha(opacity=0);
+                        }
+              </style>
+
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" form="upload_form">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <style>
+                  .image_change{
+                    position: relative;
+                    text-align: center;
+                  }
+                  .text-content {
+                    background: rgba(29, 106, 154, 0.72);
+                    color: #fff;
+                    visibility:hidden;
+                  }
+                  .image_change:hover .text-content{
+                    visibility: visible;
+                    opacity: 1;
+                  }
+                </style>
+              </div>
+              <div class="col-md-6">
+                <form action="confirm.php" method="post" id="form_van">
+                  <input type="hidden" name="mode" value=9>
+                  <input type="hidden" name="u_num" value=<?php echo $_POST['user_num']; ?>>
+                  <label style="margin-top:10px">Full Name</label> :
+                    <input type="text" name="f_name" class="form-control pull-right" value="<?php echo $_POST['full_name']; ?>" ><br>
+                  <label style="margin-top:2%">Username</label> :
+                    <input type="text" name="u_name" class="form-control pull-right" value="<?php echo $_POST['username']; ?>" ><br>
+                  <label style="margin-top:10px">E-mail</label> :
+                    <input type="text" name="e_mail" class="form-control pull-right" value="<?php echo $_POST['email']; ?>" ><br>
+                  <label style="margin-top:10px">Telephone Number</label> :
+                    <input type="text" name="tele_num" class="form-control" value="<?php echo $_POST['user_telephone']; ?>" placeholder="<?php echo $_POST['user_telephone']; ?>" required="" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                  <label style="margin-top:10px">Your Position</label> :
+                    <input type="text" name="u_tier" class="form-control pull-right" value=<?php echo $_POST['user_tier']; ?> disabled><br>
+                </form>
+              </div>
             </div>
             <div style="margin-top:5%">
               <div class="col-md-6">
@@ -680,6 +772,11 @@ desired effect
   $(function () {
     $("[data-mask]").inputmask();
   });
+</script>
+<script>
+  document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").textContent = this.value.split(/[\\/]/).pop();;
+  };
 </script>
 
 

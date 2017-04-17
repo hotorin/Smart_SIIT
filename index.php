@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 require_once('connect.php');
 session_start();
@@ -98,15 +97,14 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src="resource/profile_picture/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
+                <img src="resource/profile_picture/user2-160x160.gif" class="img-circle" alt="User Image">
                 <p>
                   <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
-
                 </p>
               </li>
 
@@ -140,7 +138,6 @@ desired effect
                       <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
-
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Log Out</a>
                 </div>
@@ -309,6 +306,16 @@ desired effect
                     </a>
                   </li>
                 </li>
+
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
+                    </a>
+                  </li>
+                </li>
                 <?php
                 }else if($_SESSION['tier'] == 'Driver'){
                 ?>
@@ -334,6 +341,15 @@ desired effect
                       <i class="fa fa-circle-o text-aqua">
                       </i>
                       <span>Check Driver Report</span>
+                    </a>
+                  </li>
+                </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
                     </a>
                   </li>
                 </li>
@@ -426,9 +442,5 @@ desired effect
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
 </body>
 </html>

@@ -14,31 +14,10 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
-                  <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-                  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-                  <![endif]-->
+  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css"> <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css"><!-- bootstrap datepicker -->
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">    <!-- Main Header -->
@@ -46,10 +25,6 @@ desired effect
       <span class="logo-mini"><b>SIIT</b></span>   <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-lg"><b>Management System<b></span>  <!-- logo for regular state and mobile devices -->
     </a>
-
-
-
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -58,7 +33,6 @@ desired effect
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-
 
 <!-- ==============================For The Notification Menu============================================================= -->
       <!-- Navbar Right Menu -->
@@ -163,7 +137,6 @@ desired effect
                   <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
                 </p>
               </li>
-
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-6 text-center">
@@ -176,7 +149,6 @@ desired effect
                 </div>
                 <!-- /.row -->
               </li>
-
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -192,7 +164,6 @@ desired effect
                       <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
-
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Log Out</a>
                 </div>
@@ -245,26 +216,9 @@ desired effect
         ?>
       </div>
 
-      <!-- search form (Optional) -->
-      <!--
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-    -->
-      <!-- /.search form -->
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-
-
         <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
-
                 <?php
                 if(isset($_SESSION['tier'])){
                   if($_SESSION['tier'] == 'Admin'){
@@ -367,7 +321,7 @@ desired effect
         >
         <center>System Menu</center></li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#"><i class="fa fa-link"></i><span>Broken Equipment Report</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -382,7 +336,7 @@ desired effect
         </li>
 
 
-        <li class="treeview">
+        <li class="active treeview">
           <a href=""><i class="fa fa-link"></i><span>Van Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -404,134 +358,54 @@ desired effect
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <center>
         <h1>
-          Please Select Current Jobs or History to view the information.
+          Summarize System
+          <small>- Please select date for summarize</small>
         </h1>
-      </center>
     </section>
 
-<!-- ========================================== Header ========================================================= -->
-    <!-- Main content -->
     <section class="content">
-      <?php
-      if(isset($_GET['mode'])){
-        if($_GET['mode'] == 0){
-      ?>
-      <div class="box" style="padding-left:10px;padding-right:10px;padding-bottom:30px">
-        <div class="box-header">
-          <h3 class="box-title" style="margin-top:10px"><b>Broken Equipment Detail</b></h3>
-          <hr>
-        </div>
-        <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-          <thead>
-            <tr>
-              <td style="text-align:center;width:10%">Number</td>
-              <td style="text-align:center">Broken Equipment</td>
-              <td style="text-align:center">Location</td>
-              <td style="text-align:center">Desctiption</td>
-              <td style="text-align:center">Status</td>
-              <td style="text-align:center">Link</td>
-            </tr>
-          </thead>
-          <?php
-            $q = "SELECT * FROM broken_equipment WHERE equipment_status <> 'Finish';";
-            $res = $db -> query($q);
-            while($row = $res -> fetch_array()){
-          ?>
-          <tbody>
-            <tr>
-              <td style="text-align:center"><?php echo $row['equipment_ID']; ?></td>
-              <td height="50px" width="200px" style="text-align:center;"><?php echo $row['equipment_name']; ?></td>
-              <td width="20%" style="text-align:center"><?php echo $row['equipment_campus']; ?></td>
-              <td width="30%" style="text-align:center"><?php echo $row['equipment_decription']; ?></td>
-              <td width="20%" style="text-align:center"><?php echo $row['equipment_status']; ?></td>
-              <td style="text-align:center;width:18%;">
-                <form id="prof_form" action="brokenEquip_check.php" method="post">
-                    <input type="hidden" name="equipment_no" value=<?php echo $row['equipment_ID']; ?> >
-                    <input type="hidden" name="equipment_name" value=<?php echo $row['equipment_name']; ?> >
-                    <input type="hidden" name="equipment_campus" value=<?php echo $row['equipment_campus']; ?> >
-                    <input type="hidden" name="equipment_decription" value="<?php echo $row['equipment_decription']; ?>" >
-                    <input type="hidden" name="equipment_status" value=<?php echo $row['equipment_status']; ?> >
-                    <input type="hidden" name="equipment_building" value=<?php echo $row['equipment_building']; ?> >
-                    <input type="hidden" name="equipment_room" value=<?php echo $row['equipment_room']; ?> >
-                    <input type="hidden" name="equipment_email" value=<?php echo $row['equipment_email']; ?> >
-                    <input type="submit" class="btn btn-block btn-primary" value="Link">
-                </form>
-              </td>
-            </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-          </table>
-        </div>
-      <?php
-        }
-        else if($_GET['mode'] == 1){
-      ?>
-      <div class="box" style="padding-left:10px;padding-right:10px;padding-bottom:30px">
-        <div class="box-header">
-          <h3 class="box-title" style="margin-top:10px"><b>Broken Equipment Detail</b></h3>
-          <hr>
-        </div>
-        <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-          <thead>
-            <tr>
-              <td style="text-align:center;width:10%">Number</td>
-              <td style="text-align:center">Broken Equipment</td>
-              <td style="text-align:center">Location</td>
-              <td style="text-align:center">Desctiption</td>
-              <td style="text-align:center">Status</td>
-              <td style="text-align:center">Link</td>
-            </tr>
-          </thead>
-          <?php
-            $q = "SELECT * FROM broken_equipment WHERE equipment_status = 'Finish';";
-            $res = $db -> query($q);
-            while($row = $res -> fetch_array()){
-          ?>
-          <tbody>
-            <tr>
-              <td style="text-align:center"><?php echo $row['equipment_ID']; ?></td>
-              <td height="50px" width="200px" style="text-align:center;"><?php echo $row['equipment_name']; ?></td>
-              <td width="20%" style="text-align:center"><?php echo $row['equipment_campus']; ?></td>
-              <td width="30%" style="text-align:center"><?php echo $row['equipment_decription']; ?></td>
-              <td width="20%" style="text-align:center"><?php echo $row['equipment_status']; ?></td>
-              <td style="text-align:center;width:18%;">
-                <form id="prof_form" action="brokenEquip_check.php" method="post">
-                    <input type="hidden" name="equipment_no" value=<?php echo $row['equipment_ID']; ?> >
-                    <input type="hidden" name="equipment_name" value=<?php echo $row['equipment_name']; ?> >
-                    <input type="hidden" name="equipment_campus" value=<?php echo $row['equipment_campus']; ?> >
-                    <input type="hidden" name="equipment_decription" value="<?php echo $row['equipment_decription']; ?>" >
-                    <input type="hidden" name="equipment_status" value=<?php echo $row['equipment_status']; ?> >
-                    <input type="hidden" name="equipment_building" value=<?php echo $row['equipment_building']; ?> >
-                    <input type="hidden" name="equipment_room" value=<?php echo $row['equipment_room']; ?> >
-                    <input type="hidden" name="equipment_email" value=<?php echo $row['equipment_email']; ?> >
-                    <input type="submit" class="btn btn-block btn-primary" value="Link">
-                </form>
-              </td>
-            </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-          </table>
-        </div>
+        <div class="box box-danger">
+          <div class="box-body">
+            <div class="box-body">
 
-      <?php
-        }
-      }
-      ?>
+              <form action="report_print.php" method="post" id="request_form">
+                <div class="form-group">
+                  <div class="form-group col-xs-6">
+                    <label>Date From:</label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="date_f" class="form-control pull-right" id="datepicker" required>
+                    </div>
+                  </div>
 
-      </section>
-      <?php
+                  <div class="form-group col-xs-6">
+                    <label>Date To:</label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="date_t" class="form-control pull-right" id="datepicker2" required>
+                    </div>
+                  </div>
+                </div>
 
-      ?>
+                <div  class="col-md-3"></div>
+                <div  class="col-md-6" style="margin-top:20px;margin-bottom:20px">
+                  <button type="submit" class="btn btn-block btn-primary" form="request_form">Submit</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+    </section>
 <!-- =========================================================================================================== -->
-
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -556,30 +430,36 @@ desired effect
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
-
-<!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false
+    });
+  });
+    //Date picker
+  $('#datepicker').datepicker({
+   format: 'yyyy-mm-dd',
+   autoclose: true
+  });
 
+  $('#datepicker2').datepicker({
+   format: 'yyyy-mm-dd',
+   autoclose: true
+  });
+
+</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
-     <script>
-       $(function () {
-
-         $("#example1").DataTable();
-         $('#example2').DataTable({
-           "paging": true,
-           "lengthChange": false,
-           "searching": false,
-           "ordering": true,
-           "info": false,
-           "autoWidth": false
-         });
-       });
-     </script>
-
-
 </body>
 </html>
