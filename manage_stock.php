@@ -451,7 +451,7 @@ desired effect
                 <div class="input-group-addon">
                   <label>ค้นหาจากชื่อสินค้า</label>
                 </div>
-                <form action="admin.php?mode=1" method="post" id="search_user">
+                <form action="manage_stock.php?mode=1" method="post" id="search_user">
                   <input type="text" name="item_search" class="form-control pull-right" placeholder="โปรดใส่ชื่อสินค้า">
                 </form>
                 <form action="admin.php?mode=1" method="post" id="reset_search"></form>

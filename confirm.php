@@ -423,6 +423,20 @@ session_start();
   window.location = 'admin.php?mode=5';
 </script>
 <?php
+  }else if($_POST['mode'] == 14){
+    $q = 'INSERT INTO stock (stock_name, stock_total, stock_lot)
+                              VALUES ("'.$_POST['s_name'].'",
+                                      '.$_POST['s_total'].',
+                                      "'.$_POST['date_select_stock'].'");';
+    $res = $db -> query($q);
+  ?>
+  <script type='text/javascript'>
+  alert('คุณทำรายการสำเร็จแล้ว');
+  </script>
+  <script type='text/javascript'>
+  window.location = 'manage_stock.php?mode=0';
+  </script>
+<?php
   }
 ?>
 <script type='text/javascript'>
