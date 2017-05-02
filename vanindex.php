@@ -237,6 +237,7 @@ session_start();
                   <ul class="treeview-menu">
                     <li><a href="admin.php?mode=0">Add/Delete Van Data</a></li>
                     <li><a href="admin.php?mode=2">Add Week Schedule</a></li>
+                    <li><a href="analysis_van.php">Van Analysis</a></li>
                   </ul>
                 </li>
 
@@ -249,7 +250,7 @@ session_start();
 
                   <ul class="treeview-menu">
                     <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
-                    <li><a href="manage_stock.php?mode=1">Withdraw Stock</a></li>
+                    <li><a href="manage_stock.php?mode=1">View Stock</a></li>
                   </ul>
                 </li>
 

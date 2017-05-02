@@ -296,7 +296,7 @@ desired effect
 
                   <ul class="treeview-menu">
                     <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
-                    <li><a href="manage_stock.php?mode=1">Withdraw Stock</a></li>
+                    <li><a href="manage_stock.php?mode=1">View Stock</a></li>
                   </ul>
                 </li>
 
@@ -350,7 +350,7 @@ desired effect
                           </a>
                           <ul class="treeview-menu">
                             <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
-                            <li><a href="manage_stock.php?mode=1">Withdraw Stock</a></li>
+                            <li><a href="manage_stock.php?mode=1">View Stock</a></li>
                           </ul>
                         </li>
                   <?php
@@ -498,7 +498,7 @@ desired effect
       ?>
       <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="box box-body" style="padding-bottom:30px">
             <div class="box-header with-border">
               <i class="fa fa-file"></i>
@@ -508,30 +508,57 @@ desired effect
             <div class="form-group">
               <form action="confirm.php" method="post" id="add_stock">
                 <input type="hidden" name="mode" value=14>
-                <label style="margin-top:10px">ชื่อสิ่งของ</label> : <input type="text" name="s_name" class="form-control pull-right"><br>
-                <label style="margin-top:10px">จำนวนสิ่งของ</label> : <input type="text" name="s_total" class="form-control pull-right"><br>
-
-                <label style="margin-top:10px">Date:</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                <div class="col-md-6">
+                  <label style="margin-top:10px">ชื่อวัสดุสิ้นเปลือง</label> : <input type="text" name="stock_name" class="form-control pull-right"><br>
+                </div>
+                <div class="col-md-6">
+                <label style="margin-top:10px">จำนวนที่จัดซื้อ</label> : <input type="text" name="stock_total" class="form-control pull-right"><br>
+                </div>
+                <div class="col-md-6">
+                <label style="margin-top:10px">เลขที่เอกสาร</label> : <input type="text" name="stock_docnum" class="form-control pull-right"><br>
+                </div>
+                <div class="col-md-6">
+                <label style="margin-top:10px">ราคา/หน่วย</label> : <input type="text" name="stock_price" class="form-control pull-right"><br>
+                </div>
+                <div class="col-md-6">
+                <label style="margin-top:10px">ราคารวม</label> : <input type="text" name="stock_totalp" class="form-control pull-right"><br>
+                </div>
+                <div class="col-md-6">
+                <label style="margin-top:10px">ชื่อหจก./บริษัท ผู้ขาย</label> : <input type="text" name="stock_com" class="form-control pull-right"><br>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label style="margin-top:10px">คลัง</label> :
+                    <select class="form-control" name="stock_place">
+                      <option value="Rangsit">Rangsit</option>
+                      <option value="Bangkadi">Bangkadi</option>
+                      </select>
                   </div>
-                  <input type="text" name="date_select_stock" class="form-control pull-right" id="datepicker" required>
+                </div>
+                <div class="col-md-6">
+                  <label style="margin-top:10px">Date:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="date_select_stock" class="form-control pull-right" id="datepicker" required>
+                  </div>
                 </div>
               </form>
             </div>
             <form action="manage_stock.php" method="get" id="reset_stock">
               <input type="hidden" name="mode" value=1>
             </form>
-
-            <div  class="col-md-6" style="margin-top:20px">
-              <button type="submit" class="btn btn-block btn-primary" form="add_stock">Submit</button>
-            </div>
-            <div  class="col-md-6" style="margin-top:20px">
-              <form action="admin.php" method="get">
-                <input type="hidden" name="mode" value=0>
-                <button type="submit" class="btn btn-block btn-danger" form="reset_stock">Reset</button>
-              </form>
+            <div class="col-md-12">
+              <div  class="col-md-6" style="margin-top:20px">
+                <button type="submit" class="btn btn-block btn-primary" form="add_stock">Submit</button>
+              </div>
+              <div  class="col-md-6" style="margin-top:20px">
+                <form action="admin.php" method="get">
+                  <input type="hidden" name="mode" value=0>
+                  <button type="submit" class="btn btn-block btn-danger" form="reset_stock">Reset</button>
+                </form>
+              </div>
             </div>
 
           </div>
