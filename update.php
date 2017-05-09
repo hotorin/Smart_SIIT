@@ -83,7 +83,8 @@ if ($uploadOk == 0) {
 												equipment_decription,
 												equipment_username,
 												equipment_email,
-												equipment_photo)
+												equipment_photo,
+                        equipment_date_s)
 										VALUE	('".$_POST['Ename']."',
 												'".$_POST['Campus']."',
 												'".$_POST['Building']."',
@@ -91,7 +92,8 @@ if ($uploadOk == 0) {
 												'".$_POST['Description']."',
 												'".$_POST['Name']."',
 												'".$_POST['Email']."',
-												'".$target_file."');";
+												'".$target_file."',
+                        '".date("Y-m-d")."');";
 			$res = $db -> query($q);
 
 ?>

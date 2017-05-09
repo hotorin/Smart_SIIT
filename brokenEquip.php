@@ -556,6 +556,7 @@ desired effect
                     <input type="hidden" name="equipment_building" value=<?php echo $row['equipment_building']; ?> >
                     <input type="hidden" name="equipment_room" value=<?php echo $row['equipment_room']; ?> >
                     <input type="hidden" name="equipment_email" value=<?php echo $row['equipment_email']; ?> >
+                    <input type="hidden" name="equipment_photo" value=<?php echo $row['equipment_photo']; ?> >
                     <input type="submit" class="btn btn-block btn-primary" value="Link">
                 </form>
               </td>

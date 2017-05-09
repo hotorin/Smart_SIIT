@@ -295,6 +295,7 @@ desired effect
                   <ul class="treeview-menu">
                     <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
                     <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                    <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
                   </ul>
                 </li>
 
@@ -359,6 +360,7 @@ desired effect
                         <ul class="treeview-menu">
                           <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
                           <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                          <li><a href="manage_stock.php?mode=2">รายงานสต็อค/a></li>
                         </ul>
                       </li>
                 <?php

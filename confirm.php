@@ -145,11 +145,13 @@ session_start();
     else{
       if(isset($_POST['assign_name'])){
         $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'",
-                                              equipment_assign ='.$_POST['assign_name'].'
+                                              equipment_assign ='.$_POST['assign_name'].',
+                                              equipment_date_f ="'.date("Y-m-d").'"
                             WHERE   equipment_ID ='.$_POST['id_equip'].';';
       }
       else{
-        $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'"
+        $q = 'UPDATE broken_equipment SET     equipment_status ="'.$_POST['status_change'].'",
+                                              equipment_date_f ='.date("Y-m-d").'
                             WHERE   equipment_ID ='.$_POST['id_equip'].';';
       }
       $res = $db -> query($q);

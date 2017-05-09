@@ -432,7 +432,14 @@ desired effect
           <small>- Type in the information to add stock</small>
         </h1>
       <?php
-      }
+    }else if(isset($_GET['mode']) && $_GET['mode'] == 0){
+      ?>
+        <h1>
+          รายงานสต็อก
+          <small>- โปรดเลือกวันและเดือนที่ต้องการ</small>
+        </h1>
+      <?php
+    }
       ?>
     </section>
 
@@ -565,9 +572,45 @@ desired effect
 
         </div>
       </div>
+      <?php
+    }else if(isset($_GET['mode']) && $_GET['mode'] == 2){
+      ?>
+      <div class="box box-danger">
+        <div class="box-body">
+          <div class="box-body">
 
+            <form action="report_stock.php" method="post" id="request_form">
+              <div class="form-group">
+                <div class="form-group col-xs-6">
+                  <label>Date From:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="date_f" class="form-control pull-right" id="datepicker" required>
+                  </div>
+                </div>
 
+                <div class="form-group col-xs-6">
+                  <label>Date To:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="date_t" class="form-control pull-right" id="datepicker2" required>
+                  </div>
+                </div>
+              </div>
 
+              <div  class="col-md-3"></div>
+              <div  class="col-md-6" style="margin-top:20px;margin-bottom:20px">
+                <button type="submit" class="btn btn-block btn-primary" form="request_form">Submit</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
       <?php
     }
       ?>
@@ -606,6 +649,10 @@ desired effect
 $('#datepicker').datepicker({
   format: 'yyyy-mm-dd',
   autoclose: true
+});
+$('#datepicker2').datepicker({
+ format: 'yyyy-mm-dd',
+ autoclose: true
 });
 
 </script>
