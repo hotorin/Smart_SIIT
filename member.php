@@ -456,13 +456,13 @@ desired effect
         <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center"><!-- style="width:100%;margin-top:20px;" align="center" > -->
           <thead>
           <tr style="height:30px;">
-            <th style="text-align:center;width:15%;">Request No.</th>
-            <th style="text-align:center;width:30%;">Request Location</th>
-            <th style="text-align:center;width:30%;">Status</th>
-            <th style="text-align:center;width:30%;">Date</th>
-            <th style="text-align:center;width:30%;">From</th>
-            <th style="text-align:center;width:30%;">To</th>
-            <th style="text-align:center;width:30%;">Cancel</th>
+            <th style="text-align:center;width:15%;">เลขที่คำขอ</th>
+            <th style="text-align:center;width:30%;">สถานที่ปลายทาง</th>
+            <th style="text-align:center;width:20%;">สถานะ</th>
+            <th style="text-align:center;width:30%;">วันที่</th>
+            <th style="text-align:center;width:30%;">ตั้งแต่</th>
+            <th style="text-align:center;width:30%;">จนถึง</th>
+            <th style="text-align:center;width:30%;">ยกเลิก</th>
           </tr>
         </thead>
         <tbody>
@@ -474,7 +474,21 @@ desired effect
         <tr style="height:30px;">
           <th style="text-align:center;width:15%;"><?php echo $row['request_no']; ?></th>
           <th style="text-align:center;width:30%;"><?php echo $row['request_to_place']; ?></th>
-          <th style="text-align:center;width:30%;"><?php echo $row['request_approve']; ?></th>
+          <th style="text-align:center;width:20%;">
+            <?php
+              if($row['request_approve'] == 'Waiting'){
+                echo '<form action="confirm.php" method="post">';
+                echo '<input type="hidden" name="mode" value=7 >';
+                echo '<input type="hidden" name="request_number" value='.$row['request_no'].'>';
+                echo '<button type="submit" class="btn btn-block btn-primary">';
+                echo 'Wait/แก้ไขข้อขมูล';
+                echo '</button>';
+                echo '</form>';
+              }else{
+                echo $row['request_approve'];
+              }
+            ?>
+          </th>
           <th style="text-align:center;width:30%;"><?php echo $row['request_date']; ?></th>
           <th style="text-align:center;width:30%;"><?php echo substr($row['request_from'], 0, 5); ?></th>
           <th style="text-align:center;width:30%;"><?php echo substr($row['request_to'], 0, 5); ?></th>

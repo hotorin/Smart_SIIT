@@ -443,10 +443,15 @@ desired effect
                   <form action="vanSystem.php?mode=0&v=<?php echo $_GET['v']; ?>" method="post" id="date_add">
                     <input type="text" name="date_pick" class="form-control pull-right" id="datepicker">
                   </form>
+                  <form action="member.php?mode=1" method="post" id="request_page"></form>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" form="date_add">Submit</button>
-
+            <div class="col-sm-1">
+              <button type="submit" class="btn btn-primary" form="date_add">Submit</button>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" class="btn btn-danger" form="request_page">Request The Van</button>
+            </div>
           </div>
           <?php
           if(isset($_POST['date_pick']) && $_POST['date_pick'] != ''){

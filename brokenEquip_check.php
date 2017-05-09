@@ -436,7 +436,7 @@ desired effect
           <hr>
         </div>
         <center>
-          <img id="myImg" src="fmdshttps://images.sankakucomplex.com/wp-content/uploads/2017/02/Top10-NonGundam-Mecha-Anime-2017-3-468x718.jpg" width="107" height="158">
+          <img id="myImg" src=<?php echo $_POST['equipment_photo']; ?> width="50%" height="50%">
         </center>
         <center>
           <table id="broken_equipment_table" class="table table-bordered table-hover" style="margin-top:20px;width:60%;" align="center">
