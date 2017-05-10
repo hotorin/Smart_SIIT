@@ -20,8 +20,6 @@ session_start();
       $array_use['borderColor'] = $color_rand;
       array_push($json_arr, $array_use);
     }
-
-
 ?>
 
 

@@ -121,12 +121,12 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src=<?php echo $_SESSION['u_pic']; ?> class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
+                <img src=<?php echo $_SESSION['u_pic']; ?> class="img-circle" alt="User Image">
                 <p>
                   <?php echo $_SESSION['fname']; ?> - Admin
 
@@ -139,7 +139,7 @@ desired effect
                     <a href="member.php?mode=0">History</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="member.php?mode=1">Reserve</a>
+                    <a href="member.php?mode=1">Request</a>
                   </div>
                   <div class="col-xs-4 text-center">
                     <a href="member.php?mode=2">Confirm</a>
@@ -176,12 +176,12 @@ desired effect
           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">   <!-- Menu Toggle Button -->
-              <img src="dist/img/user2-160x160.gif" class="user-image" alt="User Image">  <!-- The user image in the navbar-->
+              <img src=<?php echo $_SESSION['u_pic']; ?> class="user-image" alt="User Image">  <!-- The user image in the navbar-->
               <span class="hidden-xs"><?php echo $_SESSION['fname']; ?></span> <!-- hidden-xs hides the username on small devices so only the image appears. -->
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">  <!-- The user image in the menu -->
-                <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
+                <img src=<?php echo $_SESSION['u_pic']; ?> class="img-circle" alt="User Image">
                 <p>
                   <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
                 </p>
@@ -194,7 +194,7 @@ desired effect
                   </div>
 
                   <div class="col-xs-6 text-center">
-                    <a href="member.php?mode=1">Reserve</a>
+                    <a href="member.php?mode=1">Request</a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -255,7 +255,7 @@ desired effect
           else{
         ?>
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.gif" class="img-circle" alt="User Image">
+          <img src=<?php echo $_SESSION['u_pic']; ?> class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['fname']; ?></p>
