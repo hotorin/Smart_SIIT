@@ -282,7 +282,7 @@ session_start();
                     <a href="weeklySum.php">
                       <i class="fa fa-circle-o text-aqua">
                       </i>
-                      <span>Weekly Report</span>
+                      <span>สรุปงาน</span>
                     </a>
                   </li>
                 </li>
@@ -319,7 +319,7 @@ session_start();
                   <a href="weeklySum.php">
                     <i class="fa fa-circle-o text-aqua">
                     </i>
-                    <span>Weekly Report</span>
+                    <span>สรุปงาน</span>
                   </a>
                 </li>
               </li>

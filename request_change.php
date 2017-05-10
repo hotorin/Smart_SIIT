@@ -14,9 +14,33 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  <!-- Ionicons -->
   <link rel="stylesheet" href="dist/css/AdminLTE.css">   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.css"> <!--Choose Skin-->
-  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css"> <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.css">
+  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+                  <!--[if lt IE 9]>
+                  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                  <![endif]-->
 </head>
-
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">    <!-- Main Header -->
@@ -24,6 +48,10 @@ session_start();
       <span class="logo-mini"><b>SIIT</b></span>   <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-lg"><b>Management System<b></span>  <!-- logo for regular state and mobile devices -->
     </a>
+
+
+
+
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -32,6 +60,7 @@ session_start();
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+
 
 <!-- ==============================For The Notification Menu============================================================= -->
       <!-- Navbar Right Menu -->
@@ -136,6 +165,7 @@ session_start();
                   <?php echo $_SESSION['fname']; ?> - <?php echo $_SESSION['tier']; ?>
                 </p>
               </li>
+
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-6 text-center">
@@ -148,6 +178,7 @@ session_start();
                 </div>
                 <!-- /.row -->
               </li>
+
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -156,13 +187,14 @@ session_start();
                     <input type="hidden" name="mode" value=2>
                       <input type="hidden" name="full_name" value="<?php echo $_SESSION['fname']; ?>" >
                       <input type="hidden" name="user_num" value="<?php echo $_SESSION['user_no']; ?>" >
-                      <input type="hidden" name="username" value="<?php echo $_SESSION['user_name']; ?>" >
-                      <input type="hidden" name="password" value="<?php echo $_SESSION['user_pass']; ?>" >
-                      <input type="hidden" name="email" value="<?php echo $_SESSION['e_mail']; ?>" >
+                      <input type="hidden" name="username" value=<?php echo $_SESSION['user_name']; ?> >
+                      <input type="hidden" name="password" value=<?php echo $_SESSION['user_pass']; ?> >
+                      <input type="hidden" name="email" value=<?php echo $_SESSION['e_mail']; ?> >
                       <input type="hidden" name="user_tier" value="<?php echo $_SESSION['tier']; ?>" >
                       <input type="hidden" name="user_telephone" value="<?php echo $_SESSION['tele_number']; ?>" >
                   </form>
                 </div>
+
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Log Out</a>
                 </div>
@@ -215,9 +247,25 @@ session_start();
         ?>
       </div>
 
+      <!-- search form (Optional) -->
+      <!--
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+    -->
+      <!-- /.search form -->
+
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+
         <!-- ///////////////////////////////////      ADMIN MENU                /////////////////////////////////////////////////////// -->
+
                 <?php
                 if(isset($_SESSION['tier'])){
                   if($_SESSION['tier'] == 'Admin'){
@@ -251,6 +299,7 @@ session_start();
                   <ul class="treeview-menu">
                     <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
                     <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                    <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
                   </ul>
                 </li>
 
@@ -301,6 +350,24 @@ session_start();
                   </li>
                 <?php
                   }else if(isset($_SESSION['tier'])){
+                    if($_SESSION['tier'] == 'Technician'){
+                    ?>
+                      <li class="header" style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px">
+                        <center>Technician Menu</center></li>
+                        <li class="treeview">
+                          <a href="#"><i class="fa fa-link"></i><span>Stock Management</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+                          <ul class="treeview-menu">
+                            <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
+                            <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                            <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
+                          </ul>
+                        </li>
+                  <?php
+                    }
               ?>
               <li class="header" style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px">
               <center>Member Menu</center></li>
@@ -328,7 +395,6 @@ session_start();
                 ?>
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-
         <li class="header"
             style="margin-top:20px;padding-top:20px;padding-bottom:20px;font-size:20px"
         >
@@ -349,8 +415,8 @@ session_start();
         </li>
 
 
-        <li class="active treeview">
-          <a href=""><i class="fa fa-link"></i><span>Van Management</span>
+        <li class="treeview">
+          <a href="vanindex.html"><i class="fa fa-link"></i><span>Van Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -371,229 +437,123 @@ session_start();
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <?php
-      if($_GET['mode'] == 0){
-     ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <center>
-        <h1>
-          Please Select Van number to see the Schedule.
-        </h1>
-      </center>
+
     </section>
 
-<!-- ========================================== Header ========================================================= -->
     <!-- Main content -->
     <section class="content">
-      <center>
-        <div class="row" style="padding-top:40px">
-          <?php
-          $q = 'SELECT * FROM van;';
-          $res = $db -> query($q);
-          while($row = $res -> fetch_array()){
-          ?>
-          <div class="col-sm-3">
-            <a href="vanSystem.php?mode=0&v=<?php echo $row['van_no']; ?>">
-              Van Number <?php echo $row['van_no']; ?>
-              <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-            </a>
-            <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h4 style="margin-bottom:20px">Today Plan</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-body" style="padding-bottom:30px">
+            <div class="box-header with-border">
+              <i class="fa fa-file"></i>
+                <h3 class="box-title">Request Information</h3>
             </div>
-            <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-                <thead>
-                  <tr style="height:25px;">
-                    <td style="text-align:center;width:10%;">Time</td>
-                    <td style="text-align:center;width:90%;">Destination</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                    $q1 = 'SELECT * FROM request WHERE   request_assign = '.$row['van_no'].'
-                                                    AND request_date = "'.date("Y-m-d").'" ORDER BY request_from;';
-                    $res1 = $db -> query($q1);
-                    while($row1 = $res1 -> fetch_array()){
-                  ?>
-                    <tr style="height:25px;">
-                      <td style="text-align:center;width:10%;"><?php echo substr($row1['request_from'],0,5); ?></td>
-                      <td style="text-align:center;width:90%;"><?php echo $row1['request_to_place']; ?></td>
-                    </tr>
-                  <?php
-                    }
-                  ?>
-                </tbody>
-            </table>
+
+            <?php
+
+            $q = "SELECT * FROM request, member WHERE request.request_no = ".$_POST['request_number']."
+                                                AND   request.request_by = member.member_id;";
+            $res = $db -> query($q);
+            while($row = $res -> fetch_array()){
+            ?>
+            <div class="form-group">
+              <label style="margin-top:2%">สถานที่ปลายทาง</label> : <input type="text" class="form-control pull-right" value="<?php echo $row['request_to_place']; ?>" disabled>
+              <br>
+              <label style="margin-top:10px">Request By (ขอโดย)</label> : <input type="text" class="form-control pull-right" value="<?php echo $row['full_name']; ?>" disabled>
+              <br>
+              <label style="margin-top:10px">วันที่</label> : <input type="text" class="form-control pull-right" value="<?php echo $row['request_date']; ?>" disabled>
+              <br>
+              <label style="margin-top:10px">ตั้งแต่</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($row['request_from'],0,5); ?> disabled>
+              <br>
+              <label style="margin-top:10px">จนถึง</label> : <input type="text" class="form-control pull-right" value=<?php echo substr($row['request_to'],0,5); ?> disabled>
+              <br>
+              <label style="margin-top:10px">ข้อมูลเพิ่มเติม</label> :
+              <textarea class="form-control" rows="5" placeholder="<?php echo $row['request_description']; ?>" disabled></textarea>
             </div>
+
+            <?php
+            }
+            ?>
           </div>
-          <?php
-    			}
-          ?>
         </div>
-      </center>
-    </section>
-    <?php
-      }
-      else if($_GET['mode'] == 1){
-    ?>
-        <section class="content-header">
-          <h1>
-            Van Realtime
-            <small>- status</small>
-          </h1>
-        </section>
-        <section class="content">
-          <div class="box" style="padding-bottom:30px;padding-left:30px;padding-right:30px">
-            <div class="box-header">
-              <h3 class="box-title" style="margin-top:20px">Status</h3>
+        <div class="col-md-6">
+          <div class="box box-body" style="padding-bottom:30px">
+            <div class="box-header with-border">
+              <i class="fa fa-file"></i>
+                <h3 class="box-title">Assign Menu</h3>
             </div>
-            <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-              <thead>
-                <tr>
-                  <td style="text-align:center;width:10%">Van Number</td>
-                  <td style="text-align:center;width:20%">Current Location</td>
-                  <td style="text-align:center">Request By</td>
-                  <td style="text-align:center">Status</td>
-                </tr>
-              </thead>
 
-          <?php
-          $q = 'SELECT * FROM van;';
-          $res = $db -> query($q);
-          while($row = $res -> fetch_array()){
-          ?>
-
-          <tbody>
-            <tr>
-            <td style="text-align:center"><?php echo $row['van_no']; ?></td>
-            <td style="text-align:center"><?php echo $row['current_location']; ?></td>
-            <td style="text-align:center"><?php echo $row['request_by']; ?></td>
-            <td style="text-align:center"><?php echo $row['status']; ?></td>
-            </tr>
-          </tbody>
-
-          <?php
-    			}
-          ?>
-
-
-            </table>
-          </div>
-        </section>
-    <?php
-      }
-      else if($_GET['mode'] == 2){
-    ?>
-        <section class="content-header">
-          <center>
-            <h1>
-              Click on each Van number to get more information.
-            </h1>
-          </center>
-        </section>
-
-        <section class="content">
-          <center>
-            <div class="row" style="padding-top:40px">
-
+            <form action="confirm.php" method='post' id="confirm_form">
+              <input type="hidden" name="mode" value=16>
+              <input type="hidden" name="request_number" value=<?php echo $_POST['request_number']; ?>>
               <?php
-              $q = 'SELECT * FROM van;';
+              $q = "SELECT * FROM request, member WHERE request.request_no = ".$_POST['request_number']."
+                                                  AND   request.request_by = member.member_id;";
               $res = $db -> query($q);
               while($row = $res -> fetch_array()){
               ?>
-
-              <div class="col-sm-3">
-                <a href="vanSystem.php?mode=1&v=<?php echo $row['van_no']; ?>">
-                  Van Number <?php echo $row['van_no']; ?>
-                  <img src="resource/image/van.png" height="100%" width="100%" style="margin-top:10px;margin-bottom:40px" class="user-image" alt="User Image">
-                </a>
-                <?php
-                  if(isset($_SESSION['tier'])){
-                    if($_SESSION['tier'] == 'Admin'){
-                ?>
-                  <div class="box" style="padding-left:10px;padding-right:10px;padding-bottom:30px;">
-                    <div class="box-header">
-                      <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">
-                        Van Detail @
-                        <?php echo date("Y-m-d"); ?>
-                      </h3>
-                      <hr>
-                    </div>
-                    <table id="example2" class="table table-bordered table-hover" style="width:100%;" align="center">
-                        <thead>
-                          <tr style="height:25px;">
-                            <td style="text-align:center;width:33%;">Data No.</td>
-                            <td style="text-align:center;width:33%;">Distance</td>
-                            <td style="text-align:center;width:33%;">Passenger</td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                            $q1 = 'SELECT * FROM data_information   WHERE   driver_van_num = '.$row['van_no'].'
-                                                                    AND     data_date = "'.date("Y-m-d").'" ;';
-                            $res1 = $db -> query($q1);
-                            while($row1 = $res1 -> fetch_array()){
-                          ?>
-                              <tr style="height:25px;">
-                                <td style="text-align:center;width:33%;">
-                                  <?php echo $row1['data_no']; ?>
-                                </td>
-                                <td style="text-align:center;width:33%;">
-                                  <?php echo $row1['data_distance']; ?>
-                                </td>
-                                <td style="text-align:center;width:33%;">
-                                  <?php echo $row1['data_passanger']; ?>
-                                </td>
-                              </tr>
-                          <?php
-                            }
-                          ?>
-
-                        </tbody>
-                    </table>
-                  </div>
-                <?php
-                    }
-                    else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                        <div class="box-header">
-                          <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                          <hr>
-                        </div>
-                        You not have permission.<br>
-                        To View the Details.
+              <div class="form-group">
+                <label style="margin-top:2%">สถานที่ปลายทาง</label> :
+                <input type="text" name="request_to_place" class="form-control pull-right" value="<?php echo $row['request_to_place']; ?>" >
+                <br>
+                <label style="margin-top:2%">Request By (ขอโดย)</label> :
+                <input type="text" name="full_name" class="form-control pull-right" value="<?php echo $row['full_name']; ?>" disabled>
+                <br>
+                <label style="margin-top:10px">Date (วันที่)</label> :
+                <input type="text" name="request_date" id="datepicker" class="form-control pull-right" value="<?php echo $row['request_date']; ?>" >
+                <br>
+                <div class="bootstrap-timepicker">
+                  <div class="form-group">
+                    <label style="margin-top:10px">From (ตั้งแต่)</label>
+                    <div class="input-group" style="margin-bottom:10px;">
+                      <input type="text" name="request_from" class="form-control timepicker" value=<?php echo substr($row['request_from'],0,5); ?> required>
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
                       </div>
-                <?php
-                    }
-                  }
-                  else{
-                ?>
-                <div class="box box-danger" style="padding-bottom:30px">
-                <div class="box-header">
-                  <h3 class="box-title" style="margin-top:10px;margin-bottom:0px">Van Detail</h3>
-                  <hr>
+                    </div>
+                  </div>
                 </div>
-                You not have permission.<br>
-                To View the Details.
-              </div>
-              <?php
-                }
-              ?>
 
+                <div class="bootstrap-timepicker">
+                  <div class="form-group">
+                    <label>To (จนถึง)</label>
+                    <div class="input-group" style="margin-bottom:10px;">
+                      <input type="text" name="request_to" class="form-control timepicker" value=<?php echo substr($row['request_to'],0,5); ?> required>
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <label>Description (ข้อมูลเพิ่มเติม)</label> :
+                <textarea class="form-control" rows="5" name="request_description" placeholder="<?php echo $row['request_description']; ?>" form="confirm_form"><?php echo $row['request_description']; ?></textarea>
               </div>
 
               <?php
-                }
+              }
               ?>
+            </form>
+            <div class="col-md-6">
+              <button type="submit" class="btn btn-block btn-primary" form="confirm_form">
+                แก้ไข
+              </button>
             </div>
-          </center>
-        </section>
-      <?php
-      }
-     ?>
-<!-- =========================================================================================================== -->
+
+            <div class="col-md-6">
+              <form action="member.php?mode=0" method='post' id="delete_form">
+                <button type="submit" class="btn btn-block btn-danger">
+                  กลับบ้านหน้าก่อน
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -618,23 +578,49 @@ session_start();
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- bootstrap time picker -->
+<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
 <script>
   $(function () {
+    //Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Timepicker
+    $(".timepicker").timepicker({
+      minuteStep: 60,
+      defaultTime: '06:00',
+      use24hours: true,
+      showMeridian: false,
+      showInputs: false
+    });
+
     $("#example1").DataTable();
     $('#example2').DataTable({
-      "paging": false,
+      "paging": true,
       "lengthChange": false,
       "searching": false,
       "ordering": false,
-      "info": false,
+      "info": true,
       "autoWidth": false
     });
   });
 
+  //Date picker
+$('#datepicker').datepicker({
+ format: 'yyyy-mm-dd',
+ autoclose: true
+});
 </script>
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

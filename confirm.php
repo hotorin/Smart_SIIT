@@ -478,6 +478,23 @@ session_start();
   </script>
 
 <?php
+  }else if($_POST['mode'] == 16){
+    $q = 'UPDATE request SET      request_to_place = "'.$_POST['request_to_place'].'",
+                                  request_date = "'.$_POST['request_date'].'",
+                                  request_from = "'.$_POST['request_from'].'",
+                                  request_to = "'.$_POST['request_to'].'",
+                                  request_description = "'.$_POST['request_description'].'"
+                         WHERE    request_no ='.$_POST['request_number'].';';
+    echo $q;
+    $res = $db -> query($q);
+  ?>
+  <script type='text/javascript'>
+  alert('คุณทำรายการสำเร็จแล้ว');
+  </script>
+  <script type='text/javascript'>
+  window.location = 'member.php?mode=0';
+  </script>
+<?php
   }
 ?>
 

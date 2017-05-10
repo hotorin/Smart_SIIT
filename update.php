@@ -4,7 +4,7 @@ session_start();
 ?>
 <?php
 $target_dir = "resource/report_picture/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$target_file = $target_dir . date("_Y-m-d_H_i_s.") . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 // Check if image file is a actual image or fake image
@@ -27,6 +27,7 @@ if(isset($_POST["submit"])) {
 }
 // Check if file already exists
 if (file_exists($target_file)) {
+  echo $target_file;
   ?>
         <script type='text/javascript'>
           alert("Sorry, file already exists.");

@@ -297,6 +297,7 @@ desired effect
                   <ul class="treeview-menu">
                     <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
                     <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                    <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
                   </ul>
                 </li>
 
@@ -319,6 +320,15 @@ desired effect
                       <i class="fa fa-circle-o text-aqua">
                       </i>
                       <span>Check Driver Report</span>
+                    </a>
+                  </li>
+                </li>
+                <li class="treeview">
+                  <li>
+                    <a href="weeklySum.php">
+                      <i class="fa fa-circle-o text-aqua">
+                      </i>
+                      <span>Weekly Report</span>
                     </a>
                   </li>
                 </li>
@@ -351,6 +361,7 @@ desired effect
                           <ul class="treeview-menu">
                             <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
                             <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                            <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
                           </ul>
                         </li>
                   <?php
@@ -364,6 +375,15 @@ desired effect
                     <i class="fa fa-circle-o text-aqua">
                     </i>
                     <span>Check Driver Report</span>
+                  </a>
+                </li>
+              </li>
+              <li class="treeview">
+                <li>
+                  <a href="weeklySum.php">
+                    <i class="fa fa-circle-o text-aqua">
+                    </i>
+                    <span>Weekly Report</span>
                   </a>
                 </li>
               </li>

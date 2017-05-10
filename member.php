@@ -300,6 +300,7 @@ desired effect
           <ul class="treeview-menu">
             <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
             <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+            <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
           </ul>
         </li>
 
@@ -330,7 +331,7 @@ desired effect
             <a href="weeklySum.php">
               <i class="fa fa-circle-o text-aqua">
               </i>
-              <span>Weekly Report</span>
+              <span>สรุปงาน</span>
             </a>
           </li>
         </li>
@@ -363,6 +364,7 @@ desired effect
                   <ul class="treeview-menu">
                     <li><a href="manage_stock.php?mode=0">Add/Delete Stock</a></li>
                     <li><a href="manage_stock.php?mode=1">View Stock</a></li>
+                    <li><a href="manage_stock.php?mode=2">รายงานสต็อค</a></li>
                   </ul>
                 </li>
           <?php
@@ -384,7 +386,7 @@ desired effect
           <a href="weeklySum.php">
             <i class="fa fa-circle-o text-aqua">
             </i>
-            <span>Weekly Report</span>
+            <span>สรุปงาน</span>
           </a>
         </li>
       </li>
@@ -462,6 +464,7 @@ desired effect
             <th style="text-align:center;width:30%;">วันที่</th>
             <th style="text-align:center;width:30%;">ตั้งแต่</th>
             <th style="text-align:center;width:30%;">จนถึง</th>
+            <th style="text-align:center;width:30%;">แก้ไข</th>
             <th style="text-align:center;width:30%;">ยกเลิก</th>
           </tr>
         </thead>
@@ -492,6 +495,14 @@ desired effect
           <th style="text-align:center;width:30%;"><?php echo $row['request_date']; ?></th>
           <th style="text-align:center;width:30%;"><?php echo substr($row['request_from'], 0, 5); ?></th>
           <th style="text-align:center;width:30%;"><?php echo substr($row['request_to'], 0, 5); ?></th>
+          <th style="text-align:center;width:30%;">
+            <form action="request_change.php" method="post">
+              <input type="hidden" name="request_number" value=<?php echo $row['request_no']; ?>>
+              <button type="submit" class="btn btn-block btn-primary">
+                แก้ไข
+              </button>
+            </form>
+          </th>
           <th style="text-align:center;width:30%;">
             <form action="confirm.php" method="post">
               <input type="hidden" name="mode" value=7 >
@@ -557,6 +568,7 @@ desired effect
               </div>
               <!-- /.form group -->
             </div>
+
 
             <div class="bootstrap-timepicker">
               <div class="form-group">
