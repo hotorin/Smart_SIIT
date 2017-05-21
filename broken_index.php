@@ -58,8 +58,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="banner-right">
 				<ul>
-					<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+123 2222 222</li>
-					<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:example@mail.com">mail@example.com</a></li>
+					<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>02-501-3505</li>
+					<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:pond@siit.tu.ac.th">pond@siit.tu.ac.th</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"></div>
@@ -71,14 +71,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<form action="update.php" method="post" enctype="multipart/form-data" id="upload_form">
 					<div class="login">
 						<input type="text" name="Ename" placeholder="Equipment's name" required="" pattern=".{3,30}" title="Three or more characters">
-						<input type="text" name="Campus" placeholder="Campus" required="">
+
+
 						<input type="text" name="Building" placeholder="Building" required="">
 						<input type="text" name="Room" placeholder="Room" required="" pattern=".{3,5}" title="Three to Five characters">
 						<input type="text" name="Description" placeholder="Description" required="">
 						<input type="text" name="Name" placeholder="Name" required="" pattern=".{2,50}" title="Please insert your true name">
 						<input type="text" name="Email" placeholder="Email" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please, insert your e-mail correctly">
-						<!--Upload photo -->
-					  <div>
+						<div class="section_room" style="width:100%;margin-bottom:5%">
+							<select name="Campus" class="frm-field required">
+								<option value="Rangsit">Rangsit</option>
+								<option value="Bangkadi">Bangkadi</option>
+						  </select>
+						</div>
+					  <div style="width:100%;margin-bottom:5%">
 					     <input type="file" name="fileToUpload" id="fileToUpload" />
 					  </div>
 					 	<input type="submit" value="Submit" >
@@ -114,6 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li><a class="hvr-overline-from-center active" href="index.html">Home</a></li>
 										<li><a class="hvr-overline-from-center" href="about.php">About</a></li>
 										<li><a class="hvr-overline-from-center" href="report.php">Report</a></li>
+										<li><a class="hvr-overline-from-center" href="https://docs.google.com/forms/d/e/1FAIpQLSfanBN45UAYZoH4NggrJdWNTMInKArpibHlMo1B5xzxYPuUIg/viewform?c=0&w=1">Evaluation</a></li>
 									</ul>
 								</nav>
 							</div><!-- /navbar-collapse -->

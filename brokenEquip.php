@@ -471,7 +471,8 @@ desired effect
             </tr>
           </thead>
           <?php
-            $q = "SELECT * FROM broken_equipment WHERE equipment_status <> 'Finish';";
+            $q = "SELECT * FROM broken_equipment, member WHERE equipment_status <> 'Finish'
+                                                           AND equipment_assign = member_id;";
             $res = $db -> query($q);
             while($row = $res -> fetch_array()){
           ?>
@@ -493,6 +494,7 @@ desired effect
                     <input type="hidden" name="equipment_room" value=<?php echo $row['equipment_room']; ?> >
                     <input type="hidden" name="equipment_email" value=<?php echo $row['equipment_email']; ?> >
                     <input type="hidden" name="equipment_photo" value=<?php echo $row['equipment_photo']; ?> >
+                    <input type="hidden" name="full_name" value="<?php echo $row['full_name']; ?>" >
                     <input type="submit" class="btn btn-block btn-primary" value="Link">
                 </form>
               </td>

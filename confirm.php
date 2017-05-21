@@ -437,6 +437,7 @@ session_start();
                                       '.$_POST['stock_totalp'].');';
     $res = $db -> query($q);
   ?>
+
   <script type='text/javascript'>
   alert('คุณทำรายการสำเร็จแล้ว');
   </script>
@@ -445,7 +446,7 @@ session_start();
   </script>
 <?php
   }else if($_POST['mode'] == 15){
-    for($i = 0 ; $i < count($_SESSION['array_withdraw']); $i++){
+    for($i = 0 ; $i < sizeof($_SESSION['array_withdraw']); $i++){
       $q = 'SELECT * FROM stock WHERE stock_id = "'.$_SESSION['array_withdraw'][$i]['stock_num'].'";';
       $res = $db -> query($q);
       while($row = $res -> fetch_array()){
@@ -465,9 +466,9 @@ session_start();
         $q1 = 'UPDATE stock SET      stock_total = '.$stock_use.'
                            WHERE    stock_id ='.$_SESSION['array_withdraw'][$i]['stock_num'].';';
         $res1 = $db -> query($q1);
-        $_SESSION['array_withdraw'] = array();
       }
     }
+    $_SESSION['array_withdraw'] = array();
   ?>
 
   <script type='text/javascript'>

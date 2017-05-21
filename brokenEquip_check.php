@@ -472,6 +472,10 @@ desired effect
                 <td style="text-align:center;width:20%">E-Mail</td>
                 <td style="text-align:center"><?php echo $_POST['equipment_email'];  ?></td>
               </tr>
+              <tr>
+                <td style="text-align:center;width:20%">Assigned</td>
+                <td style="text-align:center"><?php echo $_POST['full_name'];  ?></td>
+              </tr>
               <form id="option_select" action="confirm.php" method="post">
                 <?php
                 if(isset($_SESSION['tier'])){
@@ -485,12 +489,16 @@ desired effect
                     <input type="hidden" name="mode" value=3 >
                     <input type="hidden" name="id_equip" value=<?php echo $_POST['equipment_no']; ?> >
                     <select class="form-control" name="status_change">
-                      <option selected disabled>Please Select Status</option>
-                      <option value="Waiting">Waiting</option>
+					<option value=<?php echo $_POST['equipment_status']; ?> selected>
+                      <?php
+                      echo $_POST['equipment_status'];
+                      ?>
+                    </option>
+					  <option value="Waiting">Waiting</option>
                       <option value="In_Progress">In Progress</option>
                       <option value="Out_Source">Out Source</option>
                       <option value="Finish">Finish</option>
-                    </select>
+                  </select>
                   </div>
                   </center>
                   </td>

@@ -452,7 +452,7 @@ desired effect
           <small>- Type in the information to add stock</small>
         </h1>
       <?php
-    }else if(isset($_GET['mode']) && $_GET['mode'] == 0){
+    }else if(isset($_GET['mode']) && $_GET['mode'] == 2){
       ?>
         <h1>
           รายงานสต็อก

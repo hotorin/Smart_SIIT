@@ -74,6 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li><a class="hvr-overline-from-center " href="broken_index.php">Home</a></li>
 										<li><a class="hvr-overline-from-center" href="about.php">About</a></li>
 										<li><a class="hvr-overline-from-center active" href="report.php">Report</a></li>
+										<li><a class="hvr-overline-from-center" href="https://docs.google.com/forms/d/e/1FAIpQLSfanBN45UAYZoH4NggrJdWNTMInKArpibHlMo1B5xzxYPuUIg/viewform?c=0&w=1">Evaluation</a></li>
 
 									</ul>
 								</nav>
